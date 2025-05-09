@@ -4,6 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const sequelize = require('./db');
+const User = require('./models/User');
+
+sequelize.sync()
+  .then(() => console.log('DB 연결 및 테이블 동기화 완료'))
+  .catch((err) => console.error('DB 연결 실패:', err));
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
