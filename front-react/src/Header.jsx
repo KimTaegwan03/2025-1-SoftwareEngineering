@@ -30,11 +30,13 @@ function Header() {
       {student ? (
         <>
           <span>{student.name}님 환영합니다</span>
+          <button onClick={() => navigate('/mypage')}>마이페이지</button>
           <button onClick={handleLogout}>로그아웃</button>
         </>
       ) : (
         <>
           <span>로그인 해주세요</span>
+          <button onClick={() => navigate('/login')}>로그인</button>
           <button onClick={handleRegister}>회원가입</button>
         </>
       )}

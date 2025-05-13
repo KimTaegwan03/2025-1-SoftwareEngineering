@@ -5,7 +5,7 @@ const Instructor = require('../models/Instructor');
 
 // POST /auth/student/register
 router.post('/student/register', async (req, res) => {
-    const { name, dept_name, tot_cred, acc_id, password } = req.body;
+    const { name, dept_name, tot_cred, acc_id, password, email, phone, address } = req.body;
     try {
       const student = await Student.create({
         name,
@@ -13,6 +13,9 @@ router.post('/student/register', async (req, res) => {
         tot_cred,
         acc_id,
         password,
+        email,
+        phone,
+        address,
       });
       res.status(201).json({ message: '학생 회원가입 성공', studentId: student.ID });
     } catch (err) {
@@ -54,6 +57,10 @@ router.post('/student/login', async (req, res) => {
         id: student.ID,
         name: student.name,
         dept_name: student.dept_name,
+        tot_cred: student.tot_cred,
+        email: student.email,
+        phone: student.phone,
+        address: student.address,
       };
   
       res.json({ message: '로그인 성공', student: req.session.student });
@@ -105,5 +112,25 @@ router.get('/session', (req, res) => {
       res.json({ loggedIn: false });
     }
   });
+
+// GET /auth/mypage
+  router.get('/mypage', (req, res) => {
+  if (!req.session.student) {
+    return res.status(401).json({ message: '로그인이 필요합니다' });
+  }
+
+  const student = req.session.student;
+
+  res.json({
+    id: student.ID,
+    name: student.name,
+    dept_name: student.dept_name,
+    tot_cred: student.tot_cred,
+    acc_id: student.acc_id,
+    email: student.email,
+    phone: student.phone,
+    address: student.address
+  });
+});
 
 module.exports = router;

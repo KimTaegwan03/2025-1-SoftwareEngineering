@@ -8,7 +8,7 @@ import {
 import Home from "./pages/Home";
 import Login from './pages/Login';
 import Register from './pages/Register';
-// import MyPage from './MyPage';
+import MyPage from './pages/MyPage';
 import Header from './Header';
 
 import About from "./pages/About";
@@ -17,11 +17,12 @@ import NotFound from "./pages/NotFound";
 export default function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route index element={<Home />} />{/* index는 path="/"와 같음*/}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/mypage" element={<MyPage />} /> */}
+        <Route path="/mypage" element={<MyPage />} />
 
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
