@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import MyPage from './pages/MyPage';
+import Announcements from './pages/Announcements';
 import Header from './Header';
 
 import About from "./pages/About";
@@ -23,6 +24,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/mypage" element={<MyPage />} />
+
+        <Route path="/announcements" element={<Announcements/>} />
 
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
