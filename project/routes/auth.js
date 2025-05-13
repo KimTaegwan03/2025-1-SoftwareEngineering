@@ -122,7 +122,7 @@ router.get('/session', (req, res) => {
   const student = req.session.student;
 
   res.json({
-    id: student.ID,
+    id: student.id,
     name: student.name,
     dept_name: student.dept_name,
     tot_cred: student.tot_cred,

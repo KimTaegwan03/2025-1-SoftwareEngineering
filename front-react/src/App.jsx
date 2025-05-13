@@ -11,7 +11,6 @@ import Register from './pages/Register';
 import MyPage from './pages/MyPage';
 import Announcements from './pages/Announcements';
 import Header from './Header';
-
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 

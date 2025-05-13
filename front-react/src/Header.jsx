@@ -21,25 +21,30 @@ function Header() {
   return (
     <div style={{
       display: 'flex',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       alignItems: 'center',
       padding: '1rem',
-      borderBottom: '1px solid #ccc',
-      gap: '1rem'
+      borderBottom: '1px solid #ccc'
     }}>
-      {student ? (
-        <>
-          <span>{student.name}님 환영합니다</span>
-          <button onClick={() => navigate('/mypage')}>마이페이지</button>
-          <button onClick={handleLogout}>로그아웃</button>
-        </>
-      ) : (
-        <>
-          <span>로그인 해주세요</span>
-          <button onClick={() => navigate('/login')}>로그인</button>
-          <button onClick={handleRegister}>회원가입</button>
-        </>
-      )}
+      {/* 왼쪽: Home 버튼 */}
+      <button onClick={() => navigate('/')}>Home</button>
+
+      {/* 오른쪽: 사용자 정보 또는 로그인/회원가입 */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {student ? (
+          <>
+            <span>{student.name}님 환영합니다</span>
+            <button onClick={() => navigate('/mypage')}>마이페이지</button>
+            <button onClick={handleLogout}>로그아웃</button>
+          </>
+        ) : (
+          <>
+            <span>로그인 해주세요</span>
+            <button onClick={() => navigate('/login')}>로그인</button>
+            <button onClick={handleRegister}>회원가입</button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

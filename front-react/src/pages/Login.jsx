@@ -25,6 +25,8 @@ function Login() {
       if (!res.ok) throw new Error(data.message);
 
       setStudent(data.student); // 전역 상태에 저장
+      // 로그인 성공 후 홈으로 이동
+      window.location.href = '/';
     } catch (err) {
       setMessage(err.message);
     }

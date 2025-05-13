@@ -27,36 +27,28 @@ return (
         <div id='upper' style={{ marginLeft: 'auto', marginRight: 'auto', width: '50%' }}>
         <h2>마이페이지</h2>
         <table style={{ margin: '1rem auto', borderCollapse: 'collapse', width: '80%' }} border="1">
-            <thead>
-                <tr>
-                    <th style={{ padding: '0.5rem' }}>항목</th>
-                    <th style={{ padding: '0.5rem' }}>내용</th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
-                    <td style={{ padding: '0.5rem' }}>이름</td>
+                    <th style={{ padding: '0.5rem' }}>이름</th>
                     <td style={{ padding: '0.5rem' }}>{student.name}</td>
+                    <th style={{ padding: '0.5rem' }}>학번</th>
+                    <td style={{ padding: '0.5rem' }}>{String(student.id).padStart(10,'0')}</td>
                 </tr>
                 <tr>
-                    <td style={{ padding: '0.5rem' }}>학과</td>
-                    <td style={{ padding: '0.5rem' }}>{student.dept_name}</td>
+                    <th style={{ padding: '0.5rem' }}>학과</th>
+                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.dept_name}</td>
                 </tr>
                 <tr>
-                    <td style={{ padding: '0.5rem' }}>총 이수 학점</td>
-                    <td style={{ padding: '0.5rem' }}>{student.tot_cred}</td>
+                    <th style={{ padding: '0.5rem' }}>이메일</th>
+                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.email}</td>
                 </tr>
                 <tr>
-                    <td style={{ padding: '0.5rem' }}>이메일</td>
-                    <td style={{ padding: '0.5rem' }}>{student.email}</td>
+                    <th style={{ padding: '0.5rem' }}>전화번호</th>
+                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.phone}</td>
                 </tr>
                 <tr>
-                    <td style={{ padding: '0.5rem' }}>전화번호</td>
-                    <td style={{ padding: '0.5rem' }}>{student.phone}</td>
-                </tr>
-                <tr>
-                    <td style={{ padding: '0.5rem' }}>주소</td>
-                    <td style={{ padding: '0.5rem' }}>{student.address}</td>
+                    <th style={{ padding: '0.5rem' }}>주소</th>
+                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.address}</td>
                 </tr>
             </tbody>
         </table>
