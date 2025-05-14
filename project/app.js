@@ -13,6 +13,7 @@ const Instructor = require('./models/Instructor');
 
 const lectureRouter = require('./routes/lecture');
 const syllabusRouter = require('./routes/syllabus');
+const enrollRouter = require('./routes/enroll');
 
 // sequelize.sync()
 //   .then(() => console.log('DB 연결 및 테이블 동기화 완료'))
@@ -57,7 +58,7 @@ app.use('/auth', authRouter);
 // lecture API 등록
 app.use('/lecture', lectureRouter);
 app.use('/syllabus', syllabusRouter);
-
+app.use('/enroll', enrollRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

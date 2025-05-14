@@ -40,6 +40,8 @@ import Register from './Register';
 import LectureForm from './LectureForm';
 import LectureList from './LectureList';
 import SyllabusDetail from './SyllabusDetail';
+import EnrollPage from './EnrollPage';
+import Timetable from './Timetable';
 function App() {
   return (
     <Router>
@@ -51,6 +53,8 @@ function App() {
           <Route path="/lecture" element={<LectureForm />} />
           <Route path="/lectures" element={<LectureList />} />
           <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
+           <Route path="/enroll" element={<EnrollPage />} />  
+           <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
       </Routes>
     </Router>
