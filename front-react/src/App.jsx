@@ -37,7 +37,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 // import MyPage from './MyPage';
-
+import LectureForm from './LectureForm';
+import LectureList from './LectureList';
+import SyllabusDetail from './SyllabusDetail';
 function App() {
   return (
     <Router>
@@ -45,6 +47,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        {/*강의페이지추가*/}
+          <Route path="/lecture" element={<LectureForm />} />
+          <Route path="/lectures" element={<LectureList />} />
+          <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
         {/* <Route path="/mypage" element={<MyPage />} /> */}
       </Routes>
     </Router>
