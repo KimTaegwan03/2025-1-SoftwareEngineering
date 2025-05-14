@@ -5,7 +5,10 @@ const LectureForm = () => {
     title: '',
     professor: '',
     credit: '',
-    schedule: '',
+    day: '',
+    startTime: '',
+    endTime: '',
+    maxSeats: '',
     syllabusContent: ''
   });
 
@@ -15,21 +18,42 @@ const LectureForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const start = Number(formData.startTime);
+    const end = Number(formData.endTime);
+    const times = [];
+    for (let i = start; i <= end; i++) times.push(i);
+
+    const payload = {
+      title: formData.title,
+      professor: formData.professor,
+      credit: formData.credit,
+      day: formData.day,
+      startTime: formData.startTime,
+      endTime: formData.endTime,
+      scheduleTimes: times,
+      maxSeats: formData.maxSeats,
+      syllabusContent: formData.syllabusContent
+    };
+
     try {
       const response = await fetch('http://localhost:3000/lecture/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
-       if (response.ok) {
+      if (response.ok) {
         alert('강의 및 계획서 등록 완료!');
         setFormData({
           title: '',
           professor: '',
           credit: '',
-          schedule: '',
-          syllabusContent: '' 
+          day: '',
+          startTime: '',
+          endTime: '',
+          maxSeats:'',
+          syllabusContent: ''
         });
       } else {
         alert('등록 실패');
@@ -45,16 +69,37 @@ const LectureForm = () => {
       <input type="text" name="title" placeholder="강의명" value={formData.title} onChange={handleChange} required />
       <input type="text" name="professor" placeholder="교수명" value={formData.professor} onChange={handleChange} required />
       <input type="number" name="credit" placeholder="학점" value={formData.credit} onChange={handleChange} required />
-      <input type="text" name="schedule" placeholder="시간표 (예: 화 1-3)" value={formData.schedule} onChange={handleChange} required />
+
+      <h3>강의 시간</h3>
+      <select name="day" value={formData.day} onChange={handleChange} required>
+        <option value="">요일 선택</option>
+        <option value="월">월</option>
+        <option value="화">화</option>
+        <option value="수">수</option>
+        <option value="목">목</option>
+        <option value="금">금</option>
+      </select>
+      <input type="number" name="startTime" placeholder="시작 교시" value={formData.startTime} onChange={handleChange} required />
+      <input type="number" name="endTime" placeholder="종료 교시" value={formData.endTime} onChange={handleChange} required />
+
+      <h3>최대 수강 인원</h3>
+      <input
+        type="number"
+        name="maxSeats"
+        placeholder="최대 수강 인원"
+        value={formData.maxSeats}
+        onChange={handleChange}
+        required
+      />
 
       <h3>강의 계획서</h3>
       <textarea
         name="syllabusContent"
         placeholder="강의계획서 내용을 입력하세요"
-        value={formData.syllabusContent}
-        onChange={handleChange}
         rows="10"
         cols="60"
+        value={formData.syllabusContent}
+        onChange={handleChange}
         required
       />
 
@@ -63,4 +108,5 @@ const LectureForm = () => {
     </form>
   );
 };
+
 export default LectureForm;

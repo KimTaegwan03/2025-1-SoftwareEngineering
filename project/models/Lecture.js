@@ -14,8 +14,16 @@ const Lecture = sequelize.define('Lecture', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  schedule: {
-    type: DataTypes.STRING, // 예: "월요일 3교시"
+   scheduleDay: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  scheduleTimes: {
+    type: DataTypes.JSON,  //  1~3교시 → [1,2,3]
+    allowNull: false
+  },
+    maxSeats: {                     
+    type: DataTypes.INTEGER,
     allowNull: false
   }
 });

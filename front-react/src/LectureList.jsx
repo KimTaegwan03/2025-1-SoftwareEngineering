@@ -20,7 +20,7 @@ const LectureList = () => {
             <th>강의명</th>
             <th>교수</th>
             <th>학점</th>
-            <th>시간표</th>
+            <th>최대인원</th>
             <th>계획서</th>
           </tr>
         </thead>
@@ -30,7 +30,7 @@ const LectureList = () => {
               <td>{lecture.title}</td>
               <td>{lecture.professor}</td>
               <td>{lecture.credit}</td>
-              <td>{lecture.schedule}</td>
+              <td>{lecture.maxSeats}</td>
               <td>
                 <Link to={`/syllabus/${lecture.id}`}>보기</Link>
               </td>

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Syllabus = require('../models/Syllabus');
 const Lecture = require('../models/Lecture');
+Syllabus.belongsTo(Lecture, { foreignKey: 'lectureId' });
 
 // 강의 계획서 조회
 router.get('/:lectureId', async (req, res) => {
