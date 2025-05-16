@@ -1,3 +1,6 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../db');
+
 const Assignment = sequelize.define('Assignment', {
   course_id: DataTypes.STRING,
   sec_id: DataTypes.STRING,
