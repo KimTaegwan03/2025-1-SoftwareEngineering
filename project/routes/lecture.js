@@ -8,28 +8,42 @@ Lecture.hasOne(Syllabus, { foreignKey: 'lectureId' });
 router.post('/register', async (req, res) => {
   try {
     const {
+      course_id,
+      sec_id,
       title,
-      professor,
+      dept_name,
       credit,
+      semester,
+      year,
+      building,
+      room_number,
+      professor,
       day,
       startTime,
       endTime,
-      syllabusContent,
-      maxSeats
+      maxSeats,
+      syllabusContent
     } = req.body;
 
     // ✅ 교시 배열 생성
     const start = Number(startTime);
     const end = Number(endTime);
-    const times = [];
-    for (let i = start; i <= end; i++) times.push(i);
+    const scheduleTimes = [];
+    for (let i = start; i <= end; i++) scheduleTimes.push(i);
 
     const lecture = await Lecture.create({
+      course_id,
+      sec_id,
       title,
-      professor,
+      dept_name,
       credit,
+      semester,
+      year,
+      building,
+      room_number,
+      professor,
       scheduleDay: day,
-      scheduleTimes: times,
+      scheduleTimes,
       maxSeats
     });
 

@@ -7,19 +7,28 @@ const Timetable = () => {
   const [timetable, setTimetable] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:3000/enroll/enrollments/1')
+    fetch('http://localhost:3000/enroll/enrollments/1')  // 나중에 로그인한 사용자 ID로 변경
       .then(res => res.json())
       .then(data => {
         const grid = {};
 
+        // 요일별 빈 시간표 9교시까지 초기화
         for (let day of days) {
           grid[day] = Array(9).fill('');
         }
 
         for (const enr of data) {
           const lec = enr.Lecture;
+
           for (const t of lec.scheduleTimes) {
-            grid[lec.scheduleDay][t - 1] = lec.title; // 0-indexed
+            grid[lec.scheduleDay][t - 1] = (
+              <div>
+                <div><strong>{lec.title}</strong></div>
+                <div>{lec.course_id}-{lec.sec_id}</div>
+                <div>{lec.professor}</div>
+                <div>{lec.building} {lec.room_number}</div>
+              </div>
+            );
           }
         }
 
