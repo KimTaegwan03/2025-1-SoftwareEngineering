@@ -11,10 +11,6 @@ const User = require('./models/User');
 const Student = require('./models/Student');
 const Instructor = require('./models/Instructor');
 
-const lectureRouter = require('./routes/lecture');
-const syllabusRouter = require('./routes/syllabus');
-const enrollRouter = require('./routes/enroll');
-
 // sequelize.sync()
 //   .then(() => console.log('DB 연결 및 테이블 동기화 완료'))
 //   .catch((err) => console.error('DB 연결 실패:', err));
@@ -36,7 +32,7 @@ app.use(cors({
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs'); 
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -49,16 +45,12 @@ app.use(session({
   secret: 'swe8', // 아무 문자열이면 충분 (개인 프로젝트용)
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
-// lecture API 등록
-app.use('/lecture', lectureRouter);
-app.use('/syllabus', syllabusRouter);
-app.use('/enroll', enrollRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
