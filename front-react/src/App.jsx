@@ -13,11 +13,6 @@ import Register from './pages/Register';
 import Announcements from './pages/Announcements';
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
-import LectureForm from './pages/LectureForm';
-import LectureList from './pages/LectureList';
-import SyllabusDetail from './pages/SyllabusDetail';
-import EnrollPage from './pages/EnrollPage';
-import Timetable from './pages/Timetable';
 export default function App() {
   return (
     <BrowserRouter>
