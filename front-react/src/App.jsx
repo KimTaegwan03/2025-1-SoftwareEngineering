@@ -18,6 +18,8 @@ import NotFound from "./pages/NotFound";
 export default function App() {
   return (
     <BrowserRouter>
+      <Header/>
+
       <Routes>
         <Route index element={<Home />} />{/* index는 path="/"와 같음*/}
         <Route path="/login" element={<Login />} />
@@ -27,7 +29,7 @@ export default function App() {
         <Route path="/notice/:id" element={<NoticeDetail />} />
         <Route path="/announcements" element={<Announcements/>} />
 
-        <Route path="about" element={<About />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

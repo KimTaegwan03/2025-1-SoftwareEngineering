@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { UserContext } from './UserContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Header() {
   const { student, setStudent } = useContext(UserContext);
@@ -27,17 +27,24 @@ function Header() {
       borderBottom: '1px solid #ccc',
       gap: '1rem'
     }}>
-      {student ? (
-        <>
-          <span>{student.name}님 환영합니다</span>
-          <button onClick={handleLogout}>로그아웃</button>
-        </>
-      ) : (
-        <>
-          <span>로그인 해주세요</span>
-          <button onClick={handleRegister}>회원가입</button>
-        </>
-      )}
+      <nav className="space-x-4">
+        <Link to="/">홈</Link>
+        <Link to="/about">소개</Link>
+        <Link to="/notice">공지사항</Link>
+      </nav>
+      <div>
+        {student ? (
+          <>
+            <span>{student.name}님 환영합니다</span>
+            <button onClick={handleLogout}>로그아웃</button>
+          </>
+        ) : (
+          <>
+            <span>로그인 해주세요</span>
+            <button onClick={handleRegister}>회원가입</button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
