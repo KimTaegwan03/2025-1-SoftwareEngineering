@@ -10,6 +10,10 @@ import Home from "./pages/Home";
 // import MyPage from './MyPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import LectureForm from './pages/LectureForm';
+import LectureList from './pages/LectureList';
+import SyllabusDetail from './pages/SyllabusDetail';
+
 import Announcements from './pages/Announcements';
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
@@ -26,7 +30,7 @@ export default function App() {
           <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
            {/* <Route path="/enroll" element={<EnrollPage />} />  
            <Route path="/timetable" element={<Timetable />} />      */}
-        <Route path="/mypage" element={<MyPage />} />
+        {/* <Route path="/mypage" element={<MyPage />} /> */}
 
         <Route path="/announcements" element={<Announcements/>} />
 

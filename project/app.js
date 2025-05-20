@@ -11,6 +11,8 @@ const User = require('./models/User');
 const Student = require('./models/Student');
 const Instructor = require('./models/Instructor');
 
+const lectureRouter = require('./routes/lecture');
+const syllabusRouter = require('./routes/syllabus');
 // sequelize.sync()
 //   .then(() => console.log('DB 연결 및 테이블 동기화 완료'))
 //   .catch((err) => console.error('DB 연결 실패:', err));
@@ -51,6 +53,10 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+// lecture API 등록
+app.use('/lecture', lectureRouter);
+app.use('/syllabus', syllabusRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
