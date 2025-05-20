@@ -6,17 +6,13 @@ var logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 
-const sequelize = require('./db');
-const User = require('./models/User');
-const Student = require('./models/Student');
-const Instructor = require('./models/Instructor');
+const { sequelize } = require('./models');
 
-// sequelize.sync()
-//   .then(() => console.log('DB 연결 및 테이블 동기화 완료'))
-//   .catch((err) => console.error('DB 연결 실패:', err));
-sequelize.sync({ force: true })//{ force: true }
-  .then(() => console.log('✅ DB 테이블 재생성 완료'))
-  .catch(err => console.error('❌ DB 동기화 실패:', err));
+//   .then(() => console.log('✅ DB 테이블 재생성 완료'))
+//   .catch(err => console.error('❌ DB 동기화 실패:', err));
+sequelize.sync({ force: true }) 
+  .then(() => console.log('✅ DB 동기화 완료'))
+  .catch((err) => console.error('❌ DB 동기화 실패:', err));
 
 
 var indexRouter = require('./routes/index');
