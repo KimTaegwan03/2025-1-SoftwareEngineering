@@ -19,19 +19,11 @@ const Notice = sequelize.define('Notice', {
     type: DataTypes.TEXT,
     allowNull: false
   },
-  image: {
+  image_url: {
     type: DataTypes.STRING, // image url
   },
-  reg_date: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
-  up_date: {
-    type: DataTypes.DATE,
-  },
-  del_date: {
-    type: DataTypes.DATE,
-  },
+}, {
+  timestamps: true // createdAt, updatedAt 자동 추가
 });
 
 module.exports = Notice;

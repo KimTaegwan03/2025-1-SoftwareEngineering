@@ -10,7 +10,9 @@ import Home from "./pages/Home";
 // import MyPage from './MyPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Announcements from './pages/Announcements';
+import Notice from '@/pages/Notice'
+import NoticeDetail from '@/pages/NoticeDetail'
+import Announcements from '@/pages/Announcements';
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 export default function App() {
@@ -20,14 +22,9 @@ export default function App() {
         <Route index element={<Home />} />{/* index는 path="/"와 같음*/}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/*강의페이지추가*/}
-          <Route path="/lecture" element={<LectureForm />} />
-          <Route path="/lectures" element={<LectureList />} />
-          <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
-           <Route path="/enroll" element={<EnrollPage />} />  
-           <Route path="/timetable" element={<Timetable />} />     
-        {/* <Route path="/mypage" element={<MyPage />} /> */}
 
+        <Route path="/notice" element={<Notice/>} />
+        <Route path="/notice/:id" element={<NoticeDetail />} />
         <Route path="/announcements" element={<Announcements/>} />
 
         <Route path="about" element={<About />} />
