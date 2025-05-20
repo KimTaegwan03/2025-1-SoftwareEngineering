@@ -8,10 +8,15 @@ const Syllabus = sequelize.define('Syllabus', {
     primaryKey: true,
     autoIncrement: true
   },
-  lecture_id: {
+  lectureId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'Lectures',
+      key: 'id'
   },
+  field: 'lecture_id'
+},
   content: {
     type: DataTypes.TEXT,
     allowNull: false
