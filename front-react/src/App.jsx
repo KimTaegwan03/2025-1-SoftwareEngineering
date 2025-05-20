@@ -20,13 +20,13 @@ export default function App() {
         <Route index element={<Home />} />{/* index는 path="/"와 같음*/}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/*강의페이지추가*/}
+        {/* 강의페이지추가 */}
           <Route path="/lecture" element={<LectureForm />} />
           <Route path="/lectures" element={<LectureList />} />
           <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
-           <Route path="/enroll" element={<EnrollPage />} />  
-           <Route path="/timetable" element={<Timetable />} />     
-        {/* <Route path="/mypage" element={<MyPage />} /> */}
+           {/* <Route path="/enroll" element={<EnrollPage />} />  
+           <Route path="/timetable" element={<Timetable />} />      */}
+        <Route path="/mypage" element={<MyPage />} />
 
         <Route path="/announcements" element={<Announcements/>} />
 
