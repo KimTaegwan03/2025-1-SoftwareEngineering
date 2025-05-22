@@ -6,6 +6,7 @@ export default function NoticeBoard() {
 
   const [page, setPage] = useState(1);
   const [notices, setNotices] = useState([]);
+  const [isTeam, setIsTeam] = useState(false);
 
   const getData = async (pageNum) => {
     try {
@@ -17,6 +18,13 @@ export default function NoticeBoard() {
     }
   };
 
+  // 공지사항 글쓰기 권한 확인
+  useEffect(() => {
+    //미완성
+
+    setIsTeam(true);
+  }, [])
+
   useEffect(() => {
     getData(page);
   }, [page]);
@@ -27,7 +35,12 @@ export default function NoticeBoard() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>공지사항</h1>
-      <button>글 쓰기</button>
+      {isTeam && (
+        <div style={styles.buttonWrapper}>
+          <button style={styles.writeButton}>글 쓰기</button>
+        </div>
+      )}
+
       <div style={styles.noticeList}>
         {notices.map((notice) => (
           <div key={notice.id} style={styles.noticeItem}>
@@ -59,6 +72,21 @@ export default function NoticeBoard() {
 }
 
 const styles = {
+  buttonWrapper: {
+  width: "100%",
+  maxWidth: "600px",
+  textAlign: "right",   // 👉 오른쪽 정렬 핵심
+  marginBottom: "20px",
+  },
+  writeButton: {
+    padding: "8px 16px",
+    fontSize: "14px",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
   container: {
     minHeight: "100vh",
     display: "flex",
