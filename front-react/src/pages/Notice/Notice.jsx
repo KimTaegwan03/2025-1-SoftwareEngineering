@@ -10,7 +10,7 @@ export default function NoticeBoard() {
 
   const getData = async (pageNum) => {
     try {
-      const res = await fetch(`http://localhost:3000/data/notice?page=${pageNum}`);
+      const res = await fetch(`http://localhost:3000/notice?page=${pageNum}`);
       const data = await res.json();
       setNotices(data);
     } catch (err) {
@@ -37,7 +37,12 @@ export default function NoticeBoard() {
       <h1 style={styles.heading}>공지사항</h1>
       {isTeam && (
         <div style={styles.buttonWrapper}>
-          <button style={styles.writeButton}>글 쓰기</button>
+          <button
+            style={styles.writeButton}
+            onClick={() => navigate(`/notice/write`)}
+          >
+            글 쓰기
+          </button>
         </div>
       )}
 

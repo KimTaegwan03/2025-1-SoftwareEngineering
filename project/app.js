@@ -10,7 +10,7 @@ const { sequelize } = require('./models');
 
 //   .then(() => console.log('✅ DB 테이블 재생성 완료'))
 //   .catch(err => console.error('❌ DB 동기화 실패:', err));
-sequelize.sync({ alter: true }) 
+sequelize.sync({ alter: true })
   .then(() => console.log('✅ DB 동기화 완료'))
   .catch((err) => console.error('❌ DB 동기화 실패:', err));
 
@@ -18,7 +18,7 @@ sequelize.sync({ alter: true })
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
-var dataRouter = require('./routes/data');
+var noticeRouter = require('./routes/notice');
 
 var app = express();
 
@@ -47,7 +47,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
-app.use('/data', dataRouter);
+app.use('/notice', noticeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

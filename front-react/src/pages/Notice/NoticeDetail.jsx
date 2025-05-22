@@ -6,7 +6,7 @@ export default function NoticeDetail() {
   const [notice, setNotice] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/data/notice/${id}`)
+    fetch(`http://localhost:3000/notice/${id}`)
       .then((res) => res.json())
       .then((data) => setNotice(data));
   }, [id]);
