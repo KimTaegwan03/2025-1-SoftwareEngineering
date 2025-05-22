@@ -27,6 +27,7 @@ export default function NoticeBoard() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>공지사항</h1>
+      <button>글 쓰기</button>
       <div style={styles.noticeList}>
         {notices.map((notice) => (
           <div key={notice.id} style={styles.noticeItem}>
