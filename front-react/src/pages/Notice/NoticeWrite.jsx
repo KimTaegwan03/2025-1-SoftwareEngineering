@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function NoticeWrite() {
+  const navigate = useNavigate();
+  
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
@@ -25,7 +28,7 @@ export default function NoticeWrite() {
     const formData = new FormData();
 
 	/* 로그인 기능 완성되면 writer 넘겨주는거 마저 구현*/
-    formData.append('writer', "학생복지팀");
+    formData.append('writer', "학생복지처");
     formData.append('title', title);
     formData.append('content', content);
     if (image) formData.append('image', image);
