@@ -3,6 +3,15 @@ const sequelize = require('../db');
 const Lecture = require('./Lecture');
 
 const Syllabus = sequelize.define('Syllabus', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  lecture_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   content: {
     type: DataTypes.TEXT,
     allowNull: false
@@ -10,6 +19,6 @@ const Syllabus = sequelize.define('Syllabus', {
 });
 
 // ✅ 이 위치에서 관계 정의 가능
-Syllabus.belongsTo(Lecture, { foreignKey: 'lectureId' });
+// Syllabus.belongsTo(Lecture, { foreignKey: 'lectureId' });   // index.js에서 설정
 
 module.exports = Syllabus;
