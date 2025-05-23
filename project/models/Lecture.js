@@ -59,6 +59,8 @@ const Lecture = sequelize.define('Lecture', {
     type: DataTypes.INTEGER,
     allowNull: false
   }
+}, {
+  timestamps: false
 });
 
 
