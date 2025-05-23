@@ -31,10 +31,10 @@ function InstLecture() {
         </thead>
         <tbody>
           {lectures.map(lecture => (
-            <tr key={lecture.ID}>
+            <tr key={lecture.id}>
               <td
                 style={{ color: 'blue', cursor: 'pointer' }}
-                onClick={() => navigate(`/gradeinput/${lecture.ID}`)}
+                onClick={() => navigate(`/gradeinput/${lecture.id}`)}
               >
                 {lecture.title}
               </td>
