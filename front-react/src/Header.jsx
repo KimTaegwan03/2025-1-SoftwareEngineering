@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState  } from 'react';
 import { UserContext } from './UserContext';
 import { InstructorContext } from './InstructorContext'
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 function Header() {
   const { student, setStudent } = useContext(UserContext);
   const { instructor, setInstructor } = useContext(InstructorContext);
+  const [loginHover, setLoginHover] = useState(false);
+  const [registerHover, setRegisterHover] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -51,10 +53,62 @@ function Header() {
         ): (
           <>
             <span>로그인 해주세요</span>
-            <button onClick={() => navigate('/login')}>학생 로그인</button>
-            <button onClick={() => navigate('/register')}>학생 회원가입</button>
-            <button onClick={() => navigate('/instlogin')}>교수 로그인</button>
-            <button onClick={() => navigate('/instregister')}>교수 회원가입</button>
+            {/* ✅ 로그인 드롭다운 */}
+            <div
+              style={{ position: 'relative' }}
+              onMouseEnter={() => setLoginHover(true)}
+              onMouseLeave={() => setLoginHover(false)}
+            >
+              <p>로그인</p>
+              {loginHover && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  width: '100px',
+                  right: 0,
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                  padding: '0.5rem',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  zIndex: 100
+                }}>
+                  <button onClick={() => navigate('/login')} style={{ display: 'block', width: '100%' }}>
+                    학생 로그인
+                  </button>
+                  <button onClick={() => navigate('/instlogin')} style={{ display: 'block', width: '100%' }}>
+                    교수 로그인
+                  </button>
+                </div>
+              )}
+            </div>
+            {/* ✅ 회원가입 드롭다운 */}
+            <div
+              style={{ position: 'relative' }}
+              onMouseEnter={() => setRegisterHover(true)}
+              onMouseLeave={() => setRegisterHover(false)}
+            >
+              <p>회원가입</p>
+              {registerHover && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  width: '120px',
+                  right: 0,
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                  padding: '0.5rem',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  zIndex: 100
+                }}>
+                  <button onClick={() => navigate('/register')} style={{ display: 'block', width: '100%' }}>
+                    학생 회원가입
+                  </button>
+                  <button onClick={() => navigate('/instregister')} style={{ display: 'block', width: '100%' }}>
+                    교수 회원가입
+                  </button>
+                </div>
+              )}
+            </div>
           </>
         )}
       </div>
