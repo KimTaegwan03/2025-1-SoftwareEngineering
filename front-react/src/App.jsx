@@ -23,9 +23,7 @@ import Announcements from '@/pages/Announcements';
 import InstRegister from './pages/InstRegister'; // 교수 회원가입
 import MyPage from './pages/MyPage';
 
-import LectureForm from './pages/LectureForm';
-import LectureList from './pages/LectureList';
-import SyllabusDetail from './pages/SyllabusDetail';
+
 import About from "./pages/About";
 import InstLecture from './pages/InstLecture';
 import GradeInput from "./pages/GradeInput"; // 성적 입력

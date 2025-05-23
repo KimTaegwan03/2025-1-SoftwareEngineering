@@ -23,7 +23,8 @@ router.post('/register', async (req, res) => {
       startTime,
       endTime,
       maxSeats,
-      syllabusContent
+      syllabusContent,
+      instructor_id  
     } = req.body;
 
     // ✅ 교시 배열 생성
@@ -45,7 +46,8 @@ router.post('/register', async (req, res) => {
       professor,
       scheduleDay: day,
       scheduleTimes,
-      maxSeats
+      maxSeats,
+      instructor_id
     });
 
     await Syllabus.create({
