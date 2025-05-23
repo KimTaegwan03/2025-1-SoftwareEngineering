@@ -7,12 +7,23 @@ const Notice = sequelize.define('Notice', {
     primaryKey: true,
     autoIncrement: true
   },
-  writer: DataTypes.INTEGER,
-  title: DataTypes.STRING,
-  content: DataTypes.TEXT,
-  reg_date: DataTypes.DATE,
-  up_date: DataTypes.DATE,
-  del_date: DataTypes.DATE
+  writer: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  content: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  image_url: {
+    type: DataTypes.STRING, // image url
+  },
+}, {
+  timestamps: true // createdAt, updatedAt 자동 추가
 });
 
 module.exports = Notice;
