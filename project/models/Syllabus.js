@@ -21,6 +21,8 @@ const Syllabus = sequelize.define('Syllabus', {
     type: DataTypes.TEXT,
     allowNull: false
   }
+}, {
+  timestamps: false
 });
 
 // ✅ 이 위치에서 관계 정의 가능

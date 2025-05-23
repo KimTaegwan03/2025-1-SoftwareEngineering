@@ -13,6 +13,7 @@ const Question = require('./Question');
 const Student = require('./Student');
 const Syllabus = require('./Syllabus');
 const Teaches = require('./Teaches');
+const Teams = require('./Teams')
 
 // 관계 정의
 // Advisor
@@ -35,7 +36,7 @@ Enrollment.belongsTo(Student, { foreignKey: 'studentId', targetKey: 'ID' });
 Lecture.belongsTo(Department, { foreignKey: 'dept_name', targetKey: 'dept_name' });
 
 // Notice (전체 공지사항)
-Notice.belongsTo(Instructor, { foreignKey: 'writer', targetKey: 'ID' });
+Notice.belongsTo(Teams, { foreignKey: 'writer', targetKey: 'dept' });
 
 // Question
 Question.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
@@ -62,5 +63,6 @@ module.exports = {
   Question,
   Student,
   Syllabus,
-  Teaches
+  Teaches,
+  Teams
 };

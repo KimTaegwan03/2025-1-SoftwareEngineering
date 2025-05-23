@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
 const Teaches = sequelize.define('Teaches', {
-  id: { 
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -11,6 +11,8 @@ const Teaches = sequelize.define('Teaches', {
   lecture_id: DataTypes.INTEGER, // 강의 ID
   // course_id: DataTypes.STRING,
   // sec_id: DataTypes.STRING
+}, {
+  timestamps: false
 });
 
 module.exports = Teaches;
