@@ -10,9 +10,15 @@ import Home from "./pages/Home";
 import Login from './pages/Login';
 import InstLogin from './pages/InstLogin'; // 교수 로그인
 import Register from './pages/Register';
+
+// Notice 관련 페이지
+import Notice from '@/pages/Notice/Notice'
+import NoticeDetail from '@/pages/Notice/NoticeDetail'
+import NoticeWrite from '@/pages/Notice/NoticeWrite'
+
+import Announcements from '@/pages/Announcements';
 import InstRegister from './pages/InstRegister'; // 교수 회원가입
 import MyPage from './pages/MyPage';
-import Announcements from './pages/Announcements';
 import About from "./pages/About";
 import InstLecture from './pages/InstLecture';
 import GradeInput from "./pages/GradeInput"; // 성적 입력
@@ -28,6 +34,11 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/instlogin" element={<InstLogin />} />
         <Route path="/register" element={<Register />} />
+
+        { /* Notice 관련 페이지 */ }
+        <Route path="/notice" element={<Notice/>} />
+        <Route path="/notice/:id" element={<NoticeDetail />} />
+        <Route path="/notice/write" element={<NoticeWrite />} />
         <Route path="/instregister" element={<InstRegister />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/instructor/lectures" element={<InstLecture />} />
@@ -43,7 +54,7 @@ export default function App() {
 
         <Route path="/announcements" element={<Announcements/>} />
 
-        <Route path="about" element={<About />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

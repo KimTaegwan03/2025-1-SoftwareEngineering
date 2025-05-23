@@ -1,7 +1,7 @@
 import { useContext, useState  } from 'react';
 import { UserContext } from './UserContext';
+import { useNavigate, Link } from 'react-router-dom';
 import { InstructorContext } from './InstructorContext'
-import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const { student, setStudent } = useContext(UserContext);
@@ -27,15 +27,18 @@ function Header() {
       padding: '1rem',
       borderBottom: '1px solid #ccc'
     }}>
+
       {/* 왼쪽: Home 버튼 */}
-      <button onClick={() => navigate('/')}>Home</button>
-      { student ? (
-        <button onClick={() => navigate('/grades')}>성적 조회</button>
-      ) : instructor ? (
-        <button onClick={() => navigate('/instructor/lectures')}>강의 관리</button>
-      ) : (
-        <p></p>
-      )}
+      <nav className="space-x-4">
+        <Link to='/'>Home</Link>
+        { student ? (
+          <Link to='/grades'>성적 조회</Link>
+        ) : instructor ? (
+          <Link to='/instructor/lectures'>강의 관리</Link>
+        ) : (
+          <p></p>
+        )}
+      </nav>
 
       {/* 오른쪽: 사용자 정보 또는 로그인/회원가입 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -53,7 +56,7 @@ function Header() {
         ): (
           <>
             <span>로그인 해주세요</span>
-            {/* ✅ 로그인 드롭다운 */}
+            {/* 로그인 드롭다운 */}
             <div
               style={{ position: 'relative' }}
               onMouseEnter={() => setLoginHover(true)}
@@ -81,7 +84,7 @@ function Header() {
                 </div>
               )}
             </div>
-            {/* ✅ 회원가입 드롭다운 */}
+            {/* 회원가입 드롭다운 */}
             <div
               style={{ position: 'relative' }}
               onMouseEnter={() => setRegisterHover(true)}
