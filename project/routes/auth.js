@@ -114,7 +114,7 @@ router.get('/session', (req, res) => {
   });
 
 // GET /auth/mypage
-  router.get('/mypage', (req, res) => {
+router.get('/mypage', (req, res) => {
   if (!req.session.student) {
     return res.status(401).json({ message: '로그인이 필요합니다' });
   }

@@ -51,8 +51,8 @@ const Lecture = sequelize.define('Lecture', {
     type: DataTypes.JSON,
     allowNull: false
   },
-  professor: {
-    type: DataTypes.STRING,
+  instructor_id: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   maxSeats: {
