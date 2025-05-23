@@ -7,6 +7,8 @@ const Department = sequelize.define('Department', {
     primaryKey: true
   },
   building: DataTypes.STRING
+}, {
+  timestamps: false
 });
 
 module.exports = Department;

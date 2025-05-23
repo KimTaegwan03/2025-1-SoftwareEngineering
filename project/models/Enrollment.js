@@ -31,6 +31,8 @@ const Enrollment = sequelize.define('Enrollment', {
     type: DataTypes.INTEGER,
     allowNull: false
   }
+}, {
+  timestamps: false
 });
 
 // Enrollment.belongsTo(Lecture, { foreignKey: 'lectureId' });  index.js에서 설정
