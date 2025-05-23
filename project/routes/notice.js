@@ -8,7 +8,7 @@ const { Op } = require('sequelize');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '../public/image/notice/'); // 실제 경로
+    cb(null, path.join(__dirname, '../public/image/notice')); // 실제 경로
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + '-' + file.originalname;
@@ -22,12 +22,9 @@ router.get('/', async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   try {
     const notices = await Notice.findAll({
-      where: {
-        id: {
-          [Op.between]: [page * 10 - 9, page * 10]  // 10 이상 20 이하
-        }
-      },
-      order: [['id', 'DESC']]
+      order: [['createdAt', 'DESC']],        // 최신순
+      limit: 10,                      // 한 페이지당 10개
+      offset: (page - 1) * 10         // 건너뛸 개수
     });
     res.json(notices);
   } catch (err) {
@@ -51,6 +48,8 @@ router.get('/:id', async (req, res, next) => {
 
 /* 공지사항 post */
 router.post('/write', upload.single('image'), async (req, res) => {
+  console.log('BODY:', req.body);
+  console.log('FILE:', req.file);
   const { writer, title, content } = req.body;
   const imagePath = req.file ? `/image/notice/${req.file.filename}` : null;
 
