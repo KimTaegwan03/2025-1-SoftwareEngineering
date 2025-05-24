@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 // import MyPage from './MyPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Announcements from './pages/Announcements';
+import Announcements from '@/pages/Anouncements/Announcements';
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 export default function App() {

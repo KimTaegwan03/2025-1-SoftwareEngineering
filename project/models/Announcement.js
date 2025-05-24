@@ -12,7 +12,7 @@ const Announcement = sequelize.define('Announcement', {
     autoIncrement: true
   },
   lecture_id: DataTypes.INTEGER,
-  writer: DataTypes.INTEGER,
+  writer_id: DataTypes.INTEGER,
   title: DataTypes.STRING,
   content: DataTypes.TEXT,
   reg_date: DataTypes.DATE,
