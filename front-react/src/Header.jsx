@@ -2,10 +2,12 @@ import { useContext, useState  } from 'react';
 import { UserContext } from './UserContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { InstructorContext } from './InstructorContext'
+import { TeamContext } from './TeamContext'
 
 function Header() {
   const { student, setStudent } = useContext(UserContext);
   const { instructor, setInstructor } = useContext(InstructorContext);
+  const { team, setTeam } = useContext(TeamContext);
   const [loginHover, setLoginHover] = useState(false);
   const [registerHover, setRegisterHover] = useState(false);
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ function Header() {
     });
     setStudent(null);
     setInstructor(null);
+    setTeam(null);
     navigate('/');
   };
 
@@ -54,6 +57,11 @@ function Header() {
             <span>{instructor.name} 교수님 환영합니다</span>
             <button onClick={handleLogout}>로그아웃</button>
           </>
+        ): team ? (
+          <>
+            <span>{team.name} 환영합니다</span>
+            <button onClick={handleLogout}>로그아웃</button>
+          </>
         ): (
           <>
             <span>로그인 해주세요</span>
@@ -82,6 +90,9 @@ function Header() {
                   <button onClick={() => navigate('/instlogin')} style={{ display: 'block', width: '100%' }}>
                     교수 로그인
                   </button>
+                  <button onClick={() => navigate('/teamlogin')} style={{ display: 'block', width: '100%' }}>
+                    교학팀 로그인
+                  </button>
                 </div>
               )}
             </div>
@@ -109,6 +120,9 @@ function Header() {
                   </button>
                   <button onClick={() => navigate('/instregister')} style={{ display: 'block', width: '100%' }}>
                     교수 회원가입
+                  </button>
+                  <button onClick={() => navigate('/teamregister')} style={{ display: 'block', width: '100%' }}>
+                    교학팀 회원가입
                   </button>
                 </div>
               )}

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { TeamContext } from '@/TeamContext';
 
 export default function NoticeBoard() {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
   const [notices, setNotices] = useState([]);
-  const [isTeam, setIsTeam] = useState(false);
+  const { team, setTeam  } = useContext(TeamContext);
 
   const getData = async (pageNum) => {
     try {
@@ -18,13 +20,6 @@ export default function NoticeBoard() {
     }
   };
 
-  // 공지사항 글쓰기 권한 확인
-  useEffect(() => {
-    //미완성
-
-    setIsTeam(true);
-  }, [])
-
   useEffect(() => {
     getData(page);
   }, [page]);
@@ -35,7 +30,7 @@ export default function NoticeBoard() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>공지사항</h1>
-      {isTeam && (
+      {team && (
         <div style={styles.buttonWrapper}>
           <button
             style={styles.writeButton}

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const multer = require('multer');
+const fs = require('fs');
 const path = require('path');
 const Notice = require('../models/Notice')
 const { Op } = require('sequelize');
@@ -8,7 +9,14 @@ const { Op } = require('sequelize');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../public/image/notice')); // 실제 경로
+    const uploadPath = path.join(__dirname, '../public/image/notice');
+
+    // 폴더가 없으면 생성
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true }); // 중첩 폴더까지 생성
+    }
+
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + '-' + file.originalname;
