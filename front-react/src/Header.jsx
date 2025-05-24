@@ -29,8 +29,9 @@ function Header() {
     }}>
 
       {/* 왼쪽: Home 버튼 */}
-      <nav className="space-x-4">
+      <nav className="flex space-x-4">
         <Link to='/'>Home</Link>
+        <Link to='/notice'>공지사항</Link>
         { student ? (
           <Link to='/grades'>성적 조회</Link>
         ) : instructor ? (
