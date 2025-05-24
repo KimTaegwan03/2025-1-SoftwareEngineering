@@ -10,9 +10,6 @@ import Home from "./pages/Home";
 import Login from './pages/Login';
 import InstLogin from './pages/InstLogin'; // 교수 로그인
 import Register from './pages/Register';
-import LectureForm from './pages/LectureForm';
-import LectureList from './pages/LectureList';
-import SyllabusDetail from './pages/SyllabusDetail';
 
 // Notice 관련 페이지
 import Notice from '@/pages/Notice/Notice'
@@ -26,10 +23,12 @@ import MyPage from './pages/MyPage';
 import LectureForm from './pages/LectureForm';
 import LectureList from './pages/LectureList';
 import SyllabusDetail from './pages/SyllabusDetail';
-import About from "./pages/About";
+
 import InstLecture from './pages/InstLecture';
 import GradeInput from "./pages/GradeInput"; // 성적 입력
 import GradeView from "./pages/GradeView"; // 성적 조회
+
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
