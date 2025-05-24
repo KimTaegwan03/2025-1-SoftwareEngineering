@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { InstructorContext } from '../InstructorContext';
+import { InstructorContext } from '@/InstructorContext';
 
 function Login() {
   const [form, setForm] = useState({ acc_id: '', password: '' });

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TeamContext } from '../TeamContext';
+import { TeamContext } from '@/TeamContext';
 
 function Login() {
   const [form, setForm] = useState({ acc_id: '', password: '' });

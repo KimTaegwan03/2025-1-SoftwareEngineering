@@ -8,13 +8,15 @@ import {
 import Header from './Header';
 import Home from "./pages/Home";
 
-// 회원가입 및 로그인
-import Register from './pages/Register'; // 학생 회원가입
-import Login from './pages/Login'; // 학생 로그인
-import InstRegister from './pages/InstRegister'; // 교수 회원가입
-import InstLogin from './pages/InstLogin'; // 교수 로그인
-import TeamRegister from './pages/TeamRegister' // 교학팀 회원가입
-import TeamLogin from './pages/TeamLogin' // 교학팀 로그인
+// 로그인
+import Register from '@/pages/Register/Register'; // 학생 회원가입
+import InstRegister from '@/pages/Register/InstRegister'; // 교수 회원가입
+import TeamRegister from '@/pages/Register/TeamRegister' // 교학팀 회원가입
+
+// 회원가입
+import Login from '@/pages/Login/Login'; // 학생 로그인
+import InstLogin from '@/pages/Login/InstLogin'; // 교수 로그인
+import TeamLogin from '@/pages/Login/TeamLogin' // 교학팀 로그인
 
 // Notice 관련 페이지
 import Notice from '@/pages/Notice/Notice'
