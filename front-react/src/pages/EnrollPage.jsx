@@ -6,10 +6,11 @@ const EnrollPage = () => {
   const [lectures, setLectures] = useState([]);
   const [enrolled, setEnrolled] = useState([]);
   const [message, setMessage] = useState('');
+  const [query, setQuery] = useState('');          // 검색어 상태
   const navigate = useNavigate();
   const { student } = useContext(UserContext);
 
-  const studentId = student?.id;  // ✅ 일관되게 .id 사용
+  const studentId = student?.id;  // 로그인한 학생 ID
 
   // 전체 강의 불러오기
   useEffect(() => {
@@ -19,7 +20,7 @@ const EnrollPage = () => {
       .catch(err => console.error('불러오기 실패:', err));
   }, []);
 
-  // 신청 내역 불러오기
+  // 내 신청 내역 불러오기
   useEffect(() => {
     if (!studentId) return;
     fetch(`http://localhost:3000/enroll/enrollments/${studentId}`)
@@ -27,6 +28,16 @@ const EnrollPage = () => {
       .then(data => setEnrolled(data))
       .catch(err => console.error('수강 내역 실패:', err));
   }, [studentId]);
+
+  // 검색어 기반 필터링
+  const filteredLectures = lectures.filter(lec => {
+    const q = query.toLowerCase();
+    return (
+      lec.title.toLowerCase().includes(q) ||
+      lec.professor.toLowerCase().includes(q) ||
+      lec.course_id.toLowerCase().includes(q)
+    );
+  });
 
   const handleEnroll = async (lectureId) => {
     try {
@@ -78,10 +89,27 @@ const EnrollPage = () => {
 
   return (
     <div style={{ display: 'flex', gap: '40px' }}>
+      {/* 전체 강의 목록 */}
       <div style={{ flex: 1 }}>
         <h2>전체 강의 목록</h2>
+
+        {/* 검색창 */}
+        <input
+          type="text"
+          placeholder="강의명·교수명·과목코드로 검색"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          style={{
+            marginBottom: '12px',
+            padding: '6px',
+            width: '100%',
+            boxSizing: 'border-box'
+          }}
+        />
+
         {message && <p>{message}</p>}
-        <table border="1" cellPadding="8">
+
+        <table border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr>
               <th>강의명</th>
@@ -92,19 +120,29 @@ const EnrollPage = () => {
             </tr>
           </thead>
           <tbody>
-            {lectures.map(lec => (
+            {filteredLectures.map(lec => (
               <tr key={lec.id}>
                 <td>{lec.title}</td>
                 <td>{lec.professor}</td>
                 <td>{lec.credit}</td>
                 <td>{lec.scheduleDay} {lec.scheduleTimes.join(', ')}</td>
-                <td><button onClick={() => handleEnroll(lec.id)}>신청</button></td>
+                <td>
+                  <button onClick={() => handleEnroll(lec.id)}>신청</button>
+                </td>
               </tr>
             ))}
+            {filteredLectures.length === 0 && (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center', color: '#888' }}>
+                  검색 결과가 없습니다.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
+      {/* 내 수강 목록 */}
       <div style={{ flex: 1 }}>
         <h2>내 수강 목록</h2>
         <ul>
