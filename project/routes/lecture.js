@@ -38,6 +38,7 @@ router.post('/register', async (req, res) => {
       sec_id,
       title,
       dept_name,
+      professor,
       credit,
       semester,
       year,

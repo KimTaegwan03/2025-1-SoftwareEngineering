@@ -14,6 +14,9 @@ import LectureForm from './pages/LectureForm';
 import LectureList from './pages/LectureList';
 import SyllabusDetail from './pages/SyllabusDetail';
 
+import EnrollPage from './pages/EnrollPage';
+import Timetable from './pages/Timetable';
+
 // Notice 관련 페이지
 import Notice from '@/pages/Notice/Notice'
 import NoticeDetail from '@/pages/Notice/NoticeDetail'
@@ -53,8 +56,8 @@ export default function App() {
           <Route path="/lecture" element={<LectureForm />} />
           <Route path="/lectures" element={<LectureList />} />
           <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
-           {/* <Route path="/enroll" element={<EnrollPage />} />  
-           <Route path="/timetable" element={<Timetable />} />      */}
+            <Route path="/enroll" element={<EnrollPage />} />  
+           <Route path="/timetable" element={<Timetable />} />      
         {/* <Route path="/mypage" element={<MyPage />} /> */}
 
         <Route path="/announcements" element={<Announcements/>} />

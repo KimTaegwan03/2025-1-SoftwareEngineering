@@ -29,7 +29,8 @@ const Enrollment = sequelize.define('Enrollment', {
   },
   lecture_id: {  // 기존 관계 유지용
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    
   }
 }, {
   timestamps: false
