@@ -14,7 +14,7 @@ const { sequelize } = require('./models');
 
 //   .then(() => console.log('✅ DB 테이블 재생성 완료'))
 //   .catch(err => console.error('❌ DB 동기화 실패:', err));
-sequelize.sync({ alter: true })
+sequelize.sync({ force: true })
   .then(() => console.log('✅ DB 동기화 완료'))
   .catch((err) => console.error('❌ DB 동기화 실패:', err));
 

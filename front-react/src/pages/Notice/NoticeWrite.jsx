@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TeamContext } from '@/TeamContext';
 
 export default function NoticeWrite() {
   const navigate = useNavigate();
@@ -8,6 +9,8 @@ export default function NoticeWrite() {
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  
+  const { team, setTeam  } = useContext(TeamContext);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -28,7 +31,7 @@ export default function NoticeWrite() {
     const formData = new FormData();
 
 	/* 로그인 기능 완성되면 writer 넘겨주는거 마저 구현*/
-    formData.append('writer', "학생복지처");
+    formData.append('writer', team.name);
     formData.append('title', title);
     formData.append('content', content);
     if (image) formData.append('image', image);
