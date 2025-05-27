@@ -8,7 +8,7 @@ export default function NoticeWrite() {
   
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState(null);
+  const [file, setfile] = useState(null);
 
   const { instructor, setInstructor  } = useContext(InstructorContext);
 
@@ -17,11 +17,12 @@ export default function NoticeWrite() {
 
     const formData = new FormData();
 
-	/* 로그인 기능 완성되면 writer 넘겨주는거 마저 구현*/
-    formData.append('writer', instructor.id);
+    ////////////////// lecture_id 구현하기 //////////////////////
+    formData.append('lecture_id', 1);
+    formData.append('writer_id', instructor.id);
     formData.append('title', title);
     formData.append('content', content);
-    if (image) formData.append('image', image);
+    if (file) formData.append('file', file);
 
     try {
       const response = await fetch('http://localhost:3000/announcement/write', {

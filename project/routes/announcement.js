@@ -58,13 +58,13 @@ router.get('/:id', async (req, res, next) => {
 router.post('/write', upload.single('image'), async (req, res) => {
 	console.log('BODY:', req.body);
 	console.log('FILE:', req.file);
-	const { lecture_id, writer, title, content } = req.body;
+	const { lecture_id, writer_id, title, content } = req.body;
 	const imagePath = req.file ? `/image/announcement/${req.file.filename}` : null;
 
 	try {
 		const newAnnouncement = await Announcement.create({
 			lecture_id: lecture_id,
-			writer: writer,
+			writer_id: writer_id,
 			title: title,
 			content: content,
 			image_url: imagePath,
