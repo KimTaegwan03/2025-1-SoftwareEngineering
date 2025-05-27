@@ -23,7 +23,11 @@ import Notice from '@/pages/Notice/Notice'
 import NoticeDetail from '@/pages/Notice/NoticeDetail'
 import NoticeWrite from '@/pages/Notice/NoticeWrite'
 
-import Announcements from '@/pages/Announcements';
+// Announcement 관련 페이지지
+import Announcement from '@/pages/Announcement/Announcement';
+import AnnouncementDetail from '@/pages/Announcement/AnnouncementDetail';
+import AnnouncementWrite from '@/pages/Announcement/AnnouncementWrite';
+
 import MyPage from './pages/MyPage';
 
 import LectureForm from './pages/LectureForm';
@@ -56,6 +60,11 @@ export default function App() {
         <Route path="/notice" element={<Notice/>} />
         <Route path="/notice/:id" element={<NoticeDetail />} />
         <Route path="/notice/write" element={<NoticeWrite />} />
+
+        { /* Announcement 관련 페이지 */ }
+        <Route path="/announcement" element={<Announcement />} />
+        <Route path="/announcement/:id" element={<AnnouncementDetail />} />
+        <Route path="/announcement/write" element={<AnnouncementWrite />} />
         
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/instructor/lectures" element={<InstLecture />} />
@@ -68,8 +77,6 @@ export default function App() {
         {/* <Route path="/enroll" element={<EnrollPage />} />  
         <Route path="/timetable" element={<Timetable />} />      */}
         {/* <Route path="/mypage" element={<MyPage />} /> */}
-
-        <Route path="/announcements" element={<Announcements/>} />
 
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
