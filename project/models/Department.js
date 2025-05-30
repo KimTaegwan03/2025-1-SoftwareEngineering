@@ -6,7 +6,11 @@ const Department = sequelize.define('Department', {
     type: DataTypes.STRING,
     primaryKey: true
   },
-  building: DataTypes.STRING
+  building: DataTypes.STRING,
+  gradCreds: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
 }, {
   timestamps: false
 });

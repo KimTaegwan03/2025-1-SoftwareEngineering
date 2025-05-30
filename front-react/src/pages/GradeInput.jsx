@@ -49,10 +49,21 @@ function GradeInput() {
               <td>{String(g.studentId).padStart(8, '0')}</td>
               <td>{g.name}</td>
               <td>
-                <input
+                <select
                   value={g.grade || ''}
                   onChange={e => handleChange(g.studentId, e.target.value)}
-                />
+                >
+                  <option value="">선택</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D+">D+</option>
+                  <option value="D">D</option>
+                  <option value="F">F</option>
+                </select>
               </td>
             </tr>
           ))}

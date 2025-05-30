@@ -58,11 +58,21 @@ function AttendancePage() {
               <td>{String(s.studentId).padStart(8, '0')}</td>
               <td>{s.name}</td>
               <td>
-                <select onChange={e => handleChange(s.studentId, e.target.value)} defaultValue="출석">
-                  <option value="출석">출석</option>
-                  <option value="지각">지각</option>
-                  <option value="결석">결석</option>
-                </select>
+                <div>
+                    {['출석', '지각', '결석'].map((status) => (
+                        <label key={status} style={{ marginRight: '0.5rem' }}>
+                        <input
+                            type="radio"
+                            name={`status-${s.studentId}`} // 각 학생별 그룹
+                            value={status}
+                            checked={attendance[s.studentId] === status}
+                            onChange={(e) => handleChange(s.studentId, e.target.value)}
+                        />
+                        {status}
+                        </label>
+                    ))}
+                    </div>
+
               </td>
             </tr>
           ))}
