@@ -95,18 +95,70 @@ router.get('/instructor', async (req, res) => {
 
 router.get('/attendance/:lectureId', async (req, res) => {
   const { lectureId } = req.params;
-  const enrollments = await Enrollment.findAll({
-    where: { lecture_id: lectureId },
-    include: [Student]
-  });
+  let { date } = req.query;
 
-  const students = enrollments.map(e => ({
-    studentId: e.studentId,
-    name: e.Student.name
-  }));
+  // 날짜 기본값: 오늘
+  if (!date) {
+    const today = new Date();
+    date = today.toISOString().slice(0, 10);
+  }
 
-  res.json(students);
+  try {
+    // 1. 출석 정보 조회
+    const attendanceRecords = await Attendance.findAll({
+      where: {
+        lecture_id: lectureId,
+        date: date
+      }
+      , include: [{
+        model: Student,
+        attributes: ['name']
+      }]
+    });
+
+    if (attendanceRecords.length > 0) {
+      // ✅ 출석 정보가 있으면 반환
+      const formatted = attendanceRecords.map(r => ({
+        studentId: r.student_id,
+        name: r.Student.name,
+        status: r.status
+      }));
+      return res.json(formatted);
+    }
+
+    // 2. 출석 정보 없으면 → 학생 목록 반환
+    const enrollments = await Enrollment.findAll({
+      where: { lecture_id: lectureId },
+      include: [Student]
+    });
+
+    const students = enrollments.map(e => ({
+      studentId: e.studentId,
+      name: e.Student.name
+    }));
+
+    res.json(students);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: '출석 조회 실패', error: err.message });
+  }
 });
+
+
+// router.get('/attendance/:lectureId', async (req, res) => {
+//   const { lectureId } = req.params;
+//   const enrollments = await Enrollment.findAll({
+//     where: { lecture_id: lectureId },
+//     include: [Student]
+//   });
+
+//   const students = enrollments.map(e => ({
+//     studentId: e.studentId,
+//     name: e.Student.name
+//   }));
+
+//   res.json(students);
+// });
 
 router.post('/attendance/:lectureId', async (req, res) => {
   const { lectureId } = req.params;

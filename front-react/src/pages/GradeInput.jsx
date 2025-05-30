@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function GradeInput() {
   const { lectureId } = useParams(); // ✅ URL에서 lectureId 직접 추출
   const [grades, setGrades] = useState([]);
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // 컴포넌트 내부에서 선언
 
   useEffect(() => {
     fetch(`http://localhost:3000/grade/lecture/${lectureId}`, {
@@ -34,6 +35,9 @@ function GradeInput() {
 
   return (
     <div>
+      <button onClick={() => navigate('/instructor/lectures')} style={{ marginBottom: '1rem' }}>
+      ← 강의 목록으로 돌아가기
+      </button>
       <h2>성적 입력</h2>
       <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse' }}>
         <thead>
