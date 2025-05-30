@@ -33,6 +33,7 @@ import SyllabusDetail from './pages/SyllabusDetail';
 import InstLecture from './pages/InstLecture';
 import GradeInput from "./pages/GradeInput"; // 성적 입력
 import GradeView from "./pages/GradeView"; // 성적 조회
+import AttendancePage from './pages/AttendancePage';
 
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
@@ -61,10 +62,13 @@ export default function App() {
         <Route path="/instructor/lectures" element={<InstLecture />} />
         <Route path="/gradeinput/:lectureId" element={<GradeInput />} />
         <Route path="/grades" element={<GradeView />} />
+        <Route path="/attendance/:lectureId" element={<AttendancePage />} />
+
         {/* 강의페이지추가 */}
         <Route path="/lecture" element={<LectureForm />} />
         <Route path="/lectures" element={<LectureList />} />
         <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
+        
         {/* <Route path="/enroll" element={<EnrollPage />} />  
         <Route path="/timetable" element={<Timetable />} />      */}
         {/* <Route path="/mypage" element={<MyPage />} /> */}

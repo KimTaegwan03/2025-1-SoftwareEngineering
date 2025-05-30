@@ -26,7 +26,7 @@ function Register() {
       if (!res.ok) throw new Error('서버 응답 오류');
   
       const data = await res.json();
-      alert(`회원가입 성공! 교수 ID: ${data.ID}`);
+      alert(`회원가입 성공! 교수 ID: ${data.instructorId}`);
       
       window.location.href = '/instlogin';
     } catch (err) {

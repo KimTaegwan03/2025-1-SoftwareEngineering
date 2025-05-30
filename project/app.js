@@ -9,12 +9,9 @@ const session = require('express-session');
 const { sequelize } = require('./models');
 
 
-
-
-
 //   .then(() => console.log('✅ DB 테이블 재생성 완료'))
 //   .catch(err => console.error('❌ DB 동기화 실패:', err));
-sequelize.sync({ force: true })
+sequelize.sync({ alter: true })
   .then(() => console.log('✅ DB 동기화 완료'))
   .catch((err) => console.error('❌ DB 동기화 실패:', err));
 
