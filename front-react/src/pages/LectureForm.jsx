@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
+import { InstructorContext } from '../InstructorContext';
 
 const LectureForm = () => {
+    const { instructor } = useContext(InstructorContext);
   const [formData, setFormData] = useState({
     course_id: '',
     title: '',
@@ -26,6 +28,8 @@ const LectureForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+
     const start = Number(formData.startTime);
     const end = Number(formData.endTime);
     const times = [];
@@ -34,13 +38,15 @@ const LectureForm = () => {
     const payload = {
       ...formData,
       scheduleDay: formData.day,
-      scheduleTimes: times
+      scheduleTimes: times,
+        instructor_id: instructor?.id 
     };
 
     try {
       const response = await fetch('http://localhost:3000/lecture/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+         credentials: 'include',
         body: JSON.stringify(payload)
       });
 

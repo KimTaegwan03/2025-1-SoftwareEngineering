@@ -6,6 +6,7 @@ function Login() {
   const [form, setForm] = useState({ acc_id: '', password: '' });
   const [message, setMessage] = useState('');
   const { setInstructor  } = useContext(InstructorContext);
+  const navigate = useNavigate(); // navigate 훅 사용
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,7 +27,9 @@ function Login() {
 
       setInstructor(data.instructor); // 전역 상태에 저장
       // 로그인 성공 후 홈으로 이동
-      window.location.href = '/';
+      //window.location.href = '/';
+       // 페이지 새로고침 없이 이동 → Context 유지됨
+      navigate('/');
     } catch (err) {
       setMessage(err.message);
     }
