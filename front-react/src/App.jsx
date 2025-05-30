@@ -8,16 +8,13 @@ import {
 import Header from './Header';
 import Home from "./pages/Home";
 
-// 로그인
+// 회원가입
 import Register from '@/pages/Register/Register'; // 학생 회원가입
 import InstRegister from '@/pages/Register/InstRegister'; // 교수 회원가입
 import TeamRegister from '@/pages/Register/TeamRegister' // 교학팀 회원가입
 
-// 회원가입
-import LoginPage from "./pages/Login/LoginPage";
-import Login from '@/pages/Login/Login'; // 학생 로그인
-import InstLogin from '@/pages/Login/InstLogin'; // 교수 로그인
-import TeamLogin from '@/pages/Login/TeamLogin' // 교학팀 로그인
+// 로그인
+import Login from '@/pages/Login/Login';
 
 // Notice 관련 페이지
 import Notice from '@/pages/Notice/Notice'
@@ -49,9 +46,7 @@ export default function App() {
         {/* 회원가입 및 로그인 */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/instlogin" element={<InstLogin />} />
         <Route path="/instregister" element={<InstRegister />} />
-        <Route path="/teamlogin" element={<TeamLogin />} />
         <Route path="/teamregister" element={<TeamRegister />} />
 
 
