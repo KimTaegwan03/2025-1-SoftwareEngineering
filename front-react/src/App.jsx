@@ -69,8 +69,8 @@ export default function App() {
           <Route path="/lecture" element={<LectureForm />} />
           <Route path="/lectures" element={<LectureList />} />
           <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
-           {/* <Route path="/enroll" element={<EnrollPage />} />  
-           <Route path="/timetable" element={<Timetable />} />      */}
+           <Route path="/enroll" element={<EnrollPage />} />  
+           <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
 
         <Route path="/announcements" element={<Announcements/>} />
