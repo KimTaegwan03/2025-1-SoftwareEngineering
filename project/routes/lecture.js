@@ -182,5 +182,51 @@ router.post('/attendance/:lectureId', async (req, res) => {
   }
 });
 
+router.get('/student/timetable', async (req, res) => {
+  var { semester, year } = req.query;
+  // semester와 year가 없으면 현재 학기와 연도로 설정
+  if (!semester || !year) {
+    var today = new Date();
+    semester = today.getMonth() < 6 ? 1 : 2;
+    year = today.getFullYear();
+  }
+  if (!req.session.student) {
+    return res.status(401).json({ message: '로그인이 필요합니다' });
+  }
+
+  const studentId = req.session.student.id;
+
+  console.log(studentId, semester, year);
+
+  try {
+    const enrollments = await Enrollment.findAll({
+      where: { studentId },
+      include: [Lecture]
+    });
+
+    console.log('Enrollments:', enrollments);
+
+    // 해당 학기와 연도의 강의만 필터링
+    const filteredEnrollments = enrollments.filter(e => 
+      e.Lecture.semester === semester && e.Lecture.year === year
+    );
+
+
+
+    const timetable = filteredEnrollments.map(e => ({
+      title: e.Lecture.title,
+      building: e.Lecture.building,
+      roomNumber: e.Lecture.room_number,
+      scheduleDay: e.Lecture.scheduleDay,
+      scheduleTimes: e.Lecture.scheduleTimes
+    }));
+
+    res.json(timetable);
+  } catch (err) {
+    console.error('❌ 시간표 조회 실패:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 module.exports = router;

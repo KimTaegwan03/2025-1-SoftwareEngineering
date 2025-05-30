@@ -1,0 +1,101 @@
+.home-container {
+  font-family: sans-serif;
+  padding: 1rem;
+  background: #f5f5f5;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  height: 40px;
+}
+
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.profile-card {
+  grid-column: span 1;
+  background: #a12e2f;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.credit-summary,
+.lecture-plan,
+.schedule,
+.notice,
+.review {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.credit-summary {
+  grid-column: span 1;
+}
+
+.lecture-plan {
+  grid-column: span 2;
+}
+
+.schedule {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 50px);
+  gap: 0.2rem;
+  background: #eee;
+  margin-top: 0.5rem;
+}
+
+.class {
+  background: #bbb;
+  text-align: center;
+  padding-top: 1rem;
+  border-radius: 4px;
+  color: white;
+}
+
+.notice,
+.review {
+  grid-column: span 1;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
