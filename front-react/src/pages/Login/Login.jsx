@@ -15,6 +15,7 @@ function Login() {
   const { setStudent } = useContext(UserContext);
   const { setInstructor  } = useContext(InstructorContext);
   const { setTeam  } = useContext(TeamContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -42,7 +43,7 @@ function Login() {
       if (form.user_type == 'student') setStudent(data.student);
       else if (form.user_type == 'instructor') setInstructor(data.instructor);
       else if (form.user_type == 'team') setTeam(data.team);
-      window.location.href = '/';
+      navigate('/');
     } catch (err) {
       setMessage(err.message);
     }
@@ -106,5 +107,6 @@ function Login() {
     </div>
   );
 }
+
 
 export default Login;

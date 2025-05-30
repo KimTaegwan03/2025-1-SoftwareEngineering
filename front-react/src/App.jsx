@@ -28,6 +28,9 @@ import LectureForm from './pages/LectureForm';
 import LectureList from './pages/LectureList';
 import SyllabusDetail from './pages/SyllabusDetail';
 
+import EnrollPage from './pages/EnrollPage';
+import Timetable from './pages/Timetable';
+
 import InstLecture from './pages/InstLecture';
 import GradeInput from "./pages/GradeInput"; // 성적 입력
 import GradeView from "./pages/GradeView"; // 성적 조회
@@ -59,15 +62,12 @@ export default function App() {
         <Route path="/instructor/lectures" element={<InstLecture />} />
         <Route path="/gradeinput/:lectureId" element={<GradeInput />} />
         <Route path="/grades" element={<GradeView />} />
-        <Route path="/attendance/:lectureId" element={<AttendancePage />} />
-
-        {/* 강의페이지추가 */}
-        <Route path="/lecture" element={<LectureForm />} />
-        <Route path="/lectures" element={<LectureList />} />
-        <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
-        
-        {/* <Route path="/enroll" element={<EnrollPage />} />  
-        <Route path="/timetable" element={<Timetable />} />      */}
+         {/* 강의페이지추가 */}
+          <Route path="/lecture" element={<LectureForm />} />
+          <Route path="/lectures" element={<LectureList />} />
+          <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
+           <Route path="/enroll" element={<EnrollPage />} />  
+           <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
 
         <Route path="/announcements" element={<Announcements/>} />
