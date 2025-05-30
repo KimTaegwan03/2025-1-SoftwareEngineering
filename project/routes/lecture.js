@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Lecture = require('../models/Lecture');
-
+const Student = require('../models/Student');
 const Syllabus = require('../models/Syllabus');
+const Enrollment = require('../models/Enrollment');
+const Attendance = require('../models/Attendance');
 Lecture.hasOne(Syllabus, { foreignKey: 'lectureId' });
 
 // ✅ 강의 등록 API
@@ -90,5 +92,43 @@ router.get('/instructor', async (req, res) => {
 
   res.json(lectures);
 });
+
+router.get('/attendance/:lectureId', async (req, res) => {
+  const { lectureId } = req.params;
+  const enrollments = await Enrollment.findAll({
+    where: { lecture_id: lectureId },
+    include: [Student]
+  });
+
+  const students = enrollments.map(e => ({
+    studentId: e.studentId,
+    name: e.Student.name
+  }));
+
+  res.json(students);
+});
+
+router.post('/attendance/:lectureId', async (req, res) => {
+  const { lectureId } = req.params;
+  const { date, attendance } = req.body;
+  // attendance: [{ studentId: 1, status: '출석' }, ...]
+
+  const values = attendance.map(item => ({
+    lecture_id: lectureId,
+    student_id: item.studentId,
+    date,
+    status: item.status
+  }));
+
+  try {
+    for (const record of values) {
+      await Attendance.upsert(record); // 있으면 업데이트, 없으면 삽입
+    }
+    res.json({ message: '출석 저장 완료' });
+  } catch (err) {
+    res.status(500).json({ message: '출석 저장 실패', error: err });
+  }
+});
+
 
 module.exports = router;
