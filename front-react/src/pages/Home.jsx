@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
-
+import Timetable from './Timetable';
 function Home() {
+   const navigate = useNavigate();
   const [student, setStudent] = useState(null);
   const [credits, setCredits] = useState(null);
   const [notices, setNotices] = useState([]);
@@ -138,30 +140,22 @@ function Home() {
             <button onClick={handleSearch}>조회</button>
           </div>
         </section>
+<section
+        className="schedule"
+          onClick={() => navigate('/timetable')}
+         style={{ cursor: 'pointer' }}
+       >
+         <h3>
+          수업 시간표 (미리보기)&nbsp;
+           <span style={{ color: '#555', fontSize: '0.85rem' }}>
+             (클릭하면 전체 시간표 보기)
+           </span>
+         </h3>
+         <div style={{ overflowX: 'auto' }}>
+           <Timetable preview={true} />
+        </div>
+      </section>
 
-        {/* 4. 시간표 */}
-        <section className="schedule">
-          <h3>수업 시간표</h3>
-          <div className="schedule-grid">
-  {timetable.map((cls, idx) => {
-    const startRow = timeToRow[cls.scheduleTimes.start];
-    const endRow = timeToRow[cls.scheduleTimes.end] + 1;
-    const col = dayToCol[cls.scheduleDay];
-
-    return (
-      <div
-        key={idx}
-        className="class"
-        style={{ gridRow: `${startRow}/${endRow-1}`, gridColumn: col }}
-      >
-        {cls.title}
-        <br />
-        <small>{cls.building} {cls.roomNumber}</small>
-      </div>
-    );
-  })}
-</div>
-        </section>
 
         {/* 5. 공지사항 */}
         <section className="notice">
