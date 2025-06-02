@@ -23,6 +23,7 @@ var graderouter = require('./routes/grade');
 const lectureRouter = require('./routes/lecture');
 const syllabusRouter = require('./routes/syllabus');
 const enrollRouter = require('./routes/enroll');
+const statRouter = require('./routes/stat');
 var app = express();
 
 app.use(cors({
@@ -55,6 +56,7 @@ app.use('/grade', graderouter);
 app.use('/lecture', lectureRouter);
 app.use('/syllabus', syllabusRouter);
 app.use('/enroll', enrollRouter);
+app.use('/stats', statRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
