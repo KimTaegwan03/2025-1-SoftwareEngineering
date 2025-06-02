@@ -75,7 +75,7 @@ const LectureStats = () => {
 
       <section style={{ margin: '2rem 0' }}>
         <h3>학과별 수강 인원</h3>
-        <PieChart width={600} height={400}>
+        <PieChart width={600} height={600}>
           <Pie
             data={deptDistribution.map(item => ({
               name: item.dept,
