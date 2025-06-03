@@ -68,33 +68,10 @@ function Header() {
             {/* 로그인 드롭다운 */}
             <div
               style={{ position: 'relative' }}
-              onMouseEnter={() => setLoginHover(true)}
-              onMouseLeave={() => setLoginHover(false)}
             >
-              <p>로그인</p>
-              {loginHover && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  width: '100px',
-                  right: 0,
-                  backgroundColor: 'white',
-                  border: '1px solid #ccc',
-                  padding: '0.5rem',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  zIndex: 100
-                }}>
-                  <button onClick={() => navigate('/login')} style={{ display: 'block', width: '100%' }}>
-                    학생 로그인
-                  </button>
-                  <button onClick={() => navigate('/instlogin')} style={{ display: 'block', width: '100%' }}>
-                    교수 로그인
-                  </button>
-                  <button onClick={() => navigate('/teamlogin')} style={{ display: 'block', width: '100%' }}>
-                    교학팀 로그인
-                  </button>
-                </div>
-              )}
+              <button onClick={() => navigate('/login')} style={{ display: 'block', width: '100%' }}>
+                로그인
+              </button>
             </div>
             {/* 회원가입 드롭다운 */}
             <div
