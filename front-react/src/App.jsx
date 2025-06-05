@@ -1,12 +1,15 @@
 // App.jsx (또는 App.tsx)
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Header from './Header';
-import Home from "./pages/Home";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from 'react';
+import { UserContext } from '@/UserContext';
+import { InstructorContext } from '@/InstructorContext';
+import { TeamContext } from '@/TeamContext';
+
+import Header from '@/Header';
+import Home from "@/pages/Home/Home";
+import StudentHome from "@/pages/Home/StudentHome";
+import InstructorHome from "@/pages/Home/InstructorHome";
+import TeamHome from "@/pages/Home/TeamHome";
 
 // 회원가입
 import Register from '@/pages/Register/Register'; // 학생 회원가입
@@ -39,13 +42,31 @@ import AttendancePage from './pages/AttendancePage';
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
-export default function App() {
+export default function App() {  
+  const { student, setStudent  } = useContext(UserContext);
+  const { instructor, setInstructor  } = useContext(InstructorContext);
+  const { team, setTeam  } = useContext(TeamContext);
+
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route index element={<Home />} />{/* index는 path="/"와 같음 */}
-
+        {
+          student ? (
+            <Route index element={<StudentHome />} />
+          ) : (
+            instructor ? (
+              <Route index element={<InstructorHome />} />
+            ) : (
+              team ? (
+                <Route index element={<TeamHome />} />
+              ) : (
+                <Route index element={<Login />} />
+              )
+            )
+          )
+        }
+        
         {/* 회원가입 및 로그인 */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
