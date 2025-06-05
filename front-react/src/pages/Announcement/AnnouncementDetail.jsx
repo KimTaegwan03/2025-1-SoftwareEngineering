@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-export default function NoticeDetail() {
+export default function AnnouncementDetail() {
   const { id } = useParams();
   const [announcement, setAnnouncement] = useState(null);
 
@@ -12,36 +12,15 @@ export default function NoticeDetail() {
   }, [id]);
 
   const handleDownload = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/announcement/download');
+    const res = await fetch(`http://localhost:3000/public/${announcement.file_url}`);
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
 
-      if (!response.ok) {
-        throw new Error('다운로드 실패');
-      }
-
-      const blob = await response.blob();
-      const contentDisposition = response.headers.get('Content-Disposition');
-      let filename = 'downloaded_file';
-
-      // 서버가 Content-Disposition 헤더로 파일명 제공 시 추출
-      if (contentDisposition && contentDisposition.includes('filename=')) {
-        const match = contentDisposition.match(/filename="?(.+?)"?$/);
-        if (match && match[1]) {
-          filename = decodeURIComponent(match[1]);
-        }
-      }
-
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('다운로드 중 오류 발생:', err);
-    }
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'sample.pdf'; // 실제 저장될 파일명
+    link.click();
+    window.URL.revokeObjectURL(url); // 메모리 해제
   };
 
   if (!announcement) return <p>불러오는 중...</p>;
@@ -52,7 +31,7 @@ export default function NoticeDetail() {
       <p>{announcement.content}</p>
 
       <div style={{ padding: 20 }}>
-        <button onClick={handleDownload}>📥 파일 다운로드</button>
+        { announcement.file_url ? <button onClick={handleDownload}>📥 파일 다운로드</button> : <></> }
       </div>
 
       <p style={{ color: '#888', marginTop: 20 }}>

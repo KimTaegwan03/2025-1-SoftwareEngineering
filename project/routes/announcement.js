@@ -55,19 +55,15 @@ router.get('/:id', async (req, res, next) => {
 });
 
 /* 공지사항 post */
-router.post('/write', upload.single('image'), async (req, res) => {
-	console.log('BODY:', req.body);
-	console.log('FILE:', req.file);
-	const { lecture_id, writer_id, title, content } = req.body;
+router.post('/write', upload.single('file'), async (req, res) => {
+	const { lecture_id, title, content } = req.body;
 	const imagePath = req.file ? `/image/announcement/${req.file.filename}` : null;
-
 	try {
 		const newAnnouncement = await Announcement.create({
 			lecture_id: lecture_id,
-			writer_id: writer_id,
 			title: title,
 			content: content,
-			image_url: imagePath,
+			file_url: imagePath,
 			createdAt: new Date(),
 			updatedAt: new Date()
 		});
@@ -77,10 +73,5 @@ router.post('/write', upload.single('image'), async (req, res) => {
 		res.status(500).json({ error: '공지사항 등록 실패' });
 	}
 });
-
-router.get('/download', (req, res) => {
-	const filePath = path.join(__dirname, '..', 'public', 'image', 'cat.jpg');
-	res.sendFile(filePath);
-})
 
 module.exports = router;

@@ -11,10 +11,6 @@ const Announcement = sequelize.define('Announcement', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  writer_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
   title: {
     type: DataTypes.STRING,
     allowNull: false

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { InstructorContext } from '@/InstructorContext';
 
-export default function NoticeWrite() {
+export default function AnnouncementWrite() {
   const navigate = useNavigate();
   
   const [title, setTitle] = useState('');
@@ -19,11 +19,10 @@ export default function NoticeWrite() {
 
     ////////////////// lecture_id 구현하기 //////////////////////
     formData.append('lecture_id', 1);
-    formData.append('writer_id', instructor.id);
     formData.append('title', title);
     formData.append('content', content);
     if (file) formData.append('file', file);
-
+    
     try {
       const response = await fetch('http://localhost:3000/announcement/write', {
         method: 'POST',
@@ -68,7 +67,7 @@ export default function NoticeWrite() {
         </div>
         <div style={{ marginBottom: '15px' }}>
           <label>파일 업로드</label><br />
-          <input type="file" />
+          <input type="file" onChange={(e) => setfile(e.target.files[0])} />
         </div>
         <button type="submit" style={{ padding: '10px 20px' }}>
           등록
