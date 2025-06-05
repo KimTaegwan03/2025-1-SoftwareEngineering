@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import './Home.css';
+import './StudentHome.css';
 
-function Home() {
+function StudentHome() {
   const [student, setStudent] = useState(null);
   const [credits, setCredits] = useState(null);
   const [notices, setNotices] = useState([]);
@@ -25,7 +25,6 @@ function Home() {
     '16:30': 6,
     '18:00': 7
   };
-
 
   // 1. 학생 정보
   useEffect(() => {
@@ -191,4 +190,4 @@ function Home() {
   );
 };
 
-export default Home;
+export default StudentHome;
