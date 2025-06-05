@@ -9,9 +9,6 @@ const session = require('express-session');
 const { sequelize } = require('./models');
 
 
-
-
-
 //   .then(() => console.log('✅ DB 테이블 재생성 완료'))
 //   .catch(err => console.error('❌ DB 동기화 실패:', err));
 sequelize.sync({ force: true })
@@ -26,7 +23,7 @@ const announcementRouter = require('./routes/announcement');
 var graderouter = require('./routes/grade');
 const lectureRouter = require('./routes/lecture');
 const syllabusRouter = require('./routes/syllabus');
-
+const enrollRouter = require('./routes/enroll');
 var app = express();
 
 app.use(cors({
@@ -59,6 +56,7 @@ app.use('/announcement', announcementRouter);
 app.use('/grade', graderouter);
 app.use('/lecture', lectureRouter);
 app.use('/syllabus', syllabusRouter);
+app.use('/enroll', enrollRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

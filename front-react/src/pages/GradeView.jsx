@@ -3,6 +3,8 @@ import StudentGradeChart from './StudentGradeChart';
 
 function StudentGrades() {
   const [groupedGrades, setGroupedGrades] = useState({});
+  const [totalCredits, setTotalCredits] = useState(null);
+  const [gradCreds, setGradCred] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,14 +21,32 @@ function StudentGrades() {
           grouped[key].push(g);
         });
         setGroupedGrades(grouped);
+      });
+
+      // 졸업 기준 학점 조회
+    fetch('http://localhost:3000/grade/gradCreds', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        setTotalCredits(data.totalCredits);
+        setGradCred(data.gradCreds);
       })
       .finally(() => setLoading(false));
   }, []);
 
+
   if (loading) return <p>불러오는 중...</p>;
+
+  const remaining = gradCreds !== null && totalCredits !== null
+    ? Math.max(gradCreds - totalCredits, 0)
+    : null;
 
   return (
     <>
+        {remaining !== null && (
+        <div style={{ padding: '1rem', fontWeight: 'bold', color: remaining === 0 ? 'green' : 'black' }}>
+          졸업까지 남은 학점: {remaining}학점 ({totalCredits} / {gradCreds})
+        </div>
+        )}
         <StudentGradeChart />
         <div style={{ padding: '2rem' }}>
         <h2>성적 조회</h2>

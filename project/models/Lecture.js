@@ -19,6 +19,10 @@ const Lecture = sequelize.define('Lecture', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  professor: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   dept_name: {
     type: DataTypes.STRING,
     allowNull: false

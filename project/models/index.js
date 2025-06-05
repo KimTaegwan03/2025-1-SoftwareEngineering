@@ -12,8 +12,8 @@ const Notice = require('./Notice');
 const Question = require('./Question');
 const Student = require('./Student');
 const Syllabus = require('./Syllabus');
-const Teaches = require('./Teaches');
 const Teams = require('./Teams')
+const Attendance = require('./Attendance');
 
 // 관계 정의
 // Advisor
@@ -46,9 +46,9 @@ Question.belongsTo(Student, { foreignKey: 'writer', targetKey: 'ID' });
 Syllabus.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
 Syllabus.belongsTo(Instructor, { foreignKey: 'writer', targetKey: 'ID' });
 
-// Teaches
-Teaches.belongsTo(Instructor, { foreignKey: 'inst_id', targetKey: 'ID' });
-Teaches.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
+//Attendance
+Attendance.belongsTo(Student, { foreignKey: 'student_id', targetKey: 'ID' });
+Attendance.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
 
 module.exports = {
   sequelize,
@@ -63,6 +63,6 @@ module.exports = {
   Question,
   Student,
   Syllabus,
-  Teaches,
-  Teams
+  Teams,
+  Attendance
 };
