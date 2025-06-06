@@ -46,11 +46,16 @@ import AttendancePage from './pages/AttendancePage';
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
+
+import ProfLectureList from './pages/ProfLectureList';
+import LectureStats     from './pages/LectureStats';
+
+
+
 export default function App() {  
   const { student, setStudent  } = useContext(UserContext);
   const { instructor, setInstructor  } = useContext(InstructorContext);
   const { team, setTeam  } = useContext(TeamContext);
-
   return (
     <BrowserRouter>
       <Header />
@@ -99,6 +104,22 @@ export default function App() {
            <Route path="/enroll" element={<EnrollPage />} />  
            <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
+
+
+        <Route path="/announcements" element={<Announcements/>} />
+         {/* ─────────── 교수 전용 페이지 ─────────── */}
+        {/* 1) 내 강의 목록 (ProfLectureList) */}
+        <Route
+          path="/professor/lectures"
+          element={<ProfLectureList />}
+        />
+
+        {/* 2) 강의별 학과 통계 (LectureStats) */}
+        <Route
+          path="/professor/lecture/:lectureId/stats"
+          element={<LectureStats />}
+        />
+
 
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
