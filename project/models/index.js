@@ -25,7 +25,6 @@ Announcement.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
 
 // Assignment
 Assignment.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
-Assignment.belongsTo(Instructor, { foreignKey: 'writer', targetKey: 'ID' });
 
 // Enrollment
 Enrollment.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
@@ -33,6 +32,7 @@ Enrollment.belongsTo(Student, { foreignKey: 'studentId', targetKey: 'ID' });
 
 // Lecture
 Lecture.belongsTo(Department, { foreignKey: 'dept_name', targetKey: 'dept_name' });
+Lecture.belongsTo(Instructor, { foreignKey: 'instructor_id', targetKey: 'ID' });
 
 // Notice (전체 공지사항)
 Notice.belongsTo(Teams, { foreignKey: 'writer', targetKey: 'dept' });

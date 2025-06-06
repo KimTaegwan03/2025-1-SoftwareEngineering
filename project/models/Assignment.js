@@ -12,12 +12,8 @@ const Assignment = sequelize.define('Assignment', {
     autoIncrement: true
   },
   lecture_id: DataTypes.INTEGER,
-  writer: DataTypes.INTEGER,
   title: DataTypes.STRING,
   content: DataTypes.TEXT,
-  reg_date: DataTypes.DATE,
-  up_date: DataTypes.DATE,
-  del_date: DataTypes.DATE
 });
 
 module.exports = Assignment;
