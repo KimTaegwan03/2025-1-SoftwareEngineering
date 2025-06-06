@@ -1,12 +1,15 @@
 // App.jsx (또는 App.tsx)
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Header from './Header';
-import Home from "./pages/Home";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from 'react';
+import { UserContext } from '@/UserContext';
+import { InstructorContext } from '@/InstructorContext';
+import { TeamContext } from '@/TeamContext';
+
+import Header from '@/Header';
+import Home from "@/pages/Home/Home";
+import StudentHome from "@/pages/Home/StudentHome";
+import InstructorHome from "@/pages/Home/InstructorHome";
+import TeamHome from "@/pages/Home/TeamHome";
 
 // 회원가입
 import Register from '@/pages/Register/Register'; // 학생 회원가입
@@ -21,7 +24,11 @@ import Notice from '@/pages/Notice/Notice'
 import NoticeDetail from '@/pages/Notice/NoticeDetail'
 import NoticeWrite from '@/pages/Notice/NoticeWrite'
 
-import Announcements from '@/pages/Announcements';
+// Announcement 관련 페이지지
+import Announcement from '@/pages/Announcement/Announcement';
+import AnnouncementDetail from '@/pages/Announcement/AnnouncementDetail';
+import AnnouncementWrite from '@/pages/Announcement/AnnouncementWrite';
+
 import MyPage from './pages/MyPage';
 
 import LectureForm from './pages/LectureForm';
@@ -39,16 +46,36 @@ import AttendancePage from './pages/AttendancePage';
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
+
 import ProfLectureList from './pages/ProfLectureList';
 import LectureStats     from './pages/LectureStats';
 
-export default function App() {
+
+
+export default function App() {  
+  const { student, setStudent  } = useContext(UserContext);
+  const { instructor, setInstructor  } = useContext(InstructorContext);
+  const { team, setTeam  } = useContext(TeamContext);
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route index element={<Home />} />{/* index는 path="/"와 같음 */}
-
+        {
+          student ? (
+            <Route index element={<StudentHome />} />
+          ) : (
+            instructor ? (
+              <Route index element={<InstructorHome />} />
+            ) : (
+              team ? (
+                <Route index element={<TeamHome />} />
+              ) : (
+                <Route index element={<Login />} />
+              )
+            )
+          )
+        }
+        
         {/* 회원가입 및 로그인 */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -60,6 +87,11 @@ export default function App() {
         <Route path="/notice" element={<Notice/>} />
         <Route path="/notice/:id" element={<NoticeDetail />} />
         <Route path="/notice/write" element={<NoticeWrite />} />
+
+        { /* Announcement 관련 페이지 */ }
+        <Route path="/announcement" element={<Announcement />} />
+        <Route path="/announcement/:id" element={<AnnouncementDetail />} />
+        <Route path="/announcement/write" element={<AnnouncementWrite />} />
         
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/instructor/lectures" element={<InstLecture />} />
@@ -72,6 +104,7 @@ export default function App() {
            <Route path="/enroll" element={<EnrollPage />} />  
            <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
+
 
         <Route path="/announcements" element={<Announcements/>} />
          {/* ─────────── 교수 전용 페이지 ─────────── */}

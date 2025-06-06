@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
+//import './Home.css';
 import Timetable from './Timetable';
-function Home() {
-   const navigate = useNavigate();
+//function Home() {
+   //const navigate = useNavigate();
+
+import './StudentHome.css';
+
+function StudentHome() {
+  const navigate = useNavigate();  
   const [student, setStudent] = useState(null);
   const [credits, setCredits] = useState(null);
   const [notices, setNotices] = useState([]);
@@ -27,7 +32,6 @@ function Home() {
     '16:30': 6,
     '18:00': 7
   };
-
 
   // 1. 학생 정보
   useEffect(() => {
@@ -185,4 +189,4 @@ function Home() {
   );
 };
 
-export default Home;
+export default StudentHome;
