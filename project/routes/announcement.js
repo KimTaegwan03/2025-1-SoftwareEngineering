@@ -27,9 +27,11 @@ const upload = multer({ storage });
 
 /* 공지사항 10개 get */
 router.get('/', async (req, res, next) => {
+	const lecture_id = parseInt(req.query.lecture_id) || 0; // lecture_id가 0인 강의는 없음
 	const page = parseInt(req.query.page) || 1;
 	try {
 		const announcements = await Announcement.findAll({
+			where: { lecture_id: lecture_id },
 			order: [['createdAt', 'DESC']],        // 최신순
 			limit: 10,                      // 한 페이지당 10개
 			offset: (page - 1) * 10         // 건너뛸 개수
@@ -57,7 +59,7 @@ router.get('/:id', async (req, res, next) => {
 /* 공지사항 post */
 router.post('/write', upload.single('file'), async (req, res) => {
 	const { lecture_id, title, content } = req.body;
-	const imagePath = req.file ? `/image/announcement/${req.file.filename}` : null;
+	const imagePath = req.file ? `image/announcement/${req.file.filename}` : null;
 	try {
 		const newAnnouncement = await Announcement.create({
 			lecture_id: lecture_id,
@@ -71,6 +73,23 @@ router.post('/write', upload.single('file'), async (req, res) => {
 	} catch (err) {
 		console.error('DB insert 실패:', err);
 		res.status(500).json({ error: '공지사항 등록 실패' });
+	}
+});
+
+/* id가 id인 공지사항 delete */
+router.delete('/delete/:id', async (req, res, next) => {
+	try {
+		const deletedCount = await Announcement.destroy({
+			where: { id: req.params.id }
+		});
+
+		if (deletedCount === 0) {
+			return res.status(404).json({ error: '해당 공지를 찾을 수 없습니다.' });
+		}
+
+		res.json({ message: '공지사항이 성공적으로 삭제되었습니다.' });
+	} catch (err) {
+		next(err);
 	}
 });
 
