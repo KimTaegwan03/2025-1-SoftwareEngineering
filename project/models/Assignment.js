@@ -11,9 +11,21 @@ const Assignment = sequelize.define('Assignment', {
     primaryKey: true,
     autoIncrement: true
   },
-  lecture_id: DataTypes.INTEGER,
-  title: DataTypes.STRING,
-  content: DataTypes.TEXT,
+  lecture_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  content: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  file_url: {
+    type: DataTypes.STRING,
+  },
 });
 
 module.exports = Assignment;

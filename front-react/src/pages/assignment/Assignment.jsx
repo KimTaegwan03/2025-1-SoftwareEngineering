@@ -1,23 +1,24 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { InstructorContext } from '@/InstructorContext';
 import { UserContext } from '@/UserContext';
 
 export default function Assignment() {
+  const { lecture_id } = useParams();
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const [notices, setNotices] = useState([]);
+  const [assignments, setAssignments] = useState([]);
   const { instructor, setInstructor  } = useContext(InstructorContext);
   const { student, setStudent  } = useContext(UserContext);
 
   const getData = async (pageNum) => {
     try {
       // 서버 주소 아직 미정
-      const res = await fetch(`http://localhost:3000/announcement?page=${pageNum}`);
+      const res = await fetch(`http://localhost:3000/assignment?lecture_id=${lecture_id}?page=${pageNum}`);
       const data = await res.json();
-      setNotices(data);
+      setAssignments(data);
     } catch (err) {
       console.error('데이터 가져오기 실패:', err);
     }
@@ -37,7 +38,7 @@ export default function Assignment() {
         <div style={styles.buttonWrapper}>
           <button
             style={styles.writeButton}
-            onClick={() => navigate(`/announcement/write`)}
+            onClick={() => navigate(`/assignment/${lecture_id}/write`)}
           >
             글 쓰기
           </button>
@@ -45,16 +46,16 @@ export default function Assignment() {
       )}
 
       <div style={styles.noticeList}>
-        {notices.map((notice) => (
-          <div key={notice.id} style={styles.noticeItem}>
+        {assignments.map((assignment) => (
+          <div key={assignment.id} style={styles.noticeItem}>
             <button
               style={styles.titleButton}
-              onClick={() => navigate(`/announcement/${notice.id}`)}
+              onClick={() => navigate(`/assignment/${lecture_id}/${assignment.id}`)}
             >
-              {notice.title}
+              {assignment.title}
             </button>
             <span style={styles.date}>
-              {new Date(notice.createdAt).toISOString().slice(0, 10)}
+              {new Date(assignment.createdAt).toISOString().slice(0, 10)}
             </span>
           </div>
         ))}

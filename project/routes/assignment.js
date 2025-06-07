@@ -3,13 +3,13 @@ var router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const Announcement = require('../models/Announcement')
+const Assignment = require('../models/Assignment')
 const { Op } = require('sequelize');
 
 
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		const uploadPath = path.join(__dirname, '../public/image/announcement');
+		const uploadPath = path.join(__dirname, '../public/image/assignment');
 
 		// 폴더가 없으면 생성
 		if (!fs.existsSync(uploadPath)) {
@@ -33,13 +33,13 @@ router.get('/', async (req, res, next) => {
 	const lecture_id = parseInt(req.query.lecture_id) || 0; // lecture_id가 0인 강의는 없음
 	const page = parseInt(req.query.page) || 1;
 	try {
-		const announcements = await Announcement.findAll({
+		const assignments = await Assignment.findAll({
 			where: { lecture_id: lecture_id },
 			order: [['createdAt', 'DESC']],        // 최신순
 			limit: 10,                      // 한 페이지당 10개
 			offset: (page - 1) * 10         // 건너뛸 개수
 		});
-		res.json(announcements);
+		res.json(assignments);
 	} catch (err) {
 		console.log(err);
 		next(err); // 에러 핸들링을 위해 next 호출
@@ -49,11 +49,11 @@ router.get('/', async (req, res, next) => {
 /* id가 id인 공지사항 get */
 router.get('/:id', async (req, res, next) => {
 	try {
-		const announcement = await Announcement.findByPk(req.params.id);
-		if (!announcement) {
+		const assignments = await Assignment.findByPk(req.params.id);
+		if (!assignments) {
 			return res.status(404).json({ error: 'Not found' });
 		}
-		res.json(announcement);
+		res.json(assignments);
 	} catch (err) {
 		next(err);
 	}
@@ -62,9 +62,9 @@ router.get('/:id', async (req, res, next) => {
 /* 공지사항 post */
 router.post('/write', upload.single('file'), async (req, res) => {
 	const { lecture_id, title, content } = req.body;
-	const imagePath = req.file ? `image/announcement/${req.file.filename}` : null;
+	const imagePath = req.file ? `image/assignment/${req.file.filename}` : null;
 	try {
-		const newAnnouncement = await Announcement.create({
+		const newAssignment = await Assignment.create({
 			lecture_id: lecture_id,
 			title: title,
 			content: content,
@@ -72,7 +72,7 @@ router.post('/write', upload.single('file'), async (req, res) => {
 			createdAt: new Date(),
 			updatedAt: new Date()
 		});
-		res.status(201).json(newAnnouncement);
+		res.status(201).json(newAssignment);
 	} catch (err) {
 		console.error('DB insert 실패:', err);
 		res.status(500).json({ error: '공지사항 등록 실패' });
@@ -82,7 +82,7 @@ router.post('/write', upload.single('file'), async (req, res) => {
 /* id가 id인 공지사항 delete */
 router.delete('/delete/:id', async (req, res, next) => {
 	try {
-		const deletedCount = await Announcement.destroy({
+		const deletedCount = await Assignment.destroy({
 			where: { id: req.params.id }
 		});
 

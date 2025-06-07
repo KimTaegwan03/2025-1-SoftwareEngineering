@@ -90,14 +90,14 @@ export default function App() {
         <Route path="/notice/write" element={<NoticeWrite />} />
 
         { /* Announcement 관련 페이지 */ }
-        <Route path="/announcement" element={<Announcement />} />
-        <Route path="/announcement/:id" element={<AnnouncementDetail />} />
-        <Route path="/announcement/write" element={<AnnouncementWrite />} />
+        <Route path="/announcements/:lecture_id" element={<Announcement />} />
+        <Route path="/announcement/:lecture_id/:id" element={<AnnouncementDetail />} />
+        <Route path="/announcement/:lecture_id/write" element={<AnnouncementWrite />} />
         
         { /* Assignment 관련 페이지 */ }
-        <Route path="/assignment" element={<Assignment />} />
-        <Route path="/assignment/:id" element={<AssignmentDetail />} />
-        <Route path="/assignment/write" element={<AssignmentWrite />} />
+        <Route path="/assignments/:lecture_id" element={<Assignment />} />
+        <Route path="/assignment/:lecture_id/:id" element={<AssignmentDetail />} />
+        <Route path="/assignment/:lecture_id/write" element={<AssignmentWrite />} />
         
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/instructor/lectures" element={<InstLecture />} />

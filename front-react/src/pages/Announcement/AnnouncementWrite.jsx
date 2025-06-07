@@ -1,16 +1,14 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { InstructorContext } from '@/InstructorContext';
-
-export default function AssignmentWrite() {
+export default function AnnouncementWrite() {
+  const { lecture_id } = useParams();
   const navigate = useNavigate();
   
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [file, setfile] = useState(null);
 
-  const { instructor, setInstructor  } = useContext(InstructorContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +16,7 @@ export default function AssignmentWrite() {
     const formData = new FormData();
 
     ////////////////// lecture_id 구현하기 //////////////////////
-    formData.append('lecture_id', 1);
+    formData.append('lecture_id', lecture_id);
     formData.append('title', title);
     formData.append('content', content);
     if (file) formData.append('file', file);
@@ -31,7 +29,7 @@ export default function AssignmentWrite() {
 
       if (response.ok) {
         alert('공지사항이 등록되었습니다.');
-        navigate('/announcement');
+        navigate(`/announcements/${lecture_id}`);
       } else {
         alert('등록 실패');
       }
