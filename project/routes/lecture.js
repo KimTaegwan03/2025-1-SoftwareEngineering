@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
       endTime,
       maxSeats,
       syllabusContent,
-      instructor_id  
+      instructor_id
     } = req.body;
 
     // ✅ 교시 배열 생성
@@ -92,7 +92,6 @@ router.get('/instructor', async (req, res) => {
   const lectures = await Lecture.findAll({
     where: { instructor_id: instructorId }
   });
-
   res.json(lectures);
 });
 
@@ -210,7 +209,7 @@ router.get('/student/timetable', async (req, res) => {
     console.log('Enrollments:', enrollments);
 
     // 해당 학기와 연도의 강의만 필터링
-    const filteredEnrollments = enrollments.filter(e => 
+    const filteredEnrollments = enrollments.filter(e =>
       e.Lecture.semester === semester && e.Lecture.year === year
     );
 
