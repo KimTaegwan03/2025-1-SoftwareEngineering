@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function AnnouncementWrite() {
+export default function AssignmentWrite() {
   const { lecture_id } = useParams();
   const navigate = useNavigate();
   
@@ -22,14 +22,14 @@ export default function AnnouncementWrite() {
     if (file) formData.append('file', file);
     
     try {
-      const response = await fetch('http://localhost:3000/announcement/write', {
+      const response = await fetch('http://localhost:3000/assignment/write', {
         method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
         alert('공지사항이 등록되었습니다.');
-        navigate(`/announcements/${lecture_id}`);
+        navigate(`/assignments/${lecture_id}`);
       } else {
         alert('등록 실패');
       }
@@ -41,7 +41,7 @@ export default function AnnouncementWrite() {
 
   return (
     <div style={{ padding: '30px', maxWidth: '600px', margin: '0 auto' }}>
-      <h2>공지사항 작성</h2>
+      <h2>과제 작성</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div style={{ marginBottom: '15px' }}>
           <label>제목</label><br />

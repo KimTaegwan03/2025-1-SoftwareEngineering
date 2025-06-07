@@ -11,7 +11,7 @@ const { sequelize } = require('./models');
 
 //   .then(() => console.log('✅ DB 테이블 재생성 완료'))
 //   .catch(err => console.error('❌ DB 동기화 실패:', err));
-sequelize.sync({ force: true })
+sequelize.sync({ alter: true })
   .then(() => console.log('✅ DB 동기화 완료'))
   .catch((err) => console.error('❌ DB 동기화 실패:', err));
 
@@ -20,6 +20,7 @@ var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var noticeRouter = require('./routes/notice');
 const announcementRouter = require('./routes/announcement');
+const assignmentRouter = require('./routes/assignment');
 var graderouter = require('./routes/grade');
 const lectureRouter = require('./routes/lecture');
 const syllabusRouter = require('./routes/syllabus');
@@ -53,6 +54,7 @@ app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/notice', noticeRouter);
 app.use('/announcement', announcementRouter);
+app.use('/assignment', assignmentRouter);
 app.use('/grade', graderouter);
 app.use('/lecture', lectureRouter);
 app.use('/syllabus', syllabusRouter);

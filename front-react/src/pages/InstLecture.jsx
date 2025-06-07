@@ -57,6 +57,8 @@ function InstLecture() {
             <th>학기</th>
             <th>년도</th>
             <th>출석 체크</th>
+            <th>공지 보기</th>
+            <th>과제 보기</th>
           </tr>
         </thead>
         <tbody>
@@ -72,6 +74,12 @@ function InstLecture() {
               <td>{lecture.year}</td>
               <td>
                 <button onClick={() => navigate(`/attendance/${lecture.id}`)}>입력</button>
+              </td>
+              <td>
+                <button onClick={() => navigate(`/announcements/${lecture.id}`)}>이동</button>
+              </td>
+              <td>
+                <button onClick={() => navigate(`/assignments/${lecture.id}`)}>이동</button>
               </td>
             </tr>
           ))}

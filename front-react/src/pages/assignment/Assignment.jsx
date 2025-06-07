@@ -4,21 +4,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { InstructorContext } from '@/InstructorContext';
 import { UserContext } from '@/UserContext';
 
-export default function Announcement() {
+export default function Assignment() {
   const { lecture_id } = useParams();
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const [announcements, setAnnouncements] = useState([]);
+  const [assignments, setAssignments] = useState([]);
   const { instructor, setInstructor  } = useContext(InstructorContext);
   const { student, setStudent  } = useContext(UserContext);
 
   const getData = async (pageNum) => {
     try {
       // 서버 주소 아직 미정
-      const res = await fetch(`http://localhost:3000/announcement?lecture_id=${lecture_id}?page=${pageNum}`);
+      const res = await fetch(`http://localhost:3000/assignment?lecture_id=${lecture_id}?page=${pageNum}`);
       const data = await res.json();
-      setAnnouncements(data);
+      setAssignments(data);
     } catch (err) {
       console.error('데이터 가져오기 실패:', err);
     }
@@ -33,12 +33,12 @@ export default function Announcement() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>공지사항</h1>
+      <h1 style={styles.heading}>과제</h1>
       {instructor && (
         <div style={styles.buttonWrapper}>
           <button
             style={styles.writeButton}
-            onClick={() => navigate(`/announcement/${lecture_id}/write`)}
+            onClick={() => navigate(`/assignment/${lecture_id}/write`)}
           >
             글 쓰기
           </button>
@@ -46,16 +46,16 @@ export default function Announcement() {
       )}
 
       <div style={styles.noticeList}>
-        {announcements.map((announcement) => (
-          <div key={announcement.id} style={styles.noticeItem}>
+        {assignments.map((assignment) => (
+          <div key={assignment.id} style={styles.noticeItem}>
             <button
               style={styles.titleButton}
-              onClick={() => navigate(`/announcement/${lecture_id}/${announcement.id}`)}
+              onClick={() => navigate(`/assignment/${lecture_id}/${assignment.id}`)}
             >
-              {announcement.title}
+              {assignment.title}
             </button>
             <span style={styles.date}>
-              {new Date(announcement.createdAt).toISOString().slice(0, 10)}
+              {new Date(assignment.createdAt).toISOString().slice(0, 10)}
             </span>
           </div>
         ))}
