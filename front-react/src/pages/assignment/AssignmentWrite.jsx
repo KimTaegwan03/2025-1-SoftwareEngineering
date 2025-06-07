@@ -41,7 +41,7 @@ export default function AssignmentWrite() {
 
   return (
     <div style={{ padding: '30px', maxWidth: '600px', margin: '0 auto' }}>
-      <h2>공지사항 작성</h2>
+      <h2>과제 작성</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div style={{ marginBottom: '15px' }}>
           <label>제목</label><br />

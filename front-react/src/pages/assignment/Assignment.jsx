@@ -33,7 +33,7 @@ export default function Assignment() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>공지사항</h1>
+      <h1 style={styles.heading}>과제</h1>
       {instructor && (
         <div style={styles.buttonWrapper}>
           <button

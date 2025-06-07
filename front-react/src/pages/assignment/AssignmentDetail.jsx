@@ -1,6 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { InstructorContext } from '@/InstructorContext';
+import { UserContext } from '@/UserContext';
+
+import { SubmitForm, Submit} from '@/pages/Assignment/AssignmentSubmit'
 
 export default function AssignmentDetail() {
   const { lecture_id, id } = useParams();
@@ -8,6 +11,7 @@ export default function AssignmentDetail() {
   const [assignment, setAssignment] = useState(null);
 
   const { instructor, setInstructor  } = useContext(InstructorContext);
+  const { student, setStudent  } = useContext(UserContext);
 
   useEffect(() => {
     fetch(`http://localhost:3000/assignment/${id}`)
@@ -60,8 +64,14 @@ export default function AssignmentDetail() {
         </p>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <button onClick={handleDelete}>글 삭제</button>
+          { instructor ? <button onClick={handleDelete}>글 삭제</button> : null }
           <button onClick={()=>navigate(`/assignments/${lecture_id}`)}>목록</button>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          { student ? <Submit assignment_id={id} /> : null }
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          { student ? <SubmitForm lecture_id={lecture_id} assignment_id={id} /> : null }
         </div>
       </div>
     </div>

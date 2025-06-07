@@ -4,6 +4,7 @@ const sequelize = require('../db');
 const Advisor = require('./Advisor');
 const Announcement = require('./Announcement');
 const Assignment = require('./Assignment');
+const AssignmentSubmit = require('./AssignmentSubmit');
 const Department = require('./Department');
 const Enrollment = require('./Enrollment');
 const Instructor = require('./Instructor');
@@ -25,6 +26,8 @@ Announcement.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
 
 // Assignment
 Assignment.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
+AssignmentSubmit.belongsTo(Assignment, { foreignKey: 'assignment_id', targetKey: 'id' });
+AssignmentSubmit.belongsTo(Student, { foreignKey: 'student_id', targetKey: 'ID' });
 
 // Enrollment
 Enrollment.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });

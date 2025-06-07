@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const Assignment = require('../models/Assignment')
+const AssignmentSubmit = require('../models/AssignmentSubmit')
 const { Op } = require('sequelize');
 
 
@@ -28,7 +29,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* 공지사항 10개 get */
+/* 과제 10개 get */
 router.get('/', async (req, res, next) => {
 	const lecture_id = parseInt(req.query.lecture_id) || 0; // lecture_id가 0인 강의는 없음
 	const page = parseInt(req.query.page) || 1;
@@ -46,7 +47,7 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-/* id가 id인 공지사항 get */
+/* id가 id인 과제 get */
 router.get('/:id', async (req, res, next) => {
 	try {
 		const assignments = await Assignment.findByPk(req.params.id);
@@ -59,7 +60,7 @@ router.get('/:id', async (req, res, next) => {
 	}
 });
 
-/* 공지사항 post */
+/* 과제 post */
 router.post('/write', upload.single('file'), async (req, res) => {
 	const { lecture_id, title, content } = req.body;
 	const imagePath = req.file ? `image/assignment/${req.file.filename}` : null;
@@ -79,7 +80,7 @@ router.post('/write', upload.single('file'), async (req, res) => {
 	}
 });
 
-/* id가 id인 공지사항 delete */
+/* id가 id인 과제 delete */
 router.delete('/delete/:id', async (req, res, next) => {
 	try {
 		const deletedCount = await Assignment.destroy({
@@ -93,6 +94,46 @@ router.delete('/delete/:id', async (req, res, next) => {
 		res.json({ message: '공지사항이 성공적으로 삭제되었습니다.' });
 	} catch (err) {
 		next(err);
+	}
+});
+
+/* 과제 제출 get */
+router.get('/submit/:assignment_id', async (req, res) => {
+	const assignment_id = req.params.assignment_id;
+	const student_id = req.session.student.id;
+	try {
+		const submit = await AssignmentSubmit.findOne({
+			where: {
+				assignment_id: assignment_id,
+				student_id: student_id
+			}
+		});
+		res.status(201).json(submit);
+	} catch (err) {
+		console.error('DB insert 실패:', err);
+		res.status(500).json({ error: '공지사항 등록 실패' });
+	}
+});
+
+/* 과제 제출 post */
+router.post('/submit', upload.single('file'), async (req, res) => {
+	const { assignment_id, title, content } = req.body;
+	const imagePath = req.file ? `image/assignment/${req.file.filename}` : null;
+	const student_id = req.session.student.id
+	try {
+		const newSubmit = await AssignmentSubmit.create({
+			assignment_id: assignment_id,
+			student_id: student_id,
+			title: title,
+			content: content,
+			file_url: imagePath,
+			createdAt: new Date(),
+			updatedAt: new Date()
+		});
+		res.status(201).json(newSubmit);
+	} catch (err) {
+		console.error('DB insert 실패:', err);
+		res.status(500).json({ error: '공지사항 등록 실패' });
 	}
 });
 

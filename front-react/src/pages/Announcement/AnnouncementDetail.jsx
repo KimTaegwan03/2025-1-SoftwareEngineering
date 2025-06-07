@@ -60,7 +60,7 @@ export default function AnnouncementDetail() {
         </p>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <button onClick={handleDelete}>글 삭제</button>
+          { instructor ? <button onClick={handleDelete}>글 삭제</button> : null }
           <button onClick={()=>navigate(`/announcements/${lecture_id}`)}>목록</button>
         </div>
       </div>
