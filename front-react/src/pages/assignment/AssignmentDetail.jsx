@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-export default function AssignmentDetail() {
+export default function AnnouncementDetail() {
   const { id } = useParams();
   const [announcement, setAnnouncement] = useState(null);
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { InstructorContext } from '@/InstructorContext';
 
-export default function AssignmentWrite() {
+export default function AnnouncementWrite() {
   const navigate = useNavigate();
   
   const [title, setTitle] = useState('');
