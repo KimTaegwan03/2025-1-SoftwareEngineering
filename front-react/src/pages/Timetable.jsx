@@ -88,7 +88,7 @@ const Timetable = () => {
 
   return (
     <div>
-      <h2>📅 내 시간표</h2>
+      <h2> 내 시간표</h2>
       <table
         border="1"
         cellPadding="10"

@@ -14,12 +14,13 @@ function StudentHome() {
   const [notices, setNotices] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [timetable, setTimetable] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [filters, setFilters] = useState({
     year: '2025',
     semester: '1학기',
     course: '',
-    professor: '',
-    enrolledOnly: true
+    professor: ''
+    
   });
 
   const dayToCol = { '월': 2, '화': 3, '수': 4, '목': 5, '금': 6 };
@@ -71,19 +72,27 @@ function StudentHome() {
   }, []);
 
   // 6. 강의계획서 조회 (필요 시 버튼 클릭으로 fetch)
-  const handleSearch = () => {
-    const query = new URLSearchParams({
-      year: filters.year,
-      semester: filters.semester,
-      enrolledOnly: filters.enrolledOnly,
-      course: filters.course,
-      professor: filters.professor
-    }).toString();
-
-    fetch(`http://localhost:3000/syllabus/${query}`, {
-      credentials: 'include'
-    }).then(res => res.json()).then(data => console.log(data));
-  };
+   // 6. 강의계획서 조회: lecture/list → 필터링 → 결과 세팅
+ const handleSearch = () => {
+   fetch('http://localhost:3000/lecture/list', { credentials: 'include' })
+     .then(res => res.json())
+     .then(data => {
+       // client-side filter
+       const filtered = data.filter(lec => {
+         const matchYear     = lec.year.toString() === filters.year;
+         const matchSem      = filters.semester === '1학기'
+                             ? lec.semester === 1
+                             : lec.semester === 2;
+         const matchCourse   = lec.title.includes(filters.course);
+         const matchProf     = lec.professor.includes(filters.professor);
+        
+         return matchYear && matchSem && matchCourse && matchProf;
+       });
+       
+       setSearchResults(filtered);
+     })
+     .catch(err => console.error('강의 목록 조회 실패:', err));
+ };
 
   return (
     <div className="home-container">
@@ -114,36 +123,82 @@ function StudentHome() {
           )}
         </section>
 
-        {/* 3. 강의계획서 */}
-        <section className="lecture-plan">
-          <h3>강의계획서</h3>
-          <div className="filters">
-            <select value={filters.year} onChange={e => setFilters(f => ({ ...f, year: e.target.value }))}>
-              <option>2025</option><option>2024</option>
-            </select>
-            <select value={filters.semester} onChange={e => setFilters(f => ({ ...f, semester: e.target.value }))}>
-              <option>1학기</option><option>2학기</option>
-            </select>
-            <label>
-              <input
-                type="checkbox"
-                checked={filters.enrolledOnly}
-                onChange={e => setFilters(f => ({ ...f, enrolledOnly: e.target.checked }))}
-              /> 수강 여부
-            </label>
-            <input
-              placeholder="과목명"
-              value={filters.course}
-              onChange={e => setFilters(f => ({ ...f, course: e.target.value }))}
-            />
-            <input
-              placeholder="교수명"
-              value={filters.professor}
-              onChange={e => setFilters(f => ({ ...f, professor: e.target.value }))}
-            />
-            <button onClick={handleSearch}>조회</button>
-          </div>
-        </section>
+        {/* 3. 강의계획서 검색/리스트 */}
+<section className="lecture-plan">
+  <h3>강의계획서</h3>
+  <div className="filters">
+    <select
+      value={filters.year}
+      onChange={e => setFilters(f => ({ ...f, year: e.target.value }))}
+    >
+      <option>2025</option>
+      <option>2024</option>
+    </select>
+    <select
+      value={filters.semester}
+      onChange={e => setFilters(f => ({ ...f, semester: e.target.value }))}
+    >
+      <option>1학기</option>
+      <option>2학기</option>
+    </select>
+    
+    <input
+      placeholder="과목명"
+      value={filters.course}
+      onChange={e => setFilters(f => ({ ...f, course: e.target.value }))}
+    />
+    <input
+      placeholder="교수명"
+      value={filters.professor}
+      onChange={e => setFilters(f => ({ ...f, professor: e.target.value }))}
+    />
+    <button onClick={handleSearch}>조회</button>
+  </div>
+
+  {/* ─── 검색 결과 보여주기 ─── */}
+  {searchResults.length > 0 ? (
+    <ul className="search-results" style={{ marginTop: 16 }}>
+      {searchResults.map(lec => (
+        <li
+          key={lec.id}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '0.5rem 0',
+            borderBottom: '1px solid #eee'
+          }}
+        >
+          <span>
+            <strong>{lec.title}</strong> — {lec.professor} (
+            {lec.year}년 {lec.semester}학기)
+          </span>
+          <button
+            onClick={() => navigate(`/syllabus/${lec.id}`)}
+            style={{
+              background: '#1976d2',
+              color: 'white',
+              border: 'none',
+              padding: '0.25rem 0.75rem',
+              borderRadius: 4,
+              cursor: 'pointer'
+            }}
+          >
+            계획서 보기
+          </button>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    // 첫 조회 전이나, 결과가 없을 때 메시지
+    <p style={{ marginTop: 16, color: '#888' }}>
+      조회된 강의가 없습니다.
+    </p>
+  )}
+</section>
+
+
+
 <section
         className="schedule"
           onClick={() => navigate('/timetable')}
