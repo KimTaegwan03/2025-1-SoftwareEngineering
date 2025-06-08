@@ -29,6 +29,11 @@ import Announcement from '@/pages/Announcement/Announcement';
 import AnnouncementDetail from '@/pages/Announcement/AnnouncementDetail';
 import AnnouncementWrite from '@/pages/Announcement/AnnouncementWrite';
 
+// Assignment 관련 페이지
+import Assignment from '@/pages/Assignment/Assignment';
+import AssignmentDetail from '@/pages/Assignment/AssignmentDetail';
+import AssignmentWrite from '@/pages/Assignment/AssignmentWrite';
+
 import MyPage from './pages/MyPage';
 
 import LectureForm from './pages/LectureForm';
@@ -59,6 +64,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Header />
+      {/* 학생 교수 교학처에 따라 홈페이지를 다르게 렌더링 */}
       <Routes>
         {
           student ? (
@@ -92,6 +98,11 @@ export default function App() {
         <Route path="/announcements/:lecture_id" element={<Announcement />} />
         <Route path="/announcement/:lecture_id/:id" element={<AnnouncementDetail />} />
         <Route path="/announcement/:lecture_id/write" element={<AnnouncementWrite />} />
+        
+        { /* Assignment 관련 페이지 */ }
+        <Route path="/assignments/:lecture_id" element={<Assignment />} />
+        <Route path="/assignment/:lecture_id/:id" element={<AssignmentDetail />} />
+        <Route path="/assignment/:lecture_id/write" element={<AssignmentWrite />} />
         
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/instructor/lectures" element={<InstLecture />} />

@@ -1,19 +1,20 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
-const Assignment = sequelize.define('Assignment', {
+const AssignmentSubmit = sequelize.define('AssignmentSubmit', {
   // course_id: DataTypes.STRING,
   // sec_id: DataTypes.STRING,
   // semester: DataTypes.INTEGER,
   // year: DataTypes.INTEGER,
-  id: {
+  assignment_id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+    allowNull: false,
+    primaryKey: true
   },
-  lecture_id: {
+  student_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    primaryKey: true
   },
   title: {
     type: DataTypes.STRING,
@@ -28,4 +29,4 @@ const Assignment = sequelize.define('Assignment', {
   },
 });
 
-module.exports = Assignment;
+module.exports = AssignmentSubmit;
