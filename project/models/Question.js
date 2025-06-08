@@ -2,22 +2,30 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
 const Question = sequelize.define('Question', {
-  // course_id: DataTypes.STRING,
-  // sec_id: DataTypes.STRING,
-  // semester: DataTypes.INTEGER,
-  // year: DataTypes.INTEGER,
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  lecture_id: DataTypes.INTEGER,
-  writer: DataTypes.INTEGER,
-  title: DataTypes.STRING,
-  content: DataTypes.TEXT,
-  reg_date: DataTypes.DATE,
-  up_date: DataTypes.DATE,
-  del_date: DataTypes.DATE
+  lecture_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  writer_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  content: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  file_url: {
+    type: DataTypes.STRING,
+  }
 });
 
 module.exports = Question;
