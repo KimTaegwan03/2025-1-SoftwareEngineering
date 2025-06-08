@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //import './Home.css';
-import Timetable from './Timetable';
+import Timetable from '@/pages/Timetable';
 //function Home() {
    //const navigate = useNavigate();
 

@@ -88,7 +88,6 @@ export default function App() {
         <Route path="/instregister" element={<InstRegister />} />
         <Route path="/teamregister" element={<TeamRegister />} />
 
-
         { /* Notice 관련 페이지 */ }
         <Route path="/notice" element={<Notice/>} />
         <Route path="/notice/:id" element={<NoticeDetail />} />
@@ -108,17 +107,16 @@ export default function App() {
         <Route path="/instructor/lectures" element={<InstLecture />} />
         <Route path="/gradeinput/:lectureId" element={<GradeInput />} />
         <Route path="/grades" element={<GradeView />} />
-         {/* 강의페이지추가 */}
-          <Route path="/lecture" element={<LectureForm />} />
-          <Route path="/lectures" element={<LectureList />} />
-          <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
-           <Route path="/enroll" element={<EnrollPage />} />  
-           <Route path="/timetable" element={<Timetable />} />     
+        
+        {/* 강의페이지추가 */}
+        <Route path="/lecture" element={<LectureForm />} />
+        <Route path="/lectures" element={<LectureList />} />
+        <Route path="/syllabus/:lectureId" element={<SyllabusDetail />} />
+        <Route path="/enroll" element={<EnrollPage />} />  
+        <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
 
-
-        <Route path="/announcements" element={<Announcements/>} />
-         {/* ─────────── 교수 전용 페이지 ─────────── */}
+        {/* ─────────── 교수 전용 페이지 ─────────── */}
         {/* 1) 내 강의 목록 (ProfLectureList) */}
         <Route
           path="/professor/lectures"
