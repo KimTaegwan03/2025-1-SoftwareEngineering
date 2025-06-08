@@ -67,7 +67,7 @@ const LectureStats = () => {
 
   return (
     <div style={{ padding: '1rem' }}>
-      <h2>📊 강의 통계: {title}</h2>
+      <h2> 강의 통계: {title}</h2>
       {/* 총 수강 인원 표시 */}
       <p style={{ fontSize: '1.1rem', marginTop: '0.5rem', marginBottom: '2rem' }}>
         총 수강 인원: <strong>{totalEnrolled}명</strong>

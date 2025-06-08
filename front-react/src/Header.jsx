@@ -43,7 +43,7 @@ function Header() {
         ) : instructor ? (
           <>
           <Link to='/instructor/lectures'>강의 관리</Link>
-          
+           <Link to="/lecture">강의 등록</Link>
           </>
         ) : (
           <p></p>
