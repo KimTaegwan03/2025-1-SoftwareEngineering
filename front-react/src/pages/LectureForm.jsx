@@ -3,6 +3,7 @@ import { InstructorContext } from '../InstructorContext';
 
 const LectureForm = () => {
     const { instructor } = useContext(InstructorContext);
+    if (!instructor) return;
   const [formData, setFormData] = useState({
     course_id: '',
     title: '',
