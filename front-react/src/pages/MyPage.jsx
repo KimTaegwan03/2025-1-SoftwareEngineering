@@ -23,7 +23,7 @@ function MyPage() {
   if (!student) return <div>정보 없음</div>;
 
 return (
-    <div style={{ minHeight: `${window.innerHeight}px`, padding: '2rem', textAlign: 'center', backgroundColor: '#f6f6f6' }}>
+    <div style={{ minHeight: `${window.innerHeight}px`, padding: '2rem', textAlign: 'center', backgroundColor: '#ffffff' }}>
         <div id='upper' style={{ marginLeft: 'auto', marginRight: 'auto', width: '50%' }}>
         <h2>마이페이지</h2>
         <table style={{ margin: '1rem auto', borderCollapse: 'collapse', width: '80%' }} border="1">
