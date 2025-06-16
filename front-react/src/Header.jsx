@@ -36,9 +36,15 @@ function Header() {
         <Link to='/'>Home</Link>
         <Link to='/notice'>공지사항</Link>
         { student ? (
+          <>
           <Link to='/grades'>성적 조회</Link>
+          <Link to="/enroll">수강신청</Link>
+          </>
         ) : instructor ? (
+          <>
           <Link to='/instructor/lectures'>강의 관리</Link>
+           <Link to="/lecture">강의 등록</Link>
+          </>
         ) : (
           <p></p>
         )}
