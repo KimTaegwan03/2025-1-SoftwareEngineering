@@ -83,7 +83,7 @@ function InstLecture() {
                 <button onClick={() => navigate(`/assignments/${lecture.id}`)}>이동</button>
               </td>
               <td>
-                <button onClick={() => navigate(`/professor/lecture/${lecture.id}/stats`)}>이동</button>
+                <button onClick={() => navigate(`/instructor/lectures/${lecture.id}/stats`)}>이동</button>
               </td>
             </tr>
           ))}

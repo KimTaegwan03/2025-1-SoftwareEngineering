@@ -114,7 +114,10 @@ export default function App() {
         <Route path="/question/:lecture_id/write" element={<QuestionWrite />} />
         
         <Route path="/mypage" element={<MyPage />} />
+        { /* 교수 강의 목록 */}
         <Route path="/instructor/lectures" element={<InstLecture />} />
+        { /* 교수 강의 통계 */}
+        <Route path="/instructor/lectures/:lectureId/stats" element={<LectureStats />} />
         <Route path="/gradeinput/:lectureId" element={<GradeInput />} />
         <Route path="/grades" element={<GradeView />} />
         
@@ -125,20 +128,6 @@ export default function App() {
         <Route path="/enroll" element={<EnrollPage />} />  
         <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
-
-        {/* ─────────── 교수 전용 페이지 ─────────── */}
-        {/* 1) 내 강의 목록 (ProfLectureList) */}
-        <Route
-          path="/professor/lectures"
-          element={<ProfLectureList />}
-        />
-
-        {/* 2) 강의별 학과 통계 (LectureStats) */}
-        <Route
-          path="/professor/lecture/:lectureId/stats"
-          element={<LectureStats />}
-        />
-
 
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
