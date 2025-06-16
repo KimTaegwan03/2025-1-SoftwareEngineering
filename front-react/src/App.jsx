@@ -34,6 +34,11 @@ import Assignment from '@/pages/Assignment/Assignment';
 import AssignmentDetail from '@/pages/Assignment/AssignmentDetail';
 import AssignmentWrite from '@/pages/Assignment/AssignmentWrite';
 
+// Q&A 관련 페이지
+import Question from '@/pages/Qna/Question';
+import QuestionDetail from '@/pages/Qna/QuestionDetail';
+import QuestionWrite from '@/pages/Qna/QuestionWrite';
+
 import MyPage from './pages/MyPage';
 
 import LectureForm from './pages/LectureForm';
@@ -102,6 +107,11 @@ export default function App() {
         <Route path="/assignments/:lecture_id" element={<Assignment />} />
         <Route path="/assignment/:lecture_id/:id" element={<AssignmentDetail />} />
         <Route path="/assignment/:lecture_id/write" element={<AssignmentWrite />} />
+
+        { /* Q&A 관련 페이지 */ }
+        <Route path="/questions/:lecture_id" element={<Question />} />
+        <Route path="/question/:lecture_id/:question_id" element={<QuestionDetail />} />
+        <Route path="/question/:lecture_id/write" element={<QuestionWrite />} />
         
         <Route path="/mypage" element={<MyPage />} />
         { /* 교수 강의 목록 */}

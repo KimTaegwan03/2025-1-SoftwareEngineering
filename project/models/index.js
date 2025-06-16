@@ -11,6 +11,7 @@ const Instructor = require('./Instructor');
 const Lecture = require('./Lecture');
 const Notice = require('./Notice');
 const Question = require('./Question');
+const Answer = require('./Answer');
 const Student = require('./Student');
 const Syllabus = require('./Syllabus');
 const Teams = require('./Teams')
@@ -42,7 +43,9 @@ Notice.belongsTo(Teams, { foreignKey: 'writer', targetKey: 'dept' });
 
 // Question
 Question.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
-Question.belongsTo(Student, { foreignKey: 'writer', targetKey: 'ID' });
+Question.belongsTo(Student, { foreignKey: 'writer_id', targetKey: 'ID' });
+Answer.belongsTo(Question, { foreignKey: 'question_id', targetKey: 'id' });
+Answer.belongsTo(Instructor, { foreignKey: 'writer_id', targetKey: 'ID' });
 
 // Syllabus
 Syllabus.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
@@ -63,6 +66,7 @@ module.exports = {
   Lecture,
   Notice,
   Question,
+  Answer,
   Student,
   Syllabus,
   Teams,
