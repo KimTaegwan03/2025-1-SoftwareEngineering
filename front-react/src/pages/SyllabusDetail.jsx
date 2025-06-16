@@ -16,7 +16,7 @@ const SyllabusDetail = () => {
 
   return (
     <div>
-      <h2>📘 강의 계획서</h2>
+      <h2> 강의 계획서</h2>
       <p><strong>강의코드:</strong> {syllabus.course_id}</p>
       <p><strong>분반코드:</strong> {syllabus.sec_id}</p>
       <p><strong>강의명:</strong> {syllabus.title}</p>
@@ -30,7 +30,7 @@ const SyllabusDetail = () => {
         <p><strong>요일 / 교시:</strong> {syllabus.scheduleDay} / [{syllabus.scheduleTimes.join(', ')}]</p>
       )}
 
-      <h3>📄 내용</h3>
+      <h3> 내용</h3>
       <pre>{syllabus.content}</pre>
     </div>
   );

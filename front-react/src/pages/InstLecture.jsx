@@ -59,7 +59,7 @@ function InstLecture() {
             <th>출석 체크</th>
             <th>공지 보기</th>
             <th>과제 보기</th>
-            <th>질문 보기</th>
+            <th>통계 보기</th>
           </tr>
         </thead>
         <tbody>
@@ -83,7 +83,7 @@ function InstLecture() {
                 <button onClick={() => navigate(`/assignments/${lecture.id}`)}>이동</button>
               </td>
               <td>
-                <button onClick={() => navigate(`/questions/${lecture.id}`)}>이동</button>
+                <button onClick={() => navigate(`/professor/lecture/${lecture.id}/stats`)}>이동</button>
               </td>
             </tr>
           ))}
