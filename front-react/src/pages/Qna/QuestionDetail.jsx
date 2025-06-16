@@ -3,15 +3,15 @@ import { useEffect, useState, useContext } from 'react';
 import { InstructorContext } from '@/InstructorContext';
 import { UserContext } from '@/UserContext';
 
-import { AnswerList, AnswerForm } from '@/pages/Qna/Answer'
+import { AnswerList, AnswerForm } from '@/pages/Qna/Answer';
 
 export default function QuestionDetail() {
   const { lecture_id, question_id } = useParams();
   const navigate = useNavigate();
   const [question, setQuestion] = useState(null);
 
-  const { instructor, setInstructor  } = useContext(InstructorContext);
-  const { student, setStudent  } = useContext(UserContext);
+  const { instructor } = useContext(InstructorContext);
+  const { student } = useContext(UserContext);
 
   useEffect(() => {
     fetch(`http://localhost:3000/question/${question_id}`)
@@ -19,51 +19,43 @@ export default function QuestionDetail() {
       .then((data) => setQuestion(data));
   }, [question_id]);
 
-  const handleDownload = async () => {
-    const res = await fetch(`http://localhost:3000/${question.file_url}`);
-    const blob = await res.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    const [id, filename] = question.file_url.split('-', 2);
-    link.href = url;
-    link.download = filename; // 실제 저장될 파일명
-    link.click();
-    window.URL.revokeObjectURL(url); // 메모리 해제
-  };
-
-  const handleDelete = async () => {
-    const res = await fetch(`http://localhost:3000/question/delete/${question_id}`, {
-      method: 'DELETE',
-      credentials: 'include'
-    });
-    const data = await res.json();
-
-    if (res.ok) {
-      alert(data.message); // ✅ 서버에서 온 메시지 출력
-      navigate(`/questions/${lecture_id}`); // ✅ 이동
-    } else {
-      alert(data.error || '삭제 중 오류가 발생했습니다.');
-    }
-  }
-
-  if (!question) return <p>불러오는 중...</p>;
+  if (!question) return <p className="text-center mt-10">불러오는 중...</p>;
 
   return (
-    <div className="p-4 border rounded shadow mb-4">
-      <h2 className="text-xl font-bold mb-2">Q. {question.title}</h2>
-      <p className="text-gray-700 mb-4">{question.content}</p>
-      <div style={{ padding: 20 }}>
-        { question.file_url ? <button onClick={handleDownload}>📥 파일 다운로드</button> : <></> }
+    <div className="flex flex-col items-center py-8 px-4 bg-gray-50 min-h-screen">
+      {/* 질문 영역 */}
+      <div className="w-full max-w-2xl bg-white p-6 rounded shadow border mb-6">
+        <h2 className="text-xl font-bold mb-2 text-center">Q. {question.title}</h2>
+        <p className="text-gray-800 mb-4 text-center">{question.content}</p>
+        <div className="text-center my-4">
+          {question.file_url && (
+            <img
+              src={`http://localhost:3000/${question.file_url}`}
+              alt="질문 이미지"
+              className="max-w-full max-h-[400px] border"
+              onError={(e) => {
+                e.target.src = '';
+                alert('이미지를 불러올 수 없습니다.');
+              }}
+            />
+          )}
+        </div>
+        <p className="text-sm text-right text-gray-500">
+          게시일: {new Date(question.createdAt).toISOString().slice(0, 10)}
+        </p>
       </div>
 
-      <p style={{ color: '#888', marginTop: 20 }}>
-        게시일: {new Date(question.createdAt).toISOString().slice(0, 10)}
-      </p>
+      {/* 답변 목록 */}
+      <div className="w-full max-w-2xl bg-white p-4 rounded shadow border mb-6">
+        <AnswerList question_id={question_id} />
+      </div>
 
-      <AnswerList question_id={ question_id }/>
-      { instructor ? <AnswerForm question_id={ question_id }/> : null }
-      
+      {/* 답변 입력 */}
+      {instructor && (
+        <div className="w-full max-w-2xl bg-white p-4 rounded shadow border">
+          <AnswerForm question_id={question_id} />
+        </div>
+      )}
     </div>
   );
 }

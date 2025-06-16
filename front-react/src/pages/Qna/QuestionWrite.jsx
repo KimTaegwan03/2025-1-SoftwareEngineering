@@ -66,7 +66,7 @@ export default function QuestionWrite() {
         </div>
         <div style={{ marginBottom: '15px' }}>
           <label>파일 업로드</label><br />
-          <input type="file" onChange={(e) => setfile(e.target.files[0])} />
+          <input type="file" accept="image/*" onChange={(e) => setfile(e.target.files[0])} />
         </div>
         <button type="submit" style={{ padding: '10px 20px' }}>
           등록
