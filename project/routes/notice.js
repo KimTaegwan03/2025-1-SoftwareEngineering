@@ -20,10 +20,10 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     file.originalname = Buffer.from(file.originalname, "latin1").toString(
-			"utf-8"
-		);
-		const uniqueName = Date.now() + '-' + file.originalname;
-		cb(null, uniqueName);
+      "utf-8"
+    );
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
   }
 });
 const upload = multer({ storage });
@@ -33,7 +33,7 @@ router.get('/', async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   try {
     const notices = await Notice.findAll({
-      order: [['createdAt', 'DESC']],        // 최신순
+      order: [['updatedAt', 'DESC']],        // 최신순
       limit: 10,                      // 한 페이지당 10개
       offset: (page - 1) * 10         // 건너뛸 개수
     });

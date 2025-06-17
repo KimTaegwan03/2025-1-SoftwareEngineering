@@ -31,13 +31,10 @@ const upload = multer({ storage });
 /* 공지사항 10개 get */
 router.get('/', async (req, res, next) => {
 	const lecture_id = parseInt(req.query.lecture_id) || 0; // lecture_id가 0인 강의는 없음
-	const page = parseInt(req.query.page) || 1;
 	try {
 		const announcements = await Announcement.findAll({
 			where: { lecture_id: lecture_id },
-			order: [['createdAt', 'DESC']],        // 최신순
-			limit: 10,                      // 한 페이지당 10개
-			offset: (page - 1) * 10         // 건너뛸 개수
+			order: [['updatedAt', 'DESC']],        // 최신순
 		});
 		res.json(announcements);
 	} catch (err) {
