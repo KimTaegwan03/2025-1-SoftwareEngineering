@@ -7,13 +7,10 @@ const { Op } = require('sequelize');
 router.get('/', async (req, res, next) => {
 	console.log('✅ answer GET route hit'); // 로그 추가
 	const question_id = parseInt(req.query.question_id) || 0; // lecture_id가 0인 강의는 없음
-	const page = parseInt(req.query.page) || 1;
 	try {
 		const answers = await Answer.findAll({
 			where: { question_id: question_id },
-			order: [['createdAt', 'DESC']],        // 최신순
-			limit: 10,                      // 한 페이지당 10개
-			offset: (page - 1) * 10         // 건너뛸 개수
+			order: [['createdAt', 'ASC']],        // 최신순
 		});
 		res.json(answers);
 	} catch (err) {

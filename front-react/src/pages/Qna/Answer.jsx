@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 // ✅ 답변 리스트 컴포넌트
 export function AnswerList({ question_id }) {
-  const [page, setPage] = useState(1);
   const [answers, setAnswers] = useState([]);
 
-  const getData = async (pageNum) => {
+  const getData = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/answer?question_id=${question_id}&page=${pageNum}`);
+      const res = await fetch(`http://localhost:3000/answer?question_id=${question_id}`);
       const data = await res.json();
       setAnswers(data);
     } catch (err) {
@@ -17,11 +16,8 @@ export function AnswerList({ question_id }) {
   };
 
   useEffect(() => {
-    getData(page);
-  }, [page]);
-
-  const handleNext = () => setPage((prev) => prev + 1);
-  const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
+    getData();
+  }, []);
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4">
@@ -41,23 +37,6 @@ export function AnswerList({ question_id }) {
         ) : (
           <p className="text-center text-gray-400">아직 등록된 답변이 없습니다.</p>
         )}
-      </div>
-
-      <div className="flex justify-center items-center gap-4 mt-6">
-        <button
-          onClick={handlePrev}
-          disabled={page === 1}
-          className="px-3 py-1 rounded border border-[#8A1601] text-[#8A1601] hover:bg-[#8A1601]/10 disabled:opacity-40"
-        >
-          이전
-        </button>
-        <span className="text-[#8A1601] font-medium">페이지 {page}</span>
-        <button
-          onClick={handleNext}
-          className="px-3 py-1 rounded border border-[#8A1601] text-[#8A1601] hover:bg-[#8A1601]/10"
-        >
-          다음
-        </button>
       </div>
     </div>
   );
