@@ -23,32 +23,33 @@ function MyPage() {
   if (!student) return <div>정보 없음</div>;
 
 return (
-    <div style={{ minHeight: `${window.innerHeight}px`, padding: '2rem', textAlign: 'center', backgroundColor: '#FFF8F5' }}>
-        <div id='upper' style={{ marginLeft: 'auto', marginRight: 'auto', width: '50%' }}>
-        <h2>마이페이지</h2>
+    <div className="min-h-screen flex flex-col items-center" style={{backgroundColor: '#FFF8F5'}}>
+        <h1 className="text-2xl font-bold m-4">마이페이지</h1>
+        <div className="w-full bg-white rounded shadow"
+     style={{ maxWidth: '40%', border: '1px solid #ccc', paddingTop: '1rem', margin: '1rem 0' }}>
         <table style={{ margin: '1rem auto', borderCollapse: 'collapse', width: '80%' }} border="1">
             <tbody>
                 <tr>
                     <th style={{ padding: '0.5rem' }}>이름</th>
-                    <td style={{ padding: '0.5rem' }}>{student.name}</td>
+                    <td style={{textAlign: "center", padding: '0.5rem' }}>{student.name}</td>
                     <th style={{ padding: '0.5rem' }}>학번</th>
-                    <td style={{ padding: '0.5rem' }}>{String(student.id).padStart(10,'0')}</td>
+                    <td style={{textAlign: "center", padding: '0.5rem' }}>{String(student.id).padStart(10,'0')}</td>
                 </tr>
                 <tr>
                     <th style={{ padding: '0.5rem' }}>학과</th>
-                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.dept_name}</td>
+                    <td  colspan="3" style={{ textAlign: "center", padding: '0.5rem' }}>{student.dept_name}</td>
                 </tr>
                 <tr>
                     <th style={{ padding: '0.5rem' }}>이메일</th>
-                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.email}</td>
+                    <td colspan="3" style={{textAlign: "center", padding: '0.5rem' }}>{student.email}</td>
                 </tr>
                 <tr>
                     <th style={{ padding: '0.5rem' }}>전화번호</th>
-                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.phone}</td>
+                    <td colspan="3" style={{textAlign: "center", padding: '0.5rem' }}>{student.phone}</td>
                 </tr>
                 <tr>
                     <th style={{ padding: '0.5rem' }}>주소</th>
-                    <td colspan="3" style={{ padding: '0.5rem' }}>{student.address}</td>
+                    <td colspan="3" style={{textAlign: "center", padding: '0.5rem' }}>{student.address}</td>
                 </tr>
             </tbody>
         </table>

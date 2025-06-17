@@ -44,55 +44,64 @@ function InstLecture() {
   if (loading) return <p>불러오는 중...</p>;
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>내 강의 목록</h2>
+    <div className="min-h-screen flex flex-col items-center" style={{backgroundColor: '#FFF8F5'}}>
+      <h1 className="text-2xl font-bold m-4">강의 목록</h1>
       <div style={{ marginBottom: '1rem' }}>
         <button onClick={sortByYear}>년도 정렬 {sortYearAsc ? '▲' : '▼'}</button>{' '}
         <button onClick={sortBySemester}>학기 정렬 {sortSemesterAsc ? '▲' : '▼'}</button>
       </div>
-      <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse', width: '60%' }}>
-        <thead>
+      <div  className="w-full bg-white rounded shadow" style={{maxWidth: '60%', border: '1px solid #ccc', paddingTop: '1rem', margin: '1rem 0'}}>
+      <table style={{
+                          // boxShadow: "0 2px 5px rgba(0,0,0,.25)",
+                          width: "95%",
+                          borderCollapse: "collapse",
+                          border: "1px solid #ccc",
+                          overflow: "hidden",
+                          margin: "1rem auto"}}>
+        <thead style={{fontWeight: "bold", color: "#fff", backgroundColor: "#8A1601"}}>
           <tr>
-            <th>강의명</th>
-            <th>학기</th>
-            <th>년도</th>
-            <th>출석 체크</th>
-            <th>공지 보기</th>
-            <th>과제 보기</th>
-            <th>Q&A 보기</th>
-            <th>통계 보기</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>강의명</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>학기</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>년도</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>성적 입력</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>출석 체크</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>공지 보기</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>과제 보기</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>Q&A 보기</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>통계 보기</th>
           </tr>
         </thead>
         <tbody>
           {sortedLectures.map(lecture => (
             <tr key={lecture.id}>
-              <td
-                style={{ color: 'blue', cursor: 'pointer' }}
-                onClick={() => navigate(`/gradeinput/${lecture.id}`)}
-              >
+              <td style={{padding:'.5rem', textAlign:'center'}}>
                 {lecture.title}
               </td>
-              <td>{lecture.semester}</td>
-              <td>{lecture.year}</td>
-              <td>
-                <button onClick={() => navigate(`/attendance/${lecture.id}`)}>입력</button>
+              <td style={{padding:'.5rem', textAlign:'center'}}>{lecture.semester}</td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>{lecture.year}</td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
+                <button onClick={() => navigate(`/gradeinput/${lecture.id}`)}>이동</button>
               </td>
-              <td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
+                <button onClick={() => navigate(`/attendance/${lecture.id}`)}>이동</button>
+              </td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
                 <button onClick={() => navigate(`/announcements/${lecture.id}`)}>이동</button>
               </td>
-              <td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
                 <button onClick={() => navigate(`/assignments/${lecture.id}`)}>이동</button>
               </td>
-              <td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
                 <button onClick={() => navigate(`/questions/${lecture.id}`)}>이동</button>
               </td>
-              <td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
                 <button onClick={() => navigate(`/instructor/lectures/${lecture.id}/stats`)}>이동</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }
