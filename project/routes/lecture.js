@@ -7,7 +7,7 @@ const Enrollment = require('../models/Enrollment');
 const Attendance = require('../models/Attendance');
 Lecture.hasOne(Syllabus, { foreignKey: 'lectureId' });
 
-// ✅ 강의 등록 API
+//  강의 등록 API
 router.post('/register', async (req, res) => {
   try {
     const {
@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
       instructor_id
     } = req.body;
 
-    // ✅ 교시 배열 생성
+    //  교시 배열 생성
     const start = Number(startTime);
     const end = Number(endTime);
     const scheduleTimes = [];
@@ -65,7 +65,9 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// ✅ 강의 목록 조회 API
+
+
+//  강의 목록 조회 API
 router.get('/list', async (req, res) => {
   try {
     const lectures = await Lecture.findAll({
@@ -119,7 +121,7 @@ router.get('/attendance/:lectureId', async (req, res) => {
     });
 
     if (attendanceRecords.length > 0) {
-      // ✅ 출석 정보가 있으면 반환
+      //  출석 정보가 있으면 반환
       const formatted = attendanceRecords.map(r => ({
         studentId: r.student_id,
         name: r.Student.name,
@@ -230,5 +232,30 @@ router.get('/student/timetable', async (req, res) => {
   }
 });
 
+
+//  강의 상세 조회 API 추가
+// ============================
+router.get('/:lectureId', async (req, res) => {
+  try {
+    const lectureId = req.params.lectureId;
+    const lecture = await Lecture.findByPk(lectureId, {
+      include: {
+        model: Syllabus,
+        attributes: ['content']
+      }
+    });
+    if (!lecture) {
+      return res.status(404).json({ message: '강의를 찾을 수 없습니다.' });
+    }
+    // 강의 정보 + 계획서 content 같이 반환
+    res.json({
+      ...lecture.dataValues,
+      content: lecture.Syllabus?.content || ''
+    });
+  } catch (err) {
+    console.error('❌ 강의 상세 조회 실패:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 module.exports = router;
