@@ -66,7 +66,7 @@ export default function Assignment() {
   return (
     <div className="min-h-screen bg-[#FFF8F5] px-4 py-10 font-sans w-full">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-[#8A1601]">과제 제출</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-[#8A1601]">과제</h1>
 
         {instructor && (
           <div className="text-right mb-3">

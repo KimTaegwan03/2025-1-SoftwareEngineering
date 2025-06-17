@@ -43,7 +43,7 @@ export default function AssignmentWrite() {
   return (
     <div className="min-h-screen bg-[#FFF8F5] flex items-center justify-center px-4 py-10 font-sans">
       <div className="w-full max-w-xl bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-[#8A1601] mb-6 text-center">과제 작성</h2>
+        <h2 className="text-2xl font-bold text-[#8A1601] mb-6 text-center">과제 출제</h2>
         <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-6">
           <div>
             <label className="block text-sm font-semibold text-[#8A1601] mb-1">제목</label>
