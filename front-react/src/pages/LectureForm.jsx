@@ -29,7 +29,6 @@ const LectureForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const start = Number(formData.startTime);
     const end = Number(formData.endTime);
     const times = [];
@@ -86,91 +85,135 @@ const LectureForm = () => {
         <h2 className="text-2xl font-bold text-[#8A1601] mb-6 text-center">강의 등록</h2>
 
         <div className="grid grid-cols-1 gap-4">
+          <label htmlFor="course_id" className="text-[#8A1601] font-semibold">강의 코드</label>
           <input
+            id="course_id"
             type="text"
             name="course_id"
-            placeholder="강의 코드"
+            placeholder="예: CS101 (영문 대문자+숫자)"
+            pattern="[A-Z]{2,}[0-9]{2,}"
+            title="영문 대문자+숫자 형식"
             value={formData.course_id}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="title" className="text-[#8A1601] font-semibold">강의명</label>
           <input
+            id="title"
             type="text"
             name="title"
-            placeholder="강의명"
+            placeholder="최대 50자"
+            maxLength={50}
             value={formData.title}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="dept_name" className="text-[#8A1601] font-semibold">학과명</label>
           <input
+            id="dept_name"
             type="text"
             name="dept_name"
-            placeholder="학과명"
+            placeholder="최대 50자"
+            maxLength={50}
             value={formData.dept_name}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="credit" className="text-[#8A1601] font-semibold">학점</label>
           <input
+            id="credit"
             type="number"
             name="credit"
-            placeholder="학점"
+            placeholder="1~3"
+            min="1"
+            max="3"
             value={formData.credit}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="sec_id" className="text-[#8A1601] font-semibold">분반 코드</label>
           <input
+            id="sec_id"
             type="text"
             name="sec_id"
-            placeholder="분반 코드"
+            placeholder="최대 10자"
+            maxLength={10}
             value={formData.sec_id}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="semester" className="text-[#8A1601] font-semibold">학기</label>
           <input
+            id="semester"
             type="number"
             name="semester"
-            placeholder="학기 (1 or 2)"
+            placeholder="1 또는 2"
+            min="1"
+            max="2"
             value={formData.semester}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="year" className="text-[#8A1601] font-semibold">년도</label>
           <input
+            id="year"
             type="number"
             name="year"
-            placeholder="년도 (예: 2025)"
+            placeholder="예: 2025"
+            min="2020"
+            max="2099"
             value={formData.year}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="building" className="text-[#8A1601] font-semibold">건물명</label>
           <input
+            id="building"
             type="text"
             name="building"
-            placeholder="건물명"
+            placeholder="최대 30자"
+            maxLength={30}
             value={formData.building}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="room_number" className="text-[#8A1601] font-semibold">호수</label>
           <input
+            id="room_number"
             type="text"
             name="room_number"
-            placeholder="호수"
+            placeholder="최대 10자"
+            maxLength={10}
             value={formData.room_number}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="professor" className="text-[#8A1601] font-semibold">교수명</label>
           <input
+            id="professor"
             type="text"
             name="professor"
-            placeholder="교수명"
+            placeholder="한글만, 2자 이상"
+            pattern="[가-힣\s]{2,}"
+            title="한글 이름만 입력 가능"
             value={formData.professor}
             onChange={handleChange}
             required
@@ -178,7 +221,9 @@ const LectureForm = () => {
           />
 
           <h3 className="text-[#8A1601] font-semibold mt-4">강의 시간</h3>
+          <label htmlFor="day" className="text-[#8A1601] font-medium">요일</label>
           <select
+            id="day"
             name="day"
             value={formData.day}
             onChange={handleChange}
@@ -192,41 +237,56 @@ const LectureForm = () => {
             <option value="목">목</option>
             <option value="금">금</option>
           </select>
+
+          <label htmlFor="startTime" className="text-[#8A1601] font-medium">시작 교시</label>
           <input
+            id="startTime"
             type="number"
             name="startTime"
-            placeholder="시작 교시"
+            placeholder="1~9"
+            min="1"
+            max="9"
             value={formData.startTime}
             onChange={handleChange}
             required
             className="input"
           />
+
+          <label htmlFor="endTime" className="text-[#8A1601] font-medium">종료 교시</label>
           <input
+            id="endTime"
             type="number"
             name="endTime"
-            placeholder="종료 교시"
+            placeholder="1~9 (시작 교시 이상)"
+            min={formData.startTime || 1}
+            max="9"
             value={formData.endTime}
             onChange={handleChange}
             required
             className="input"
           />
 
-          <h3 className="text-[#8A1601] font-semibold mt-4">최대 수강 인원</h3>
+          <label htmlFor="maxSeats" className="text-[#8A1601] font-semibold mt-4">최대 수강 인원</label>
           <input
+            id="maxSeats"
             type="number"
             name="maxSeats"
-            placeholder="최대 수강 인원"
+            placeholder="1~500"
+            min="1"
+            max="500"
             value={formData.maxSeats}
             onChange={handleChange}
             required
             className="input"
           />
 
-          <h3 className="text-[#8A1601] font-semibold mt-4">강의 계획서</h3>
+          <label htmlFor="syllabusContent" className="text-[#8A1601] font-semibold mt-4">강의 계획서</label>
           <textarea
+            id="syllabusContent"
             name="syllabusContent"
-            placeholder="강의계획서 내용을 입력하세요"
+            placeholder="최대 5000자까지 입력 가능"
             rows="6"
+            maxLength="5000"
             value={formData.syllabusContent}
             onChange={handleChange}
             required
