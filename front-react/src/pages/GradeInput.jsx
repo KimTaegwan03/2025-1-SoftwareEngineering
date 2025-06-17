@@ -34,25 +34,32 @@ function GradeInput() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col items-center" style={{backgroundColor: '#FFF8F5'}}>
+      <h1 className="text-2xl font-bold m-4">성적 입력</h1>
       <button onClick={() => navigate('/instructor/lectures')} style={{ marginBottom: '1rem' }}>
       ← 강의 목록으로 돌아가기
       </button>
-      <h2>성적 입력</h2>
-      <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse' }}>
-        <thead>
+      <div  className="w-full bg-white rounded shadow" style={{maxWidth: '35%', border: '1px solid #ccc', paddingTop: '1rem', margin: '1rem 0'}}>
+      <table style={{
+                          // boxShadow: "0 2px 5px rgba(0,0,0,.25)",
+                          width: "95%",
+                          borderCollapse: "collapse",
+                          border: "1px solid #ccc",
+                          overflow: "hidden",
+                          margin: "1rem auto"}}>
+        <thead style={{fontWeight: "bold", color: "#fff", backgroundColor: "#8A1601"}}>
           <tr>
-            <th>학번</th>
-            <th>이름</th>
-            <th>성적</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>학번</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>이름</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>성적</th>
           </tr>
         </thead>
         <tbody>
           {grades.map(g => (
             <tr key={g.studentId}>
-              <td>{String(g.studentId).padStart(8, '0')}</td>
-              <td>{g.name}</td>
-              <td>
+              <td style={{padding:'.5rem', textAlign:'left'}}>{String(g.studentId).padStart(8, '0')}</td>
+              <td style={{padding:'.5rem', textAlign:'left'}}>{g.name}</td>
+              <td style={{padding:'.5rem', textAlign:'left'}}>
                 <select
                   value={g.grade || ''}
                   onChange={e => handleChange(g.studentId, e.target.value)}
@@ -73,8 +80,9 @@ function GradeInput() {
           ))}
         </tbody>
       </table>
-      <button onClick={handleSubmit}>성적 저장</button>
+      <button onClick={handleSubmit} className="bg-red-700 hover:bg-red-800 text-white font-semibold rounded" style={{ marginLeft: '1rem', marginBottom: '1rem', padding:"0.5rem",  paddingTop: '0.3rem', paddingBottom: '0.3rem'}}>성적 저장</button>
       {message && <p>{message}</p>}
+    </div>
     </div>
   );
 }

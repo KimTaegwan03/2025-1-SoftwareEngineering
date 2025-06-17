@@ -57,14 +57,15 @@ function AttendancePage() {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div className="min-h-screen flex flex-col items-center" style={{backgroundColor: '#FFF8F5'}}>
+    <h1 className="text-2xl font-bold m-4">출석 체크</h1>
     <button onClick={() => navigate('/instructor/lectures')} style={{ marginBottom: '1rem' }}>
     ← 강의 목록으로 돌아가기
     </button>
-      <h2>출석 체크</h2>
-      <label>날짜: <input type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
-      <div style={{ marginTop: '1rem' }}>
-        <strong>전체 설정: </strong>
+    <div className="w-full bg-white rounded shadow"
+     style={{ maxWidth: '40%', border: '1px solid #ccc', paddingTop: '1rem', margin: '1rem 0' }}>
+      <label style={{ marginLeft: '1rem', marginBottom: '1rem', padding:"0.5rem"}}>날짜: <input type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
+      <div style={{ marginTop: '1rem',  marginLeft: '1rem', marginBottom: '1rem', padding:"0.5rem" }}>
         {['출석', '지각', '결석'].map((status) => (
             <button
             key={status}
@@ -75,26 +76,36 @@ function AttendancePage() {
                 });
                 setAttendance(updated);
             }}
-            style={{ marginRight: '0.5rem' }}
+            className="bg-red-700 hover:bg-red-800 text-white font-semibold rounded"
+            style= {{ marginRight: '0.5rem', padding: '0.5rem', paddingTop: '0.3rem', paddingBottom: '0.3rem' }}
             >
             전체 {status}
             </button>
         ))}
         </div>
-      <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse', width: '100%', marginTop: '1rem' }}>
-        <thead>
+        </div>
+        <div className="w-full bg-white rounded shadow"
+     style={{ maxWidth: '40%', border: '1px solid #ccc', paddingTop: '1rem', margin: '1rem 0' }}>
+      <table style={{
+                          // boxShadow: "0 2px 5px rgba(0,0,0,.25)",
+                          width: "95%",
+                          borderCollapse: "collapse",
+                          border: "1px solid #ccc",
+                          overflow: "hidden",
+                          margin: "1rem auto"}}>
+        <thead style={{fontWeight: "bold", color: "#fff", backgroundColor: "#8A1601"}}>
           <tr>
-            <th>학번</th>
-            <th>이름</th>
-            <th>출석 상태</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>학번</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>이름</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>출석 상태</th>
           </tr>
         </thead>
         <tbody>
           {students.map(s => (
             <tr key={`${s.studentId}-${attendance[s.studentId] || 'none'}`}>
-              <td>{String(s.studentId).padStart(8, '0')}</td>
-              <td>{s.name}</td>
-              <td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>{String(s.studentId).padStart(8, '0')}</td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>{s.name}</td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
                 <div>
                     {['출석', '지각', '결석'].map((status) => (
                         <label key={status} style={{ marginRight: '0.5rem' }}>
@@ -115,8 +126,9 @@ function AttendancePage() {
           ))}
         </tbody>
       </table>
-      <button onClick={handleSubmit} style={{ marginTop: '1rem' }}>출석 저장</button>
-      {message && <p>{message}</p>}
+      <button onClick={handleSubmit} className="bg-red-700 hover:bg-red-800 text-white font-semibold rounded" style={{ marginLeft: '1rem', marginBottom: '1rem', padding:"0.5rem",  paddingTop: '0.3rem', paddingBottom: '0.3rem'}}>출석 저장</button>
+      {message && <p style={{ marginLeft: '1rem', marginBottom: '1rem', padding:"0.5rem"}}>{message}</p>}
+    </div>
     </div>
   );
 }

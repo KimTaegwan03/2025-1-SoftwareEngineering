@@ -3,6 +3,7 @@ import { UserContext } from './UserContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { InstructorContext } from './InstructorContext'
 import { TeamContext } from './TeamContext'
+import kwLogoH from '@/assets/KW_UNIVERSITY.png';
 
 function Header() {
   const { student, setStudent } = useContext(UserContext);
@@ -28,22 +29,26 @@ function Header() {
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: '1rem',
-      borderBottom: '1px solid #ccc'
+      paddingLeft: '20rem',
+      paddingRight: '20rem',
+      borderBottom: '1px solid #ccc',
+      backgroundColor: '#8A1601',
+      height: '80px',
     }}>
 
       {/* 왼쪽: Home 버튼 */}
       <nav className="flex space-x-4">
-        <Link to='/'>Home</Link>
-        <Link to='/notice'>공지사항</Link>
+        <Link to='/' style={{color:'#fff', fontWeight:'bold', marginRight:"3rem"}}>광운누리</Link>
+        <Link to='/notice' style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>공지사항</Link>
         { student ? (
           <>
-          <Link to='/grades'>성적 조회</Link>
-          <Link to="/enroll">수강신청</Link>
+          <Link to='/grades' style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>성적 조회</Link>
+          <Link to="/enroll" style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>수강신청</Link>
           </>
         ) : instructor ? (
           <>
-          <Link to='/instructor/lectures'>강의 관리</Link>
-           <Link to="/lecture">강의 등록</Link>
+          <Link to='/instructor/lectures' style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>강의 관리</Link>
+           <Link to="/lecture" style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>강의 등록</Link>
           </>
         ) : (
           <p></p>
@@ -54,28 +59,28 @@ function Header() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         {student ? (
           <>
-            <span>{student.name}님 환영합니다</span>
-            <button onClick={() => navigate('/mypage')}>마이페이지</button>
-            <button onClick={handleLogout}>로그아웃</button>
+            <span style={{color:'#fff', fontWeight:'bold'}}>{student.name}님 환영합니다</span>
+            <button onClick={() => navigate('/mypage')} style={{color:'#fff', fontWeight:'bold'}}>마이페이지</button>
+            <button onClick={handleLogout} style={{color:'#fff', fontWeight:'bold'}}>로그아웃</button>
           </>
         ) : instructor ? (
           <>
-            <span>{instructor.name} 교수님 환영합니다</span>
-            <button onClick={handleLogout}>로그아웃</button>
+            <span style={{color:'#fff', fontWeight:'bold'}}>{instructor.name} 교수님 환영합니다</span>
+            <button onClick={handleLogout} style={{color:'#fff', fontWeight:'bold'}}>로그아웃</button>
           </>
         ): team ? (
           <>
-            <span>{team.name} 환영합니다</span>
-            <button onClick={handleLogout}>로그아웃</button>
+            <span style={{color:'#fff', fontWeight:'bold'}}>{team.name} 환영합니다</span>
+            <button onClick={handleLogout} style={{color:'#fff', fontWeight:'bold'}}>로그아웃</button>
           </>
         ): (
           <>
-            <span>로그인 해주세요</span>
+            <span style={{color:'#fff', fontWeight:'bold'}}>로그인 해주세요</span>
             {/* 로그인 드롭다운 */}
             <div
               style={{ position: 'relative' }}
             >
-              <button onClick={() => navigate('/login')} style={{ display: 'block', width: '100%' }}>
+              <button onClick={() => navigate('/login')} style={{ display: 'block', width: '100%', color:'#fff', fontWeight:'bold' }}>
                 로그인
               </button>
             </div>
@@ -85,12 +90,12 @@ function Header() {
               onMouseEnter={() => setRegisterHover(true)}
               onMouseLeave={() => setRegisterHover(false)}
             >
-              <p>회원가입</p>
+              <p style={{color:'#fff', fontWeight:'bold'}}>회원가입</p>
               {registerHover && (
                 <div style={{
                   position: 'absolute',
                   top: '100%',
-                  width: '120px',
+                  width: '170px',
                   right: 0,
                   backgroundColor: 'white',
                   border: '1px solid #ccc',
@@ -98,13 +103,13 @@ function Header() {
                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                   zIndex: 100
                 }}>
-                  <button onClick={() => navigate('/register')} style={{ display: 'block', width: '100%' }}>
+                  <button onClick={() => navigate('/register')} style={{ display: 'block', width: '100%', padding: '0.5rem', textAlign: 'center' }}>
                     학생 회원가입
                   </button>
-                  <button onClick={() => navigate('/instregister')} style={{ display: 'block', width: '100%' }}>
+                  <button onClick={() => navigate('/instregister')} style={{ display: 'block', width: '100%', padding: '0.5rem', textAlign: 'center' }}>
                     교수 회원가입
                   </button>
-                  <button onClick={() => navigate('/teamregister')} style={{ display: 'block', width: '100%' }}>
+                  <button onClick={() => navigate('/teamregister')} style={{ display: 'block', width: '100%', padding: '0.5rem', textAlign: 'center' }}>
                     교학팀 회원가입
                   </button>
                 </div>

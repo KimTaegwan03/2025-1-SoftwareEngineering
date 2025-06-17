@@ -148,6 +148,26 @@ export default function App() {
         <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
 
+        {/* ─────────── 교수 전용 페이지 ─────────── */}
+        {/* 1) 내 강의 목록 (ProfLectureList) */}
+        <Route
+          path="/professor/lectures"
+          element={<ProfLectureList />}
+        />
+
+        {/* 2) 강의별 학과 통계 (LectureStats) */}
+        <Route
+          path="/professor/lecture/:lectureId/stats"
+          element={<LectureStats />}
+        />
+
+        {/* 출석 체크 페이지 */}
+        <Route 
+          path="/attendance/:lectureId/"
+          element={<AttendancePage />}
+        />
+
+
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
