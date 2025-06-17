@@ -64,6 +64,7 @@ import NotFound from "./pages/NotFound";
 import ProfLectureList from './pages/ProfLectureList';
 import LectureStats     from './pages/LectureStats';
 
+import LectureHome from './pages/LectureHome';
 
 
 export default function App() {  
@@ -147,6 +148,8 @@ export default function App() {
         <Route path="/enroll" element={<EnrollPage />} />  
         <Route path="/timetable" element={<Timetable />} />     
         {/* <Route path="/mypage" element={<MyPage />} /> */}
+        {/* 강의홈 추가  */}
+        <Route path="/lecture/:lectureId" element={<LectureHome />} />
 
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
