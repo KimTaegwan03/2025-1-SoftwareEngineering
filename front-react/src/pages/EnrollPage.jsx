@@ -6,13 +6,11 @@ const EnrollPage = () => {
   const [lectures, setLectures] = useState([]);
   const [enrolled, setEnrolled] = useState([]);
   const [message, setMessage] = useState('');
-  const [query, setQuery] = useState('');          // 검색어 상태
+  const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const { student } = useContext(UserContext);
+  const studentId = student?.id;
 
-  const studentId = student?.id;  // 로그인한 학생 ID
-
-  // 전체 강의 불러오기
   useEffect(() => {
     fetch('http://localhost:3000/lecture/list')
       .then(res => res.json())
@@ -20,7 +18,6 @@ const EnrollPage = () => {
       .catch(err => console.error('불러오기 실패:', err));
   }, []);
 
-  // 내 신청 내역 불러오기
   useEffect(() => {
     if (!studentId) return;
     fetch(`http://localhost:3000/enroll/enrollments/${studentId}`)
@@ -29,7 +26,14 @@ const EnrollPage = () => {
       .catch(err => console.error('수강 내역 실패:', err));
   }, [studentId]);
 
-  // 검색어 기반 필터링
+  const refreshEnrolled = () => {
+    if (!studentId) return;
+    fetch(`http://localhost:3000/enroll/enrollments/${studentId}`)
+      .then(res => res.json())
+      .then(data => setEnrolled(data))
+      .catch(err => console.error('수강 목록 새로고침 오류:', err));
+  };
+
   const filteredLectures = lectures.filter(lec => {
     const q = query.toLowerCase();
     return (
@@ -77,85 +81,86 @@ const EnrollPage = () => {
     }
   };
 
-  const refreshEnrolled = () => {
-    if (!studentId) return;
-    fetch(`http://localhost:3000/enroll/enrollments/${studentId}`)
-      .then(res => res.json())
-      .then(data => setEnrolled(data))
-      .catch(err => console.error('수강 목록 새로고침 오류:', err));
-  };
-
-  if (!student) return <div>로그인 정보를 불러오는 중입니다...</div>;
+  if (!student) return <div className="text-center py-8 text-lg">로그인 정보를 불러오는 중입니다...</div>;
 
   return (
-    <div style={{ display: 'flex', gap: '40px' }}>
+    <div className="min-h-screen bg-[#FFF8F5] p-6 flex gap-10 flex-col lg:flex-row">
       {/* 전체 강의 목록 */}
-      <div style={{ flex: 1 }}>
-        <h2>전체 강의 목록</h2>
+      <div className="w-full lg:w-1/2">
+        <h2 className="text-2xl font-bold text-[#8A1601] mb-4">전체 강의 목록</h2>
 
-        {/* 검색창 */}
         <input
           type="text"
           placeholder="강의명·교수명·과목코드로 검색"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          style={{
-            marginBottom: '12px',
-            padding: '6px',
-            width: '100%',
-            boxSizing: 'border-box'
-          }}
+          className="w-full px-3 py-2 mb-4 border border-[#8A1601] rounded"
         />
 
-        {message && <p>{message}</p>}
+        {message && <p className="mb-4 text-sm text-green-700">{message}</p>}
 
-        <table border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr>
-              <th>강의명</th>
-              <th>교수</th>
-              <th>학점</th>
-              <th>시간</th>
-              <th>신청</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredLectures.map(lec => (
-              <tr key={lec.id}>
-                <td>{lec.title}</td>
-                <td>{lec.professor}</td>
-                <td>{lec.credit}</td>
-                <td>{lec.scheduleDay} {lec.scheduleTimes.join(', ')}</td>
-                <td>
-                  <button onClick={() => handleEnroll(lec.id)}>신청</button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border border-[#8A1601]">
+            <thead>
+              <tr className="bg-[#8A1601] text-white">
+                <th className="py-2 px-3 border border-[#8A1601]">강의명</th>
+                <th className="py-2 px-3 border border-[#8A1601]">교수</th>
+                <th className="py-2 px-3 border border-[#8A1601]">학점</th>
+                <th className="py-2 px-3 border border-[#8A1601]">시간</th>
+                <th className="py-2 px-3 border border-[#8A1601]">신청</th>
               </tr>
-            ))}
-            {filteredLectures.length === 0 && (
-              <tr>
-                <td colSpan="5" style={{ textAlign: 'center', color: '#888' }}>
-                  검색 결과가 없습니다.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredLectures.map(lec => (
+                <tr key={lec.id} className="bg-white even:bg-[#FAEEE7]">
+                  <td className="py-2 px-3 border border-[#8A1601]">{lec.title}</td>
+                  <td className="py-2 px-3 border border-[#8A1601]">{lec.professor}</td>
+                  <td className="py-2 px-3 border border-[#8A1601]">{lec.credit}</td>
+                  <td className="py-2 px-3 border border-[#8A1601]">{lec.scheduleDay} {lec.scheduleTimes.join(', ')}</td>
+                  <td className="py-2 px-3 border border-[#8A1601]">
+                    <button
+                      onClick={() => handleEnroll(lec.id)}
+                      className="bg-[#8A1601] text-white px-3 py-1 rounded hover:bg-[#6c1100] transition"
+                    >
+                      신청
+                    </button>
+                  </td>
+                </tr>
+              ))}
+              {filteredLectures.length === 0 && (
+                <tr>
+                  <td colSpan="5" className="text-center text-gray-500 py-4">검색 결과가 없습니다.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* 내 수강 목록 */}
-      <div style={{ flex: 1 }}>
-        <h2>내 수강 목록</h2>
-        <ul>
+      <div className="w-full lg:w-1/2">
+        <h2 className="text-2xl font-bold text-[#8A1601] mb-4">내 수강 목록</h2>
+        <ul className="space-y-2 mb-6">
           {enrolled.map(en => (
-            <li key={en.id}>
-              {en.Lecture.title} ({en.Lecture.scheduleDay} {en.Lecture.scheduleTimes.join(', ')})
-              <button onClick={() => handleUnenroll(en.lecture_id)} style={{ marginLeft: '10px' }}>
+            <li key={en.id} className="flex justify-between items-center border-b pb-1">
+              <span>
+                {en.Lecture.title} ({en.Lecture.scheduleDay} {en.Lecture.scheduleTimes.join(', ')})
+              </span>
+              <button
+                onClick={() => handleUnenroll(en.lecture_id)}
+                className="ml-2 text-sm text-red-700 hover:underline"
+              >
                 수강 포기
               </button>
             </li>
           ))}
         </ul>
-        <button onClick={() => navigate('/timetable')}>시간표 확인하기</button>
+        <button
+          onClick={() => navigate('/timetable')}
+          className="bg-[#8A1601] text-white px-4 py-2 rounded hover:bg-[#6c1100] transition"
+        >
+          시간표 확인하기
+        </button>
       </div>
     </div>
   );
