@@ -41,9 +41,15 @@ function Header() {
         <Link to='/' style={{color:'#fff', fontWeight:'bold', marginRight:"3rem"}}>광운누리</Link>
         <Link to='/notice' style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>공지사항</Link>
         { student ? (
-          <Link to='/grades' style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>성적 조회</Link>
+          <>
+          <Link to='/grades'>성적 조회</Link>
+          <Link to="/enroll">수강신청</Link>
+          </>
         ) : instructor ? (
-          <Link to='/instructor/lectures' style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>강의 관리</Link>
+          <>
+          <Link to='/instructor/lectures'>강의 관리</Link>
+           <Link to="/lecture">강의 등록</Link>
+          </>
         ) : (
           <p></p>
         )}

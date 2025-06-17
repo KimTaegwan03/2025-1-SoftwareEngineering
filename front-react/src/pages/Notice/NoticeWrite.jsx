@@ -4,13 +4,13 @@ import { TeamContext } from '@/TeamContext';
 
 export default function NoticeWrite() {
   const navigate = useNavigate();
-  
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
-  
-  const { team, setTeam  } = useContext(TeamContext);
+
+  const { team } = useContext(TeamContext);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -29,8 +29,6 @@ export default function NoticeWrite() {
     e.preventDefault();
 
     const formData = new FormData();
-
-	/* 로그인 기능 완성되면 writer 넘겨주는거 마저 구현*/
     formData.append('writer', team.name);
     formData.append('title', title);
     formData.append('content', content);
@@ -55,42 +53,71 @@ export default function NoticeWrite() {
   };
 
   return (
-    <div style={{ padding: '30px', maxWidth: '600px', margin: '0 auto' }}>
-      <h2>공지사항 작성</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div style={{ marginBottom: '15px' }}>
-          <label>제목</label><br />
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label>내용</label><br />
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-            rows="10"
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label>이미지 업로드</label><br />
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          {preview && (
-            <div style={{ marginTop: '10px' }}>
-              <img src={preview} alt="미리보기" style={{ width: '100%', maxHeight: '300px', objectFit: 'contain', backgroundColor: '#f0f0f0' }} />
-            </div>
-          )}
-        </div>
-        <button type="submit" style={{ padding: '10px 20px' }}>
-          등록
-        </button>
-      </form>
+    <div className="min-h-screen bg-[#FFF8F5] flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-xl bg-white p-8 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-[#8A1601] mb-6">공지사항 작성</h2>
+        <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-6">
+          <div>
+            <label className="block font-medium mb-1">제목</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8A1601]"
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium mb-1">내용</label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+              rows="10"
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8A1601]"
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium mb-1">이미지 업로드</label>
+
+            {/* 숨겨진 파일 input */}
+            <input
+              id="imageUpload"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+
+            {/* 예쁜 업로드 버튼 */}
+            <label
+              htmlFor="imageUpload"
+              className="inline-block px-4 py-2 bg-[#8A1601] text-white rounded cursor-pointer hover:bg-[#a3200a] transition"
+            >
+              이미지 선택
+            </label>
+
+            {preview && (
+              <div className="mt-4">
+                <img
+                  src={preview}
+                  alt="미리보기"
+                  className="w-full max-h-72 object-contain bg-gray-100 rounded"
+                />
+              </div>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="bg-[#8A1601] text-white px-6 py-2 rounded hover:bg-[#a3200a] transition"
+          >
+            등록
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

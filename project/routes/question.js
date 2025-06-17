@@ -3,13 +3,12 @@ var router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const Announcement = require('../models/Announcement')
+const Question = require('../models/Question');
 const { Op } = require('sequelize');
-
 
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		const uploadPath = path.join(__dirname, '../public/image/announcement');
+		const uploadPath = path.join(__dirname, '../public/image/question');
 
 		// 폴더가 없으면 생성
 		if (!fs.existsSync(uploadPath)) {
@@ -28,58 +27,61 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* 공지사항 전부 get */
+/* 질문 전부 get */
 router.get('/', async (req, res, next) => {
 	const lecture_id = parseInt(req.query.lecture_id) || 0; // lecture_id가 0인 강의는 없음
+	const page = parseInt(req.query.page) || 1;
 	try {
-		const announcements = await Announcement.findAll({
+		const questions = await Question.findAll({
 			where: { lecture_id: lecture_id },
 			order: [['updatedAt', 'DESC']],        // 최신순
 		});
-		res.json(announcements);
+		res.json(questions);
 	} catch (err) {
 		console.log(err);
 		next(err); // 에러 핸들링을 위해 next 호출
 	}
 });
 
-/* id가 id인 공지사항 get */
+/* id가 id인 질문 get */
 router.get('/:id', async (req, res, next) => {
 	try {
-		const announcement = await Announcement.findByPk(req.params.id);
-		if (!announcement) {
+		const question = await Question.findByPk(req.params.id);
+		if (!question) {
 			return res.status(404).json({ error: 'Not found' });
 		}
-		res.json(announcement);
+		res.json(question);
 	} catch (err) {
 		next(err);
 	}
 });
 
-/* 공지사항 post */
+/* 질문 post */
 router.post('/write', upload.single('file'), async (req, res) => {
 	const { lecture_id, title, content } = req.body;
-	const imagePath = req.file ? `image/announcement/${req.file.filename}` : null;
+	const imagePath = req.file ? `image/question/${req.file.filename}` : null;
+	const writer_id = req.session.student.id;
 	try {
-		const newAnnouncement = await Announcement.create({
+		const newQuestion = await Question.create({
 			lecture_id: lecture_id,
+			writer_id: writer_id,
 			title: title,
 			content: content,
 			file_url: imagePath,
 			createdAt: new Date(),
 			updatedAt: new Date()
 		});
-		res.status(201).json(newAnnouncement);
+		res.status(201).json(newQuestion);
 	} catch (err) {
 		console.error('DB insert 실패:', err);
 		res.status(500).json({ error: '공지사항 등록 실패' });
 	}
 });
 
-/* id가 id인 공지사항 delete */
+/* id가 id인 질문 delete */
 router.delete('/delete/:id', async (req, res, next) => {
 	try {
-		const deletedCount = await Announcement.destroy({
+		const deletedCount = await Question.destroy({
 			where: { id: req.params.id }
 		});
 

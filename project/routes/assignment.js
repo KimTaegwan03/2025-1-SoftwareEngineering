@@ -3,8 +3,8 @@ var router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const Assignment = require('../models/Assignment')
-const AssignmentSubmit = require('../models/AssignmentSubmit')
+const Assignment = require('../models/Assignment');
+const AssignmentSubmit = require('../models/AssignmentSubmit');
 const { Op } = require('sequelize');
 
 
@@ -62,7 +62,7 @@ router.get('/:id', async (req, res, next) => {
 
 /* 과제 post */
 router.post('/write', upload.single('file'), async (req, res) => {
-	const { lecture_id, title, content } = req.body;
+	const { lecture_id, title, content, start_dt, end_dt } = req.body;
 	const imagePath = req.file ? `image/assignment/${req.file.filename}` : null;
 	try {
 		const newAssignment = await Assignment.create({
@@ -70,6 +70,8 @@ router.post('/write', upload.single('file'), async (req, res) => {
 			title: title,
 			content: content,
 			file_url: imagePath,
+			start_dt: start_dt,
+			end_dt: end_dt,
 			createdAt: new Date(),
 			updatedAt: new Date()
 		});
@@ -97,7 +99,23 @@ router.delete('/delete/:id', async (req, res, next) => {
 	}
 });
 
-/* 과제 제출 get */
+/* 특정 과제의 모든 제출 get */
+router.get('/submit/all/:assignment_id', async (req, res) => {
+	const assignment_id = req.params.assignment_id;
+	try {
+		const submit = await AssignmentSubmit.findAll({
+			where: {
+				assignment_id: assignment_id,
+			}
+		});
+		res.status(201).json(submit);
+	} catch (err) {
+		console.error('DB insert 실패:', err);
+		res.status(500).json({ error: '공지사항 등록 실패' });
+	}
+});
+
+/* 특정 학생의 특정 과제 제출 get */
 router.get('/submit/:assignment_id', async (req, res) => {
 	const assignment_id = req.params.assignment_id;
 	const student_id = req.session.student.id;
@@ -119,21 +137,33 @@ router.get('/submit/:assignment_id', async (req, res) => {
 router.post('/submit', upload.single('file'), async (req, res) => {
 	const { assignment_id, title, content } = req.body;
 	const imagePath = req.file ? `image/assignment/${req.file.filename}` : null;
-	const student_id = req.session.student.id
+	const student_id = req.session.student.id;
+
 	try {
-		const newSubmit = await AssignmentSubmit.create({
-			assignment_id: assignment_id,
-			student_id: student_id,
-			title: title,
-			content: content,
-			file_url: imagePath,
-			createdAt: new Date(),
-			updatedAt: new Date()
+		const [submission, created] = await AssignmentSubmit.findOrCreate({
+			where: { assignment_id, student_id },
+			defaults: {
+				title,
+				content,
+				file_url: imagePath,
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
 		});
-		res.status(201).json(newSubmit);
+
+		if (!created) {
+			// 기존 제출물이 있으면 수정
+			submission.title = title;
+			submission.content = content;
+			if (imagePath) submission.file_url = imagePath; // 새 파일이 있으면 갱신
+			submission.updatedAt = new Date();
+			await submission.save();
+		}
+
+		res.status(201).json(submission);
 	} catch (err) {
-		console.error('DB insert 실패:', err);
-		res.status(500).json({ error: '공지사항 등록 실패' });
+		console.error('제출 처리 실패:', err);
+		res.status(500).json({ error: '과제 제출 실패' });
 	}
 });
 

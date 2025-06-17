@@ -26,6 +26,14 @@ const Assignment = sequelize.define('Assignment', {
   file_url: {
     type: DataTypes.STRING,
   },
+  start_dt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  end_dt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
 });
 
 module.exports = Assignment;
