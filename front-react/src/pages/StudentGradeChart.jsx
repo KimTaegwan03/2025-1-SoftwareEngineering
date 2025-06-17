@@ -42,18 +42,19 @@ function StudentGradeChart() {
   }, []);
 
   return (
-    <div style={{ width: '70%', height: 300 }}>
-      <h3>학기별 평균 성적 (GPA)</h3>
+    <div>
+      <h3 style={{fontWeight: 'bold', paddingLeft:"1rem", marginBottom: "1rem"}}>학기별 성적</h3>
+    <div style={{ width: '70%', height: 300, margin: 'auto', marginBottom: '2rem' }}>
       <ResponsiveContainer>
         <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="semester" />
           <YAxis domain={[0, 4.5]} />
           <Tooltip />
-          <Legend />
-          <Line dataKey="average" fill="#8884d8" name="평균 GPA" />
+          <Line dataKey="average" fill="#8884d8" name="성적" />
         </LineChart>
       </ResponsiveContainer>
+    </div>
     </div>
   );
 }

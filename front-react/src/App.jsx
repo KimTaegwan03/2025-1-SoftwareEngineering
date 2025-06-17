@@ -129,6 +129,12 @@ export default function App() {
           element={<LectureStats />}
         />
 
+        {/* 출석 체크 페이지 */}
+        <Route 
+          path="/attendance/:lectureId/"
+          element={<AttendancePage />}
+        />
+
 
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />

@@ -52,7 +52,8 @@ router.get('/student', async (req, res) => {
     courseId: e.Lecture.course_id,
     semester: e.Lecture.semester,
     year: e.Lecture.year,
-    grade: e.grade
+    grade: e.grade,
+    credit: e.Lecture.credit
   }));
 
   res.json(grades);
