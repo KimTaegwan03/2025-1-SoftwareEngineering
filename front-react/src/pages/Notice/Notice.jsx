@@ -5,10 +5,9 @@ import { TeamContext } from '@/TeamContext';
 
 export default function NoticeBoard() {
   const navigate = useNavigate();
-
   const [page, setPage] = useState(1);
   const [notices, setNotices] = useState([]);
-  const { team, setTeam  } = useContext(TeamContext);
+  const { team } = useContext(TeamContext);
 
   const getData = async (pageNum) => {
     try {
@@ -28,120 +27,59 @@ export default function NoticeBoard() {
   const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>공지사항</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-[#FFF8F5] font-sans">
+      <h1 className="text-3xl font-bold mb-8 text-[#8A1601]">공지사항</h1>
+
       {team && (
-        <div style={styles.buttonWrapper}>
+        <div className="w-full max-w-2xl text-right mb-5">
           <button
-            style={styles.writeButton}
-            onClick={() => navigate(`/notice/write`)}
+            className="bg-[#8A1601] text-white py-2 px-4 text-sm rounded hover:bg-[#a3200a] transition"
+            onClick={() => navigate('/notice/write')}
           >
             글 쓰기
           </button>
         </div>
       )}
 
-      <div style={styles.noticeList}>
+      <div className="w-full max-w-2xl space-y-3">
         {notices.map((notice) => (
-          <div key={notice.id} style={styles.noticeItem}>
+          <div
+            key={notice.id}
+            className="bg-white border border-[#D9B6AE] rounded-lg p-4 flex justify-between items-center"
+          >
             <button
-              style={styles.titleButton}
+              className="text-lg font-semibold text-left text-[#8A1601] hover:underline w-full truncate"
               onClick={() => navigate(`/notice/${notice.id}`)}
             >
               {notice.title}
             </button>
-            <span style={styles.date}>
+            <span className="ml-4 text-sm text-gray-600 whitespace-nowrap">
               {new Date(notice.createdAt).toISOString().slice(0, 10)}
             </span>
           </div>
         ))}
       </div>
 
-      {/* 페이지 버튼 */}
-      <div style={styles.pagination}>
-        <button onClick={handlePrev} disabled={page === 1}>
+      <div className="mt-6 flex items-center space-x-4">
+        <button
+          onClick={handlePrev}
+          disabled={page === 1}
+          className={`px-3 py-1 rounded border ${
+            page === 1
+              ? 'bg-gray-300 text-white cursor-not-allowed'
+              : 'bg-[#8A1601] text-white hover:bg-[#a3200a]'
+          }`}
+        >
           이전
         </button>
-        <span style={{ margin: '0 10px' }}>페이지 {page}</span>
-        <button onClick={handleNext}>
+        <span className="text-sm">페이지 {page}</span>
+        <button
+          onClick={handleNext}
+          className="px-3 py-1 rounded border bg-[#8A1601] text-white hover:bg-[#a3200a]"
+        >
           다음
         </button>
       </div>
     </div>
   );
 }
-
-const styles = {
-  buttonWrapper: {
-  width: "100%",
-  maxWidth: "600px",
-  textAlign: "right",   // 👉 오른쪽 정렬 핵심
-  marginBottom: "20px",
-  },
-  writeButton: {
-    padding: "8px 16px",
-    fontSize: "14px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  container: {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-    fontFamily: "sans-serif",
-    backgroundColor: "#f9f9f9",
-  },
-  heading: {
-    fontSize: "32px",
-    fontWeight: "bold",
-    marginBottom: "30px",
-  },
-  noticeList: {
-    width: "100%",
-    maxWidth: "600px",
-  },
-  noticeItem: {
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    marginBottom: "10px",
-    backgroundColor: "#fff",
-    padding: "10px",
-	display: 'flex',
-  },
-  titleButton: {
-    background: "none",
-    border: "none",
-    fontSize: "18px",
-    fontWeight: "600",
-    cursor: "pointer",
-    textAlign: "left",
-    width: "100%",
-  },
-  content: {
-    marginTop: "8px",
-    fontSize: "15px",
-    color: "#444",
-  },
-  pagination: {
-    marginTop: "20px",
-    display: "flex",
-    alignItems: "center",
-  },
-  titleRow: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  date: {
-    fontSize: "14px",
-    color: "#000000",
-    marginLeft: "10px",
-    whiteSpace: "nowrap"
-  },
-};

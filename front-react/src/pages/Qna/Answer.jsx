@@ -1,9 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { InstructorContext } from '@/InstructorContext';
-import { UserContext } from '@/UserContext';
-
+// ✅ 답변 리스트 컴포넌트
 export function AnswerList({ question_id }) {
   const [page, setPage] = useState(1);
   const [answers, setAnswers] = useState([]);
@@ -32,7 +30,7 @@ export function AnswerList({ question_id }) {
           answers.map((answer) => (
             <div
               key={answer.id}
-              className="flex justify-between items-start bg-white border border-gray-300 rounded-md p-4"
+              className="flex justify-between items-start bg-white border border-[#D9B6AE] rounded-md p-4"
             >
               <p className="text-gray-800">{answer.content}</p>
               <span className="text-sm text-gray-500 ml-4 whitespace-nowrap">
@@ -45,18 +43,18 @@ export function AnswerList({ question_id }) {
         )}
       </div>
 
-      <div className="flex justify-center items-center gap-4 mt-5">
+      <div className="flex justify-center items-center gap-4 mt-6">
         <button
           onClick={handlePrev}
           disabled={page === 1}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="px-3 py-1 rounded border border-[#8A1601] text-[#8A1601] hover:bg-[#8A1601]/10 disabled:opacity-40"
         >
           이전
         </button>
-        <span>페이지 {page}</span>
+        <span className="text-[#8A1601] font-medium">페이지 {page}</span>
         <button
           onClick={handleNext}
-          className="px-3 py-1 border rounded"
+          className="px-3 py-1 rounded border border-[#8A1601] text-[#8A1601] hover:bg-[#8A1601]/10"
         >
           다음
         </button>
@@ -65,6 +63,7 @@ export function AnswerList({ question_id }) {
   );
 }
 
+// ✅ 답변 작성 폼 컴포넌트
 export function AnswerForm({ question_id }) {
   const navigate = useNavigate();
   const [content, setContent] = useState('');
@@ -82,7 +81,7 @@ export function AnswerForm({ question_id }) {
 
       if (res.ok) {
         setContent('');
-        navigate(0);
+        navigate(0); // 새로고침
       } else {
         alert('답변 등록 실패');
       }
@@ -95,18 +94,18 @@ export function AnswerForm({ question_id }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-2xl mx-auto mt-6 px-4 flex flex-col gap-2"
+      className="w-full max-w-2xl mx-auto mt-8 px-4 flex flex-col gap-3"
     >
       <textarea
         placeholder="답변 내용을 입력하세요"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         required
-        className="w-full min-h-[80px] max-h-[200px] border rounded p-2 resize-y"
+        className="w-full min-h-[100px] max-h-[200px] border border-gray-300 rounded p-3 resize-y focus:outline-none focus:ring-2 focus:ring-[#8A1601]"
       />
       <button
         type="submit"
-        className="self-end bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+        className="self-end bg-[#8A1601] text-white font-semibold px-5 py-2 rounded hover:bg-[#6c1100] transition"
       >
         답변 등록
       </button>

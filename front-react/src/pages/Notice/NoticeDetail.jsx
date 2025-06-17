@@ -11,27 +11,29 @@ export default function NoticeDetail() {
       .then((data) => setNotice(data));
   }, [id]);
 
-  if (!notice) return <p>불러오는 중...</p>;
+  if (!notice) return <p className="text-center mt-10 text-gray-500">불러오는 중...</p>;
 
   return (
-    <div style={{ padding: 30 }}>
-      <h2>{notice.title}</h2>
-      <p>{notice.content}</p>
+    <div className="min-h-screen bg-[#FFF8F5] flex justify-center px-4 py-10 font-sans">
+      <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-2xl font-bold text-[#8A1601] mb-4">{notice.title}</h2>
 
-      {/* 이미지가 있을 경우 표시 */}
-      {notice.image_url && (
-        <div style={{ marginTop: 20 }}>
-          <img
-            src={`http://localhost:3000${notice.image_url}`}
-            alt="공지 이미지"
-            style={{ maxWidth: '100%', borderRadius: 8 }}
-          />
-        </div>
-      )}
+        <p className="text-gray-800 text-base whitespace-pre-wrap">{notice.content}</p>
 
-      <p style={{ color: '#888', marginTop: 20 }}>
-        게시일: {new Date(notice.createdAt).toISOString().slice(0, 10)}
-      </p>
+        {notice.image_url && (
+          <div className="mt-6">
+            <img
+              src={`http://localhost:3000${notice.image_url}`}
+              alt="공지 이미지"
+              className="rounded-lg w-full max-w-full"
+            />
+          </div>
+        )}
+
+        <p className="text-sm text-gray-500 mt-6">
+          게시일: {new Date(notice.createdAt).toISOString().slice(0, 10)}
+        </p>
+      </div>
     </div>
   );
 }
