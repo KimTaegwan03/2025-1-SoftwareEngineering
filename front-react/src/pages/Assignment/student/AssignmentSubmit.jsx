@@ -93,11 +93,11 @@ export function SubmitForm({ lecture_id, assignment_id }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white mt-10 p-6 max-w-xl mx-auto rounded-lg shadow-md space-y-6"
+      className="bg-white p-6 rounded-lg shadow-md mt-8 space-y-6"
     >
       <h2 className="text-xl font-semibold text-[#8A1601]">과제 제출</h2>
 
-      <div>
+      <div className="mb-6">
         <label className="block mb-1 font-medium">제목</label>
         <input
           type="text"
@@ -108,7 +108,7 @@ export function SubmitForm({ lecture_id, assignment_id }) {
         />
       </div>
 
-      <div>
+      <div className="mb-6">
         <label className="block mb-1 font-medium">내용</label>
         <textarea
           value={content}
@@ -119,10 +119,8 @@ export function SubmitForm({ lecture_id, assignment_id }) {
         />
       </div>
 
-      <div>
+      <div className="mb-6">
         <label className="block mb-1 font-medium">파일 첨부</label>
-
-        {/* 숨겨진 파일 input + 커스텀 버튼 */}
         <input
           id="fileUpload"
           type="file"
@@ -135,7 +133,6 @@ export function SubmitForm({ lecture_id, assignment_id }) {
         >
           파일 선택
         </label>
-
         {file && <p className="text-sm text-gray-600 mt-2">{file.name}</p>}
       </div>
 
