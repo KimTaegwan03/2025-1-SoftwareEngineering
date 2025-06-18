@@ -44,6 +44,7 @@ function Header() {
           <>
           <Link to='/grades' style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>성적 조회</Link>
           <Link to="/enroll" style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>수강신청</Link>
+          <Link to="/reviews" style={{color:'#fff', fontWeight:'bold', marginRight:"2rem"}}>강의 평가</Link>        
           </>
         ) : instructor ? (
           <>

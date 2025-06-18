@@ -256,7 +256,6 @@ function StudentHome() {
             ))}
           </ul>
         </section>
-
       </main>
     </div>
   );
