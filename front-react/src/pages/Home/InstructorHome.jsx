@@ -15,7 +15,7 @@ export default function InstructorHome() {
           <div className="profile-pic"></div>
           <div className="profile-info">
             <strong>{instructor.name}</strong>
-            <div>{String(instructor.ID).padStart(10, '0')}</div>
+            <div>{String(instructor.id)}</div>
             <div>{instructor.dept_name}</div>
           </div>
         </section>

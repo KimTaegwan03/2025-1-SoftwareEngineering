@@ -23,6 +23,11 @@ import Notice from '@/pages/Notice/Notice'
 import NoticeDetail from '@/pages/Notice/NoticeDetail'
 import NoticeWrite from '@/pages/Notice/NoticeWrite'
 
+// 자료실 관련 페이지
+import Dataroom from '@/pages/Dataroom/Dataroom'
+import DataroomDetail from '@/pages/Dataroom/DataroomDetail'
+import DataroomWrite from '@/pages/Dataroom/DataroomWrite'
+
 // Announcement 관련 페이지
 import Announcement from '@/pages/Announcement/Announcement';
 import AnnouncementDetail from '@/pages/Announcement/AnnouncementDetail';
@@ -86,7 +91,7 @@ export default function App() {
               <Route index element={<InstructorHome />} />
             ) : (
               team ? (
-                <Route index element={<TeamHome />} />
+                <Route path="/" element={<Navigate to="/notice" replace />} />
               ) : (
                 <Route index element={<Login />} />
               )
@@ -102,13 +107,18 @@ export default function App() {
 
         { /* Notice 관련 페이지 */ }
         <Route path="/notice" element={<Notice/>} />
-        <Route path="/notice/:id" element={<NoticeDetail />} />
         <Route path="/notice/write" element={<NoticeWrite />} />
+        <Route path="/notice/:id" element={<NoticeDetail />} />
+
+        { /* 자료실 관련 페이지 */ }
+        <Route path="/datas/:lecture_id" element={<Dataroom/>} />
+        <Route path="/data/:lecture_id/write" element={<DataroomWrite />} />
+        <Route path="/data/:lecture_id/:id" element={<DataroomDetail />} />
 
         { /* Announcement 관련 페이지 */ }
         <Route path="/announcements/:lecture_id" element={<Announcement />} />
-        <Route path="/announcement/:lecture_id/:id" element={<AnnouncementDetail />} />
         <Route path="/announcement/:lecture_id/write" element={<AnnouncementWrite />} />
+        <Route path="/announcement/:lecture_id/:id" element={<AnnouncementDetail />} />
         
         { /* Assignment 관련 페이지 */ }
         {
@@ -121,8 +131,8 @@ export default function App() {
             instructor ? (
               <>
                 <Route path="/assignments/:lecture_id" element={<I_Assignment />} />
-                <Route path="/assignment/:lecture_id/:id" element={<I_AssignmentDetail />} />
                 <Route path="/assignment/:lecture_id/write" element={<I_AssignmentWrite />} />
+                <Route path="/assignment/:lecture_id/:id" element={<I_AssignmentDetail />} />
               </>     
             ) : (
               <></>
@@ -132,8 +142,8 @@ export default function App() {
 
         { /* Q&A 관련 페이지 */ }
         <Route path="/questions/:lecture_id" element={<Question />} />
-        <Route path="/question/:lecture_id/:question_id" element={<QuestionDetail />} />
         <Route path="/question/:lecture_id/write" element={<QuestionWrite />} />
+        <Route path="/question/:lecture_id/:question_id" element={<QuestionDetail />} />
         
         <Route path="/mypage" element={<MyPage />} />
         { /* 교수 강의 목록 */}
