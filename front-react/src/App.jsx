@@ -6,7 +6,6 @@ import { InstructorContext } from '@/InstructorContext';
 import { TeamContext } from '@/TeamContext';
 
 import Header from '@/Header';
-import Home from "@/pages/Home/Home";
 import StudentHome from "@/pages/Home/StudentHome";
 import InstructorHome from "@/pages/Home/InstructorHome";
 import TeamHome from "@/pages/Home/TeamHome";
