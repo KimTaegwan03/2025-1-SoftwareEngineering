@@ -51,11 +51,11 @@ export default function NoticeDetail() {
           </div>
 
           {notice.image_url && (
-            <div className="mb-6">
+            <div className="mb-6 h-96">
               <img
                 src={`http://localhost:3000${notice.image_url}`}
                 alt="공지 이미지"
-                className="rounded-lg w-full max-w-full border"
+                className="rounded-lg w-full h-full border object-contain"
               />
             </div>
           )}

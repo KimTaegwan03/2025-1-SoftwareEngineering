@@ -52,7 +52,7 @@ router.get('/all', async (req, res, next) => {
             include: [{
                 model: Lecture,        // 조인할 모델: Lecture
                 as: 'lecture',         // Announcement 모델에서 Lecture로 접근할 때 사용한 별칭 ('as'에 설정한 이름과 동일해야 합니다)
-                attributes: ['title']   // Lecture 모델에서 'name' 컬럼만 가져오기
+                attributes: ['id', 'title']   // Lecture 모델에서 'name' 컬럼만 가져오기
             }],
             order: [['updatedAt', 'DESC']], // 최신순 정렬
             limit: 5,                      // 5개만 가져오기

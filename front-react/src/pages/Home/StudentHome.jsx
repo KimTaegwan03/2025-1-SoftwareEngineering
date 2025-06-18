@@ -240,7 +240,8 @@ function StudentHome() {
             {announcements.map((announcement, idx) => (
               <li 
                 key={announcement.id || idx} 
-                className="flex items-center py-4 border-b" // justify-between 제거
+                className="flex items-center py-4 border-b cursor-pointer" // justify-between 제거
+                onClick={() => navigate(`/announcement/${announcement.lecture.id}/${announcement.id}`)}
               >
                 {/* 왼쪽 영역: 너비를 3/5 (60%)으로 지정 */}
                 <div className="w-3/5"> 
