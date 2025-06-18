@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* 과제 10개 get */
+/* 과제 전부 get */
 router.get('/', async (req, res, next) => {
 	const lecture_id = parseInt(req.query.lecture_id) || 0; // lecture_id가 0인 강의는 없음
 	const page = parseInt(req.query.page) || 1;
@@ -37,8 +37,6 @@ router.get('/', async (req, res, next) => {
 		const assignments = await Assignment.findAll({
 			where: { lecture_id: lecture_id },
 			order: [['createdAt', 'DESC']],        // 최신순
-			limit: 10,                      // 한 페이지당 10개
-			offset: (page - 1) * 10         // 건너뛸 개수
 		});
 		res.json(assignments);
 	} catch (err) {

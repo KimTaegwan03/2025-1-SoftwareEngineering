@@ -43,7 +43,18 @@ export default function AssignmentDetail() {
   return (
     <div className="min-h-screen bg-[#FFF8F5] px-4 py-10 font-sans">
       <div className="w-full max-w-4xl mx-auto bg-white rounded shadow-md p-6 space-y-8">
-        <h2 className="text-2xl font-bold text-[#8A1601] border-b pb-2">과제 정보</h2>
+        {/* flex를 사용하여 h2와 button을 가로로 배치하고, justify-between으로 양쪽 끝으로 보냅니다. */}
+        {/* items-center는 수직 중앙 정렬을 위해 사용합니다. */}
+        <div className="flex justify-between items-center border-b pb-2">
+          <h2 className="text-2xl font-bold text-[#8A1601]">과제 정보</h2>
+          <button 
+            onClick={() => navigate(`/assignments/${lecture_id}`)}
+            className="px-4 py-2 bg-[#8A1601] text-white rounded transition"
+          >
+            목록
+          </button>
+        </div>
+        
 
         <table className="table-auto w-full border border-gray-300 text-sm">
           <tbody>

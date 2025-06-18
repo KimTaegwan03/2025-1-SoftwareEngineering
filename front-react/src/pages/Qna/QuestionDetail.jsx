@@ -60,6 +60,15 @@ export default function QuestionDetail() {
           <AnswerForm question_id={question_id} />
         </div>
       )}
+
+      <div className="flex justify-end">
+        <button 
+          onClick={() => navigate(`/questions/${lecture_id}`)}
+          className="px-4 py-2 bg-[#8A1601] text-white rounded transition"
+        >
+          목록
+        </button>
+      </div>
     </div>
   );
 }
