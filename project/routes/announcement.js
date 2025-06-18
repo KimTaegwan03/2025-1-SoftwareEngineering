@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const Announcement = require('../models/Announcement')
+const Lecture = require('../models/Lecture')
 const { Op } = require('sequelize');
 
 
@@ -28,7 +29,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* 공지사항 전부 get */
+/* 특정 강의의 공지사항 전부 get */
 router.get('/', async (req, res, next) => {
 	const lecture_id = parseInt(req.query.lecture_id) || 0; // lecture_id가 0인 강의는 없음
 	try {
@@ -41,6 +42,28 @@ router.get('/', async (req, res, next) => {
 		console.log(err);
 		next(err); // 에러 핸들링을 위해 next 호출
 	}
+});
+
+/* 모든 강의 공지사항 최신 순으로 5개만 get (강의 이름 포함) */
+router.get('/all', async (req, res, next) => {
+    try {
+        const announcements = await Announcement.findAll({
+            // `include`를 사용하여 Lecture 테이블을 조인합니다.
+            include: [{
+                model: Lecture,        // 조인할 모델: Lecture
+                as: 'lecture',         // Announcement 모델에서 Lecture로 접근할 때 사용한 별칭 ('as'에 설정한 이름과 동일해야 합니다)
+                attributes: ['title']   // Lecture 모델에서 'name' 컬럼만 가져오기
+            }],
+            order: [['updatedAt', 'DESC']], // 최신순 정렬
+            limit: 5,                      // 5개만 가져오기
+        });
+
+        // 프론트엔드로 응답 전송
+        res.json(announcements);
+    } catch (err) {
+        console.error('공지사항 조회 중 오류 발생:', err); // 에러 로깅 개선
+        next(err); // 에러 핸들링 미들웨어로 전달
+    }
 });
 
 /* id가 id인 공지사항 get */

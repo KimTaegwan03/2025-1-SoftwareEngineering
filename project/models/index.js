@@ -23,7 +23,7 @@ Advisor.belongsTo(Student, { foreignKey: 's_id', targetKey: 'ID' });
 Advisor.belongsTo(Instructor, { foreignKey: 'i_id', targetKey: 'ID' });
 
 // Announcement (과목 공지사항)
-Announcement.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
+Announcement.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id', as: 'lecture'});
 
 // Assignment
 Assignment.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
