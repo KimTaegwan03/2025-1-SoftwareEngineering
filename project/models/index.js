@@ -1,5 +1,5 @@
 const sequelize = require('../db');
-
+const { DataTypes } = require('sequelize');
 // 모델 import
 const Advisor = require('./Advisor');
 const Announcement = require('./Announcement');
@@ -16,6 +16,7 @@ const Student = require('./Student');
 const Syllabus = require('./Syllabus');
 const Teams = require('./Teams')
 const Attendance = require('./Attendance');
+const Review = require('./Review')(sequelize, DataTypes);
 
 // 관계 정의
 // Advisor
@@ -55,6 +56,10 @@ Syllabus.belongsTo(Instructor, { foreignKey: 'writer', targetKey: 'ID' });
 Attendance.belongsTo(Student, { foreignKey: 'student_id', targetKey: 'ID' });
 Attendance.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
 
+
+Review.belongsTo(Student, {   foreignKey: 'student_id', targetKey: 'ID'   });
+Review.belongsTo(Lecture, {   foreignKey: 'lecture_id', targetKey: 'id' });
+
 module.exports = {
   sequelize,
   Advisor,
@@ -70,5 +75,6 @@ module.exports = {
   Student,
   Syllabus,
   Teams,
-  Attendance
+  Attendance,
+  Review
 };
