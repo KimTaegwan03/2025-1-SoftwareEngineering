@@ -90,9 +90,9 @@ export default function AssignmentDetail() {
                   {assignment.file_url ? (
                     <button
                       onClick={handleDownload}
-                      className="bg-[#8A1601] text-white px-4 py-1 rounded hover:bg-[#a3200a] transition"
+                      className="text-blue-600 hover:underline text-sm"
                     >
-                      📥 다운로드
+                      {assignment.file_url.split('-').pop()} [다운로드]
                     </button>
                   ) : (
                     '없음'
@@ -103,12 +103,12 @@ export default function AssignmentDetail() {
           </table>
 
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
-            <button
+            {/* <button
               onClick={handleDelete}
               className="flex-1 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
             >
               과제 삭제
-            </button>
+            </button> */}
             <button
               onClick={() => navigate(`/assignments/${lecture_id}`)}
               className="flex-1 bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300 transition"
@@ -129,7 +129,7 @@ export default function AssignmentDetail() {
               <thead className="bg-gray-100 text-gray-800">
                 <tr>
                   <th className="py-2 px-3 border">번호</th>
-                  <th className="py-2 px-3 border">학생 이름</th>
+                  <th className="py-2 px-3 border">학번</th>
                   <th className="py-2 px-3 border">제목</th>
                   <th className="py-2 px-3 border">제출일</th>
                   <th className="py-2 px-3 border">파일</th>
@@ -144,14 +144,12 @@ export default function AssignmentDetail() {
                     <td className="py-2 px-3">{utc2ko(s.updatedAt)}</td>
                     <td className="py-2 px-3">
                       {s.file_url ? (
-                        <a
-                          href={`http://localhost:3000/public/${s.file_url}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline"
+                        <button
+                          onClick={handleDownload}
+                          className="text-blue-600 hover:underline text-sm"
                         >
-                          다운로드
-                        </a>
+                          {s.file_url.split('-').pop()} [다운로드]
+                        </button>
                       ) : (
                         '-'
                       )}

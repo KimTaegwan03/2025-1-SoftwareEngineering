@@ -67,6 +67,7 @@ function InstLecture() {
             <th style={{textAlign: "center", padding:'.3rem'}}>출석 체크</th>
             <th style={{textAlign: "center", padding:'.3rem'}}>공지 보기</th>
             <th style={{textAlign: "center", padding:'.3rem'}}>과제 보기</th>
+            <th style={{textAlign: "center", padding:'.3rem'}}>자료실</th>
             <th style={{textAlign: "center", padding:'.3rem'}}>Q&A 보기</th>
             <th style={{textAlign: "center", padding:'.3rem'}}>통계 보기</th>
           </tr>
@@ -90,6 +91,9 @@ function InstLecture() {
               </td>
               <td style={{padding:'.5rem', textAlign:'center'}}>
                 <button onClick={() => navigate(`/assignments/${lecture.id}`)}>이동</button>
+              </td>
+              <td style={{padding:'.5rem', textAlign:'center'}}>
+                <button onClick={() => navigate(`/datas/${lecture.id}`)}>이동</button>
               </td>
               <td style={{padding:'.5rem', textAlign:'center'}}>
                 <button onClick={() => navigate(`/questions/${lecture.id}`)}>이동</button>

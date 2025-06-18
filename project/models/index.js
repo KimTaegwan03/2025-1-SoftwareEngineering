@@ -10,6 +10,7 @@ const Enrollment = require('./Enrollment');
 const Instructor = require('./Instructor');
 const Lecture = require('./Lecture');
 const Notice = require('./Notice');
+const Data = require('./Data');
 const Question = require('./Question');
 const Answer = require('./Answer');
 const Student = require('./Student');
@@ -24,7 +25,10 @@ Advisor.belongsTo(Student, { foreignKey: 's_id', targetKey: 'ID' });
 Advisor.belongsTo(Instructor, { foreignKey: 'i_id', targetKey: 'ID' });
 
 // Announcement (과목 공지사항)
-Announcement.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id', as: 'lecture'});
+Announcement.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id', as: 'lecture' });
+
+// Data (과목 공지사항)
+Data.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id', as: 'lecture' });
 
 // Assignment
 Assignment.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
@@ -57,8 +61,8 @@ Attendance.belongsTo(Student, { foreignKey: 'student_id', targetKey: 'ID' });
 Attendance.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
 
 
-Review.belongsTo(Student, {   foreignKey: 'student_id', targetKey: 'ID'   });
-Review.belongsTo(Lecture, {   foreignKey: 'lecture_id', targetKey: 'id' });
+Review.belongsTo(Student, { foreignKey: 'student_id', targetKey: 'ID' });
+Review.belongsTo(Lecture, { foreignKey: 'lecture_id', targetKey: 'id' });
 
 module.exports = {
   sequelize,
@@ -70,6 +74,7 @@ module.exports = {
   Instructor,
   Lecture,
   Notice,
+  Data,
   Question,
   Answer,
   Student,

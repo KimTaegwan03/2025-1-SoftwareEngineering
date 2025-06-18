@@ -52,6 +52,7 @@ export default function InstructorHome() {
         {/* 1. 프로필 카드 */}
         <section className="profile-card">
           <div className="profile-info">
+
              <div className="profile-icon">👤</div>
             <strong>{instructor?.name} 교수님</strong>
             <div>{instructor?.dept_name}</div>
@@ -98,6 +99,8 @@ export default function InstructorHome() {
                 ))}
               </tbody>
             </table>
+
+
           </div>
         </section>
       </main>

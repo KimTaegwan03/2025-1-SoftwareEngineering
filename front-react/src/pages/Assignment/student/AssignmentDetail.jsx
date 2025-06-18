@@ -84,9 +84,9 @@ export default function AssignmentDetail() {
                   {assignment.file_url ? (
                     <button
                       onClick={handleDownload}
-                      className="bg-[#8A1601] text-white px-4 py-1 rounded hover:bg-[#a3200a] transition"
+                      className="text-blue-600 hover:underline text-sm"
                     >
-                      📥 다운로드
+                      {assignment.file_url.split('-').pop()} [다운로드]
                     </button>
                   ) : ''}
                 </td>

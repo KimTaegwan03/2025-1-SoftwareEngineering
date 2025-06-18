@@ -87,28 +87,6 @@ export default function Question() {
             </tbody>
           </table>
         </div>
-
-        {/* 페이징 */}
-        <div className="mt-6 flex justify-center items-center gap-4">
-          <button
-            onClick={handlePrev}
-            disabled={page === 1}
-            className={`px-3 py-1 rounded border text-sm font-medium ${
-              page === 1
-                ? 'bg-gray-300 text-white cursor-not-allowed'
-                : 'bg-[#8A1601] text-white hover:bg-[#a3200a]'
-            }`}
-          >
-            이전
-          </button>
-          <span className="text-sm font-medium text-[#8A1601]">페이지 {page}</span>
-          <button
-            onClick={handleNext}
-            className="px-3 py-1 rounded border text-sm font-medium bg-[#8A1601] text-white hover:bg-[#a3200a]"
-          >
-            다음
-          </button>
-        </div>
       </div>
     </div>
   );
