@@ -228,16 +228,14 @@ function StudentHome() {
           </ul> */}
         </section>
 
-        {/* 6. 강의평가 */}
-        <section className="review">
+       {/* 6. 강의평가 (클릭하면 리뷰 목록으로 이동) */}
+        <section
+          className="review"
+          onClick={() => navigate('/reviews')}
+          style={{ cursor: 'pointer', padding: '1rem', border: '1px solid #eee', borderRadius: 4 }}
+        >
           <h3>강의평가</h3>
-          {/* <ul>
-            {reviews.map((r, idx) => (
-              <li key={idx}>
-                <strong>{r.course}: {r.professor}</strong><br />{r.comment}
-              </li>
-            ))}
-          </ul> */}
+          <p>▶ 내 강의 리뷰 보러가기</p>
         </section>
       </main>
     </div>

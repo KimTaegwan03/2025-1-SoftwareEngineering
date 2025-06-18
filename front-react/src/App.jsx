@@ -65,6 +65,9 @@ import LectureStats     from './pages/LectureStats';
 
 import LectureHome from './pages/LectureHome';
 
+import StudentReviewList from './pages/StudentReviewList';
+import ReviewList          from './pages/ReviewList';
+import ReviewForm          from './pages/ReviewForm';
 
 export default function App() {  
   const { student, setStudent  } = useContext(UserContext);
@@ -168,7 +171,10 @@ export default function App() {
           path="/attendance/:lectureId/"
           element={<AttendancePage />}
         />
-
+ {/* 학생용 리뷰 흐름 */}
+  <Route path="/reviews" element={<StudentReviewList />} />
+  <Route path="/lecture/:lectureId/reviews" element={<ReviewList />} />
+  <Route path="/lecture/:lectureId/review/new" element={<ReviewForm />} />
 
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
