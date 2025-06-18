@@ -11,7 +11,7 @@ function StudentHome() {
   const navigate = useNavigate();  
   const [student, setStudent] = useState(null);
   const [credits, setCredits] = useState(null);
-  const [notices, setNotices] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [timetable, setTimetable] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
@@ -48,12 +48,12 @@ function StudentHome() {
       .then(setCredits);
   }, []);
 
-  // // 3. 공지사항
-  // useEffect(() => {
-  //   fetch('http://localhost:3000/notice/all', { credentials: 'include' })
-  //     .then(res => res.json())
-  //     .then(data => setNotices(data.slice(0, 3)));
-  // }, []);
+  // 3. 공지사항
+  useEffect(() => {
+    fetch('http://localhost:3000/announcement/all', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => setAnnouncements(data));
+  }, []);
 
   // // 4. 강의평가
   // useEffect(() => {
@@ -94,6 +94,32 @@ function StudentHome() {
      .catch(err => console.error('강의 목록 조회 실패:', err));
  };
 
+  const utc2ko = (utcDateString) => {
+    const utcDate = new Date(utcDateString);
+
+    // 방법 1: Intl.DateTimeFormat 사용 (권장)
+    // 가장 정확하고 로케일 기반의 포맷팅 제공
+    const kstDateFormatter = new Intl.DateTimeFormat('ko-KR', {
+        timeZone: 'Asia/Seoul',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+
+    const kstFormattedDate = kstDateFormatter.format(utcDate);
+    console.log(`한국 시간 (Intl.DateTimeFormat): ${kstFormattedDate}`); // 예: 2023. 10. 27.
+
+    // 방법 2: getFullYear(), getMonth(), getDate() 사용 (수동 계산)
+    // UTC 시간에 9시간을 더해 KST로 변환 (한국은 UTC+9)
+    const kstTime = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // 9시간 * 60분 * 60초 * 1000밀리초
+
+    const year = kstTime.getFullYear();
+    const month = String(kstTime.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1, 두 자리로 포맷팅
+    const day = String(kstTime.getDate()).padStart(2, '0');     // 두 자리로 포맷팅
+
+    return `${year}-${month}-${day}`;
+  }
+
   return (
     <div className="home-container">
 
@@ -124,121 +150,113 @@ function StudentHome() {
         </section>
 
         {/* 3. 강의계획서 검색/리스트 */}
-<section className="lecture-plan">
-  <h3>강의계획서</h3>
-  <div className="filters">
-    <select
-      value={filters.year}
-      onChange={e => setFilters(f => ({ ...f, year: e.target.value }))}
-    >
-      <option>2025</option>
-      <option>2024</option>
-    </select>
-    <select
-      value={filters.semester}
-      onChange={e => setFilters(f => ({ ...f, semester: e.target.value }))}
-    >
-      <option>1학기</option>
-      <option>2학기</option>
-    </select>
-    
-    <input
-      placeholder="과목명"
-      value={filters.course}
-      onChange={e => setFilters(f => ({ ...f, course: e.target.value }))}
-    />
-    <input
-      placeholder="교수명"
-      value={filters.professor}
-      onChange={e => setFilters(f => ({ ...f, professor: e.target.value }))}
-    />
-    <button onClick={handleSearch}>조회</button>
-  </div>
+        <section className="lecture-plan">
+          <h3>강의계획서</h3>
+          <div className="filters">
+            <select
+              value={filters.year}
+              onChange={e => setFilters(f => ({ ...f, year: e.target.value }))}
+            >
+              <option>2025</option>
+              <option>2024</option>
+            </select>
+            <select
+              value={filters.semester}
+              onChange={e => setFilters(f => ({ ...f, semester: e.target.value }))}
+            >
+              <option>1학기</option>
+              <option>2학기</option>
+            </select>
+            
+            <input
+              placeholder="과목명"
+              value={filters.course}
+              onChange={e => setFilters(f => ({ ...f, course: e.target.value }))}
+            />
+            <input
+              placeholder="교수명"
+              value={filters.professor}
+              onChange={e => setFilters(f => ({ ...f, professor: e.target.value }))}
+            />
+            <button onClick={handleSearch}>조회</button>
+          </div>
 
-  {/* ─── 검색 결과 보여주기 ─── */}
-  {searchResults.length > 0 ? (
-    <ul className="search-results" style={{ marginTop: 16 }}>
-      {searchResults.map(lec => (
-        <li
-          key={lec.id}
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '0.5rem 0',
-            borderBottom: '1px solid #eee'
-          }}
+          {/* ─── 검색 결과 보여주기 ─── */}
+          {searchResults.length > 0 ? (
+            <ul className="search-results" style={{ marginTop: 16 }}>
+              {searchResults.map(lec => (
+                <li
+                  key={lec.id}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '0.5rem 0',
+                    borderBottom: '1px solid #eee'
+                  }}
+                >
+                  <span>
+                    <strong>{lec.title}</strong> — {lec.professor} (
+                    {lec.year}년 {lec.semester}학기)
+                  </span>
+                  <button
+                    onClick={() => navigate(`/syllabus/${lec.id}`)}
+                    style={{
+                      background: '#1976d2',
+                      color: 'white',
+                      border: 'none',
+                      padding: '0.25rem 0.75rem',
+                      borderRadius: 4,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    계획서 보기
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            // 첫 조회 전이나, 결과가 없을 때 메시지
+            <p style={{ marginTop: 16, color: '#888' }}>
+              조회된 강의가 없습니다.
+            </p>
+          )}
+        </section>
+
+
+
+        <section
+          className="schedule"
         >
-          <span>
-            <strong>{lec.title}</strong> — {lec.professor} (
-            {lec.year}년 {lec.semester}학기)
-          </span>
-          <button
-            onClick={() => navigate(`/syllabus/${lec.id}`)}
-            style={{
-              background: '#1976d2',
-              color: 'white',
-              border: 'none',
-              padding: '0.25rem 0.75rem',
-              borderRadius: 4,
-              cursor: 'pointer'
-            }}
-          >
-            계획서 보기
-          </button>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    // 첫 조회 전이나, 결과가 없을 때 메시지
-    <p style={{ marginTop: 16, color: '#888' }}>
-      조회된 강의가 없습니다.
-    </p>
-  )}
-</section>
+          <div style={{ overflowX: 'auto' }}>
+            <Timetable preview={true} />
+          </div>
+        </section>
 
 
-
-<section
-        className="schedule"
-          onClick={() => navigate('/timetable')}
-         style={{ cursor: 'pointer' }}
-       >
-         <h3>
-          수업 시간표 (미리보기)&nbsp;
-           <span style={{ color: '#555', fontSize: '0.85rem' }}>
-             (클릭하면 전체 시간표 보기)
-           </span>
-         </h3>
-         <div style={{ overflowX: 'auto' }}>
-           <Timetable preview={true} />
-        </div>
-      </section>
-
-
-        {/* 5. 공지사항 */}
         <section className="notice">
-          <h3>전체공지</h3>
-          {/* <ul>
-            {notices.map((n, idx) => (
-              <li key={idx}>
-                <strong>{n.date}</strong><br />{n.content}
+          <h3>과목별 NOTICE</h3>
+          <ul>
+            {announcements.map((announcement, idx) => (
+              <li 
+                key={announcement.id || idx} 
+                className="flex items-center py-4 border-b" // justify-between 제거
+              >
+                {/* 왼쪽 영역: 너비를 3/5 (60%)으로 지정 */}
+                <div className="w-3/5"> 
+                  <span>{utc2ko(announcement.updatedAt) + ' 강의 공지사항 >'}</span>
+                  <strong className="ml-4">{announcement.lecture ? announcement.lecture.title : '강의명 없음'}</strong>
+                </div>
+
+                {/* 오른쪽 영역: 너비를 2/5 (40%)로 지정 */}
+                <span className="w-2/5">
+                  {announcement.title}
+                </span>
               </li>
             ))}
-          </ul> */}
+          </ul>
         </section>
 
-        {/* 6. 강의평가 */}
-        <section className="review">
-          <h3>강의평가</h3>
-          {/* <ul>
-            {reviews.map((r, idx) => (
-              <li key={idx}>
-                <strong>{r.course}: {r.professor}</strong><br />{r.comment}
-              </li>
-            ))}
-          </ul> */}
-        </section>
       </main>
     </div>
   );

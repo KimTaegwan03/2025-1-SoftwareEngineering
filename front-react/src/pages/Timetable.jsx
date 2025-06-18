@@ -75,12 +75,12 @@ const Timetable = () => {
   }, [studentId]);
 
   return (
-    <div className="min-h-screen bg-[#FFF8F5] p-6">
+    <div className="bg-[#FFF8F5] p-6">
       <h2 className="text-3xl font-bold text-[#8A1601] text-center mb-6">
         내 시간표
       </h2>
       <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse border border-[#8A1601]">
+        <table className="w-full border-collapse table-fixed">
           <thead>
             <tr className="bg-[#8A1601] text-white">
               <th className="py-2 px-4 border border-[#8A1601]">교시</th>
@@ -94,6 +94,7 @@ const Timetable = () => {
               ))}
             </tr>
           </thead>
+          {/* periods.map 바깥의 table 태그에 table-fixed를 추가해야 합니다! */}
           <tbody>
             {periods.map(period => (
               <tr key={period} className="bg-white even:bg-[#FDF1EB]">
@@ -107,7 +108,8 @@ const Timetable = () => {
                     return (
                       <td
                         key={day}
-                        className="h-28 min-w-[120px] align-top border border-[#8A1601]"
+                        // 👇 min-w-[60px] 제거
+                        className="h-[60px] align-top border border-[#8A1601]"
                         style={{ backgroundColor: bgColor }}
                       >
                         <Link
@@ -115,8 +117,6 @@ const Timetable = () => {
                           className="block h-full w-full px-1 py-0.5 cursor-pointer text-sm"
                         >
                           <strong>{lec.title}</strong><br/>
-                          {lec.course_id}-{lec.sec_id}<br/>
-                          {lec.professor}<br/>
                           {lec.building} {lec.room_number}
                         </Link>
                       </td>
@@ -125,7 +125,8 @@ const Timetable = () => {
                     return (
                       <td
                         key={day}
-                        className="py-4 px-2 border border-[#8A1601]"
+                        // 👇 px-[60px] 제거, 다른 칸과 높이를 맞추기 위해 h-[60px] 추가
+                        className="h-[60px] border border-[#8A1601]"
                       />
                     );
                   }
